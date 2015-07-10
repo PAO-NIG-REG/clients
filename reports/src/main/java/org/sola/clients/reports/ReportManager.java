@@ -46,12 +46,23 @@ import org.sola.clients.beans.systematicregistration.*;
 import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
+import org.sola.services.boundary.wsclients.WSManager;
 
 /**
  * Provides methods to generate and display various reports.
  */
 public class ReportManager {
-
+      private static String strconfFile = System.getProperty("user.home") + "/sola/configuration.properties";
+      public static String prefix = "reports";
+    
+      
+       public static String getPrefix () {
+     
+        prefix = WSManager.getInstance().getInstance().getAdminService().getSetting(
+                "system-id", "");
+        return prefix;
+     }   
+     
     /**
      * Generates and displays <b>Lodgement notice</b> report for the new
      * application.
@@ -68,7 +79,7 @@ public class ReportManager {
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream("/images/sola/caption_green.png"));
         inputParameters.put("WHICH_CALLER", "N");
-
+        
         try {
             return JasperFillManager.fillReport(
                     ReportManager.class.getResourceAsStream("/reports/ApplicationPrintingForm.jasper"),
@@ -321,9 +332,13 @@ public class ReportManager {
         LodgementBean[] beans = new LodgementBean[1];
         beans[0] = lodgementBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
+        String pdReport = null;
+        pdReport = "/"+getPrefix ()+"reports/LodgementReport.jasper"; 
+        
+        System.err.println(pdReport);
         try {
             return JasperFillManager.fillReport(
-                    ReportManager.class.getResourceAsStream("/reports/LodgementReport.jasper"),
+                    ReportManager.class.getResourceAsStream(pdReport),
                     inputParameters, jds);
         } catch (JRException ex) {
             LogUtility.log(LogUtility.getStackTraceAsString(ex), Level.SEVERE);
