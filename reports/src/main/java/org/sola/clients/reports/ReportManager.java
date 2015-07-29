@@ -128,15 +128,30 @@ public class ReportManager {
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
+        String pdReport = null;
+        pdReport = "/"+getPrefix ()+"reports/BaUnitReport.jasper"; 
+        
+        System.err.println(pdReport);
         try {
             return JasperFillManager.fillReport(
-                    ReportManager.class.getResourceAsStream("/reports/BaUnitReport.jasper"),
+                    ReportManager.class.getResourceAsStream(pdReport),
                     inputParameters, jds);
         } catch (JRException ex) {
+            LogUtility.log(LogUtility.getStackTraceAsString(ex), Level.SEVERE);
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
                     new Object[]{ex.getLocalizedMessage()});
             return null;
         }
+        
+//        try {
+//            return JasperFillManager.fillReport(
+//                    ReportManager.class.getResourceAsStream("/reports/BaUnitReport.jasper"),
+//                    inputParameters, jds);
+//        } catch (JRException ex) {
+//            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+//                    new Object[]{ex.getLocalizedMessage()});
+//            return null;
+//        }
     }
     
     /**
