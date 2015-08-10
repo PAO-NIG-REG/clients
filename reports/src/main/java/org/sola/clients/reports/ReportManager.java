@@ -1,39 +1,44 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations (FAO).
- * All rights reserved.
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations
+ * (FAO). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
- *       promote products derived from this software without specific prior written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the name of FAO nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.reports;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import org.sola.clients.beans.administrative.BaUnitBean;
@@ -52,17 +57,17 @@ import org.sola.services.boundary.wsclients.WSManager;
  * Provides methods to generate and display various reports.
  */
 public class ReportManager {
-      private static String strconfFile = System.getProperty("user.home") + "/sola/configuration.properties";
-      public static String prefix = "reports";
-    
-      
-       public static String getPrefix () {
-     
+
+    private static String strconfFile = System.getProperty("user.home") + "/sola/configuration.properties";
+    public static String prefix = "reports";
+
+    public static String getPrefix() {
+
         prefix = WSManager.getInstance().getInstance().getAdminService().getSetting(
                 "system-id", "");
         return prefix;
-     }   
-     
+    }
+
     /**
      * Generates and displays <b>Lodgement notice</b> report for the new
      * application.
@@ -79,7 +84,7 @@ public class ReportManager {
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         inputParameters.put("IMAGE_SCRITTA_GREEN", ReportManager.class.getResourceAsStream("/images/sola/caption_green.png"));
         inputParameters.put("WHICH_CALLER", "N");
-        
+
         try {
             return JasperFillManager.fillReport(
                     ReportManager.class.getResourceAsStream("/reports/ApplicationPrintingForm.jasper"),
@@ -129,8 +134,8 @@ public class ReportManager {
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         String pdReport = null;
-        pdReport = "/"+getPrefix ()+"reports/BaUnitReport.jasper"; 
-        
+        pdReport = "/" + getPrefix() + "reports/BaUnitReport.jasper";
+
         System.err.println(pdReport);
         try {
             return JasperFillManager.fillReport(
@@ -142,7 +147,7 @@ public class ReportManager {
                     new Object[]{ex.getLocalizedMessage()});
             return null;
         }
-        
+
 //        try {
 //            return JasperFillManager.fillReport(
 //                    ReportManager.class.getResourceAsStream("/reports/BaUnitReport.jasper"),
@@ -153,11 +158,12 @@ public class ReportManager {
 //            return null;
 //        }
     }
-    
+
     /**
      * Generates and displays <b>Lease rejection</b> report.
      *
-     * @param reportBean RRR report bean containing all required information to build the report.
+     * @param reportBean RRR report bean containing all required information to
+     * build the report.
      */
     public static JasperPrint getLeaseRejectionReport(RrrReportBean reportBean) {
         HashMap inputParameters = new HashMap();
@@ -176,11 +182,12 @@ public class ReportManager {
             return null;
         }
     }
-    
+
     /**
      * Generates and displays <b>Lease offer</b> report.
      *
-     * @param reportBean RRR report bean containing all required information to build the report.
+     * @param reportBean RRR report bean containing all required information to
+     * build the report.
      */
     public static JasperPrint getLeaseOfferReport(RrrReportBean reportBean, boolean isDraft) {
         HashMap inputParameters = new HashMap();
@@ -200,11 +207,12 @@ public class ReportManager {
             return null;
         }
     }
-    
+
     /**
      * Generates and displays <b>Lease</b> report.
      *
-     * @param reportBean RRR report bean containing all required information to build the report.
+     * @param reportBean RRR report bean containing all required information to
+     * build the report.
      */
     public static JasperPrint getLeaseReport(RrrReportBean reportBean, boolean isDraft) {
         HashMap inputParameters = new HashMap();
@@ -278,7 +286,6 @@ public class ReportManager {
                 String id = beans[i].getId();
                 String technicalTypeCode = beans[i].getTechnicalTypeCode();
 
-
                 if (id.equals(idPrev)
                         && technicalTypeCode.equals(technicalTypeCodePrev)) {
 
@@ -348,8 +355,8 @@ public class ReportManager {
         beans[0] = lodgementBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         String pdReport = null;
-        pdReport = "/"+getPrefix ()+"reports/LodgementReport.jasper"; 
-        
+        pdReport = "/" + getPrefix() + "reports/LodgementReport.jasper";
+
         System.err.println(pdReport);
         try {
             return JasperFillManager.fillReport(
@@ -393,7 +400,6 @@ public class ReportManager {
         inputParameters.put("INPUT_DATE",
                 DateFormat.getInstance().format(Calendar.getInstance().getTime()));
 
-
         //This will be the bean containing data for the report. 
         //it is the data source for the report
         //it must be replaced with appropriate bean if needed
@@ -407,7 +413,7 @@ public class ReportManager {
         try {
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     ReportManager.class.getResourceAsStream(
-                    "/reports/map/" + fileName + ".jasper"), inputParameters, jds);
+                            "/reports/map/" + fileName + ".jasper"), inputParameters, jds);
             return jasperPrint;
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
@@ -435,7 +441,6 @@ public class ReportManager {
         inputParameters.put("AREA_DESCRIPTION", areaDescription);
         inputParameters.put("PERIOD_DESCRIPTION", notificationPeriod);
 
-
         //This will be the bean containing data for the report. 
         //it is the data source for the report
         //it must be replaced with appropriate bean if needed
@@ -446,7 +451,7 @@ public class ReportManager {
         try {
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     ReportManager.class.getResourceAsStream(
-                    "/reports/map/" + layoutId + ".jasper"), inputParameters, jds);
+                            "/reports/map/" + layoutId + ".jasper"), inputParameters, jds);
             return jasperPrint;
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
@@ -454,7 +459,7 @@ public class ReportManager {
             return null;
         }
     }
-    
+
     /**
      * Generates and displays <b>Systematic registration Public display
      * report</b>.
@@ -585,8 +590,8 @@ public class ReportManager {
             return null;
         }
     }
-    
-     /**
+
+    /**
      * Generates and displays <b>BA Unit</b> report.
      *
      * @param appBean Application bean containing data for the report.
@@ -615,14 +620,398 @@ public class ReportManager {
             return null;
         }
     }
-    
+
+    /**
+     * Generates and displays <b>Systematic registration Certificates
+     * report</b>.
+     *
+     * @param certificatesList List Parcel list bean containing data for the
+     * report.
+     *
+     */
+//     public static JasperPrint getSysRegSlrtPlanReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
+//   public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean  appBean, SysRegCertificatesBean appBaunit,String featureImageFileName,
+//     String  featureFront,String featureBack) {
+    public static JasperPrint getSysRegCertificatesReport(BaUnitBean baUnitBean, String location, ApplicationBean appBean, SysRegCertificatesBean appBaunit, String featureImageFileName,
+            String featureScalebarFileName, Integer srid, Number scale, String featureFront, String featureBack, String featureImageFileNameSmall, String sourceReferenceNumber) {
+        HashMap inputParameters = new HashMap();
+        String featureFloatFront = "images/sola/front_float.svg";
+        String featureFloatBack = "images/sola/back_float.svg";
+        String featureNorthArrow = "images/sola/UN-north-arrow.png";
+        String sltrPlanFront = "images/sola/slrtPlan_kogi.svg"; //Kogi Plan Image for page 3
+        String front_image_text = "images/sola/front_CrossRiver_text.svg";
+        String small = "";
+        String map = "";
+        String sourceRef = sourceReferenceNumber;
+
+        String cofoReport = null;
+        String appNr = null;
+        String claimant = null;
+        String imageryDate = null;
+        String owners = null;
+        String title = null;
+        String address = null;
+        Date lodgingDate = null;
+        String timeToDevelop = null;
+        String valueForImprov = null;
+        String term = null;
+        Date commencingDate = null;
+        String landUse = null;
+        String propAddress = null;
+        String lga = null;
+        String ward = null;
+        String state = null;
+        BigDecimal size = null;
+        String groundRent = null;
+        String imageryResolution = "50 cm";
+        String sheetNr = "";
+        String imagerySource = "";
+        String surveyor = "";
+        String rank = "";
+        appNr = appBaunit.getNr();
+        claimant = appBean.getContactPerson().getFullName();
+        address = appBean.getContactPerson().getAddress().getDescription();
+
+//          TOBUPDT   
+//        imageryDate = appBaunit.getImageryDate();
+//        owners = appBaunit.getOwners();
+//        title  =  appBaunit.getTitle();
+//        lodgingDate = appBean.getLodgingDatetime();
+//        commencingDate = appBaunit.getCommencingDate();
+//        size = appBaunit.getSize();
+//        landUse = appBaunit.getLandUse();
+//        lga = appBaunit.getPropLocation();
+//        ward = appBaunit.getWard();
+//        state = appBaunit.getState();propAddress = baUnitBean.getLocation();
+//        //Special addition for generating image
+//        imageryResolution=appBaunit.getImageryResolution();
+//        imagerySource=appBaunit.getImagerySource();        
+//        sheetNr=appBaunit.getSheetNr();
+//        surveyor=appBaunit.getSurveyor();
+//        rank=appBaunit.getRank();   
+//        if (!baUnitBean.isIsDeveloped()) {
+//            if (baUnitBean.getYearsForDev() != null) {
+//                timeToDevelop = baUnitBean.getYearsForDev().toString();
+//            }
+//            if (baUnitBean.getValueToImp() != null) {
+//                valueForImprov = baUnitBean.getValueToImp().toString();
+//            }
+//        }
+//        if (baUnitBean.getTerm() != null) {
+//            term = baUnitBean.getTerm().toString();
+//        }
+//        groundRent = appBaunit.getGroundRent().toString();
+        String mapImage = featureImageFileName;
+        String mapImageSmall = featureImageFileNameSmall;
+        String utmZone = srid.toString().substring(srid.toString().length() - 2);
+//        utmZone = "UTM(Zone" + utmZone  +")";
+        utmZone = imagerySource + utmZone + "N";
+        String scaleLabel = "1: " + scale.intValue();
+        String scalebarImageLocation = featureScalebarFileName;
+        String prefix = getPrefix();
+        cofoReport = prefix + "/CofO.jasper";
+
+        featureFloatFront = getSvg("featureFloatFront");
+        featureFloatBack = getSvg("featureFloatBack");
+        featureFront = getSvg("featureFront");
+        featureBack = getSvg("featureBack");
+
+        if (prefix.contains("Jigawa")) {
+            featureFloatFront = "images/sola/front_float_" + prefix + ".svg";
+            featureFloatBack = "images/sola/back_float_" + prefix + ".svg";
+            featureFront = "images/sola/front_" + prefix + ".svg";
+            featureBack = "images/sola/back_" + prefix + ".svg";
+            featureNorthArrow = "/images/sola/UN-north-arrow_" + prefix + ".png";
+
+            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
+            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
+            inputParameters.put("SHEET_NR", sheetNr);
+            inputParameters.put("SURVEYOR", surveyor);
+            inputParameters.put("RANK", rank);
+            inputParameters.put("UN_NORTH_ARROW", ReportManager.class.getResourceAsStream(featureNorthArrow));
+        }
+
+        if (prefix.contains("Kogi")) {
+            String page1 = "images/sola/Page1.svg";
+            String page2 = "images/sola/Page2.svg";
+            String page3 = "images/sola/Page3.svg";
+            featureNorthArrow = "/images/sola/arrow.png";
+            inputParameters.put("PAGE1_IMAGE", page1);
+            inputParameters.put("PAGE2_IMAGE", page2);
+            inputParameters.put("PAGE3_IMAGE", page3);
+
+            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
+            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
+            inputParameters.put("SHEET_NR", sheetNr);
+            inputParameters.put("SURVEYOR", surveyor);
+            inputParameters.put("RANK", rank);
+            inputParameters.put("UN_NORTH_ARROW", ReportManager.class.getResourceAsStream(featureNorthArrow));
+            inputParameters.put("SLTR_PLAN_IMAGE", sltrPlanFront);
+        }
+
+        if (prefix.contains("Ondo")) {
+            featureFloatFront = "images/sola/front_float_" + prefix + ".svg";
+            featureFloatBack = "images/sola/back_float_" + prefix + ".svg";
+            featureFront = "images/sola/front_" + prefix + ".svg";
+            featureBack = "images/sola/back_" + prefix + ".svg";
+
+            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
+            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
+            inputParameters.put("SHEET_NR", sheetNr);
+            inputParameters.put("SURVEYOR", surveyor);
+            inputParameters.put("RANK", rank);
+        }
+        if (prefix.contains("CrossRiver")) {
+            featureFront = "images/sola/front_" + prefix + ".svg";
+            featureBack = "images/sola/back_" + prefix + ".svg";
+            inputParameters.put("FRONT_IMAGE_TEXT", front_image_text);
+            inputParameters.put("UPIN", sourceRef);
+            inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
+            inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
+            inputParameters.put("SHEET_NR", sheetNr);
+            inputParameters.put("SURVEYOR", surveyor);
+            inputParameters.put("RANK", rank);
+        }
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("LOCATION", location);
+        inputParameters.put("AREA", location);
+        inputParameters.put("APP_NR", appNr);
+        inputParameters.put("CLIENT_NAME", owners);
+        inputParameters.put("IMAGERY_DATE", imageryDate);
+        inputParameters.put("ADDRESS", address);
+        inputParameters.put("LODGING_DATE", lodgingDate);
+        inputParameters.put("COMMENCING_DATE", commencingDate);
+        inputParameters.put("TIME_DEVELOP", timeToDevelop);
+        inputParameters.put("VALUE_IMPROV", valueForImprov);
+        inputParameters.put("TERM", term);
+        inputParameters.put("LAND_USE", landUse);
+        inputParameters.put("PROP_LOCATION", propAddress);
+        inputParameters.put("SIZE", size);
+        inputParameters.put("REFNR", title);
+        inputParameters.put("GROUND_RENT", groundRent);
+        inputParameters.put("FRONT_IMAGE", featureFront);
+        inputParameters.put("BACK_IMAGE", featureBack);
+        inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
+        inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
+        inputParameters.put("LGA", lga);
+        inputParameters.put("WARD", ward);
+        inputParameters.put("STATE", state);
+        inputParameters.put("MAP_IMAGE", mapImage);
+        inputParameters.put("SCALE", scaleLabel);
+        inputParameters.put("UTM", utmZone);
+        inputParameters.put("SCALEBAR", scalebarImageLocation);
+
+        BaUnitBean[] beans = new BaUnitBean[1];
+        beans[0] = baUnitBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        InputStream inputStream = ReportManager.class.getClassLoader().getResourceAsStream(cofoReport);
+
+        try {
+            JasperPrint report = JasperFillManager.fillReport(
+                    inputStream,
+                    inputParameters, jds);
+            inputStream.close();
+
+            return report;
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        } catch (IOException ex) {
+            Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+
+    /**
+     * Generates and displays <b>Systematic registration Certificates
+     * report</b>.
+     *
+     * @param certificatesList List Parcel list bean containing data for the
+     * report.
+     *
+     */
+    public static JasperPrint getSysRegSlrtPlanReport(BaUnitBean baUnitBean, String location, ApplicationBean appBean, SysRegCertificatesBean appBaunit, String featureImageFileName,
+            String featureScalebarFileName, Integer srid, Number scale, String featureFront, String featureBack, String featureImageFileNameSmall) {
+        HashMap inputParameters = new HashMap();
+        String featureFloatFront = "images/sola/front_float.svg";
+        String featureFloatBack = "images/sola/back_float.svg";
+        String sltrPlanFront = "images/sola/slrtPlan.svg";
+        String small = "";
+        String map = "";
+
+        String appNr = null;
+        String claimant = null;
+        String owners = null;
+        String title = null;
+        String address = null;
+        String imageryDate = null;
+        String timeToDevelop = null;
+        String valueForImprov = null;
+        String term = null;
+        Date commencingDate = null;
+        String landUse = null;
+        String propAddress = null;
+        String lga = null;
+        String ward = null;
+        String state = null;
+        BigDecimal size = null;
+        String groundRent = null;
+        String imageryResolution = "50 cm";
+        String sheetNr = "";
+        String imagerySource = "";
+        String surveyor = "";
+        String rank = "";
+        claimant = appBean.getContactPerson().getFullName();
+        address = appBean.getContactPerson().getAddress().getDescription();
+
+        appBaunit.getId();
+
+//   TBUPDT
+////          area size
+//        size = appBaunit.getSize();
+//
+////          function administrative.get_parcel_share
+//        owners = appBaunit.getOwners();
+//
+////          ba unit detail  plan        
+//        title = appBaunit.getTitle();
+////          ba unit detail  lga        
+//        lga = appBaunit.getPropLocation();
+////          ba unit detail  sheetNr
+//        sheetNr = appBaunit.getSheetNr();
+////          ba unit detail  location       
+//        propAddress = baUnitBean.getLocation();
+//
+//       
+////          rrr detail date commenced
+//        commencingDate = appBaunit.getCommencingDate();
+////          rrr detail purpose        
+//        landUse = appBaunit.getLandUse();
+////          rrr term        
+//            term = appBaunit.getTerm().toString();
+////          rrr rent
+//        groundRent = appBaunit.getRent().toString();
+//
+//            
+//            
+////          rrr condition yearsTodevelope       
+//            if (appBaunit.getYearsForDev() != null) {
+//                timeToDevelop = appBaunit.getYearsForDev().toString();
+//            }
+////          rrr condition valueTodevelope       
+//            if (appBaunit.getValueToImp() != null) {
+//                valueForImprov = appBaunit.getValueToImp().toString();
+//            }
+//            
+//            
+//            
+////          setting.system_id 
+//        state = appBaunit.getState();
+//        surveyor = appBaunit.getSurveyor();
+//        rank = appBaunit.getRank();
+//
+////          config_map_layer_metadata
+//        imageryDate = appBaunit.getImageryDate();
+//        imageryResolution = appBaunit.getImageryResolution();
+//        imagerySource = appBaunit.getImagerySource();
+//        TBV  
+//        ward = appBaunit.getWard();
+        appNr = appBaunit.getNr();
+
+//        TODO CALL THE METHOD FOR GETTING THE MAP IMAGE
+//        The method that will generate the map image will ask for these paramters/arguments:
+//1 - cadastreObjectId: This is the id of the cadastre_object.id
+//2 - width and height of the image in points: This is the width of the image which has to be the same as the image expected in the report. The same in the analogy with the existing reports where an map image can be embedded.
+//
+//The method will give back an object with:
+//1 - Path to the image
+//2 - Scale
+//3 - Area in m2
+//  4 - UTM zone
+//  5 - Scalebar 
+        String mapImage = featureImageFileName;
+        String mapImageSmall = featureImageFileNameSmall;
+        String utmZone = srid.toString().substring(srid.toString().length() - 2);
+//        utmZone = imagerySource;
+//        utmZone = "WGS84 UTM Zone" + utmZone  +"N";
+        utmZone = imagerySource + utmZone + "N";
+        String scaleLabel = "1: " + scale.intValue();
+        String scalebarImageLocation = featureScalebarFileName;
+
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("LOCATION", location);
+        inputParameters.put("AREA", location);
+        inputParameters.put("APP_NR", appNr);
+        inputParameters.put("CLIENT_NAME", owners);
+        inputParameters.put("ADDRESS", address);
+        inputParameters.put("IMAGERY_DATE", imageryDate);
+        inputParameters.put("COMMENCING_DATE", commencingDate);
+        inputParameters.put("TIME_DEVELOP", timeToDevelop);
+        inputParameters.put("VALUE_IMPROV", valueForImprov);
+        inputParameters.put("TERM", term);
+        inputParameters.put("LAND_USE", landUse);
+        inputParameters.put("PROP_LOCATION", propAddress);
+        inputParameters.put("SIZE", size);
+        inputParameters.put("REFNR", title);
+        inputParameters.put("GROUND_RENT", groundRent);
+        inputParameters.put("FRONT_IMAGE", featureFront);
+        inputParameters.put("BACK_IMAGE", featureBack);
+        inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
+        inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
+        inputParameters.put("LGA", lga);
+        inputParameters.put("WARD", ward);
+        inputParameters.put("STATE", state);
+        inputParameters.put("SLTR_PLAN_IMAGE", sltrPlanFront);
+        inputParameters.put("MAP_IMAGE", mapImage);
+//        inputParameters.put("MAP_IMAGE", map);
+        inputParameters.put("SCALE", scaleLabel);
+        inputParameters.put("UTM", utmZone);
+        inputParameters.put("SCALEBAR", scalebarImageLocation);
+        inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
+//        inputParameters.put("MAP_IMAGE_SMALL", small);
+        inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
+        inputParameters.put("SHEET_NR", sheetNr);
+        inputParameters.put("SURVEYOR", surveyor);
+        inputParameters.put("RANK", rank);
+
+        BaUnitBean[] beans = new BaUnitBean[1];
+        beans[0] = baUnitBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        String slrtReport = null;
+        slrtReport = getPrefix() + "/SltrPlan.jasper";
+
+        InputStream inputStream = ReportManager.class.getClassLoader().getResourceAsStream(slrtReport);
+
+        try {
+            JasperPrint report = JasperFillManager.fillReport(
+                    inputStream,
+                    inputParameters, jds);
+            inputStream.close();
+
+            return report;
+
+        } catch (JRException ex) {
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        } catch (IOException ex) {
+            Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+
 //      /**
 //     * Generates and displays <b>Sys Reg Status</b> report.
 //     *
 //     * @param appBean Application bean containing data for the report.
 //     */
     public static JasperPrint getSysRegStatusReport(SysRegStatusBean statusBean, Date dateFrom, Date dateTo, String nameLastpart) {
-        
+
         HashMap inputParameters = new HashMap();
         Date currentdate = new Date(System.currentTimeMillis());
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
@@ -646,14 +1035,14 @@ public class ReportManager {
             return null;
         }
     }
-      
+
 //      /**
 //     * Generates and displays <b>Sys Reg Status</b> report.
 //     *
 //     * @param appBean Application bean containing data for the report.
 //     */
     public static JasperPrint getSysRegGenderReport(SysRegGenderBean genderBean) {
-        
+
         HashMap inputParameters = new HashMap();
         Date currentdate = new Date(System.currentTimeMillis());
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
@@ -676,14 +1065,14 @@ public class ReportManager {
             return null;
         }
     }
-  
+
     //      /**
 //     * Generates and displays <b>Sys Reg Progress</b> report.
 //     *
 //     * @param appBean Application bean containing data for the report.
 //     */
     public static JasperPrint getSysRegProgressReport(SysRegProgressBean progressBean, Date dateFrom, Date dateTo, String nameLastpart) {
-        
+
         HashMap inputParameters = new HashMap();
         Date currentdate = new Date(System.currentTimeMillis());
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
@@ -707,5 +1096,15 @@ public class ReportManager {
             return null;
         }
     }
-    
+
+    public static String getSvg(String svg) {
+        String svgFile;
+
+        svgFile = WSManager.getInstance().getInstance().getAdminService().getSetting(
+                svg, "");
+
+        return svgFile;
+
+    }
+
 }

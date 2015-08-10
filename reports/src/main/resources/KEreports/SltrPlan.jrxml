@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ParcelPlan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO">
+	<property name="ireport.zoom" value="0.9090909090909091"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="125"/>
+	<subDataset name="dataset1">
+		<parameter name="AREA" class="java.lang.Object">
+			<parameterDescription><![CDATA[]]></parameterDescription>
+			<defaultValueExpression><![CDATA[$P{AREA}.toString()]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[]]>
+		</queryString>
+		<field name="nameFirstpart" class="java.lang.String">
+			<fieldDescription><![CDATA[nameFirstpart]]></fieldDescription>
+		</field>
+		<field name="nameLastpart" class="java.lang.String">
+			<fieldDescription><![CDATA[nameLastpart]]></fieldDescription>
+		</field>
+		<field name="cadastreObjectType" class="java.lang.String">
+			<fieldDescription><![CDATA[cadastreObjectType.displayValue]]></fieldDescription>
+		</field>
+		<field name="sourceReference" class="java.lang.String">
+			<fieldDescription><![CDATA[sourceReference]]></fieldDescription>
+		</field>
+		<field name="status" class="java.lang.String">
+			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="Rights">
+		<field name="rrrType" class="java.lang.String">
+			<fieldDescription><![CDATA[rrrType.displayValue]]></fieldDescription>
+		</field>
+		<field name="registrationDate" class="java.util.Date">
+			<fieldDescription><![CDATA[registrationDate]]></fieldDescription>
+		</field>
+		<field name="status" class="java.lang.String">
+			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="Ownership">
+		<field name="Owners" class="java.lang.String">
+			<fieldDescription><![CDATA[rrrShare.rightHoldersStringList]]></fieldDescription>
+		</field>
+		<field name="Share" class="java.lang.String">
+			<fieldDescription><![CDATA[rrrShare.share]]></fieldDescription>
+		</field>
+		<field name="Status" class="java.lang.String">
+			<fieldDescription><![CDATA[status]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="Notations">
+		<field name="Ref. Number" class="java.lang.String">
+			<fieldDescription><![CDATA[referenceNr]]></fieldDescription>
+		</field>
+		<field name="Notation Text" class="java.lang.String">
+			<fieldDescription><![CDATA[notationText]]></fieldDescription>
+		</field>
+		<field name="Status" class="java.lang.String">
+			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="CLIENT_NAME" class="java.lang.String"/>
+	<parameter name="MAP_IMAGE" class="java.lang.String"/>
+	<parameter name="ADDRESS" class="java.lang.String"/>
+	<parameter name="IMAGERY_DATE" class="java.lang.String"/>
+	<parameter name="COMMENCING_DATE" class="java.util.Date"/>
+	<parameter name="TIME_DEVELOP" class="java.lang.String"/>
+	<parameter name="VALUE_IMPROV" class="java.lang.String"/>
+	<parameter name="TERM" class="java.lang.String"/>
+	<parameter name="APP_NR" class="java.lang.String"/>
+	<parameter name="LAND_USE" class="java.lang.String"/>
+	<parameter name="PROP_LOCATION" class="java.lang.String"/>
+	<parameter name="SIZE" class="java.math.BigDecimal"/>
+	<parameter name="GROUND_RENT" class="java.lang.String"/>
+	<parameter name="REFNR" class="java.lang.String"/>
+	<parameter name="FRONT_IMAGE" class="java.lang.String"/>
+	<parameter name="BACK_IMAGE" class="java.lang.String"/>
+	<parameter name="FRONT_FLOAT_IMAGE" class="java.lang.String"/>
+	<parameter name="BACK_FLOAT_IMAGE" class="java.lang.String"/>
+	<parameter name="PLAN_NUMBER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{REFNR}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="STATE" class="java.lang.String"/>
+	<parameter name="LGA" class="java.lang.String"/>
+	<parameter name="SLTR_PLAN_IMAGE" class="java.lang.String"/>
+	<parameter name="WARD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SCALE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[" 1 cm = 20 m (1:2 000) "]]></defaultValueExpression>
+	</parameter>
+	<parameter name="UTM" class="java.lang.String">
+		<defaultValueExpression><![CDATA["UTM Zone 32N"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SCALEBAR" class="java.lang.String"/>
+	<parameter name="MAP_IMAGE_SMALL" class="java.lang.String"/>
+	<parameter name="SHEET_NR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="IMAGERY_RESOLUTION" class="java.lang.String"/>
+	<parameter name="SURVEYOR" class="java.lang.String"/>
+	<parameter name="RANK" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="baUnitType" class="org.sola.clients.beans.referencedata.BaUnitTypeBean">
+		<fieldDescription><![CDATA[baUnitType]]></fieldDescription>
+	</field>
+	<field name="cadastreObjectFilteredList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[cadastreObjectFilteredList]]></fieldDescription>
+	</field>
+	<field name="estateType" class="java.lang.String">
+		<fieldDescription><![CDATA[estateType]]></fieldDescription>
+	</field>
+	<field name="filteredSourceList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[filteredSourceList]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="nameFirstpart" class="java.lang.String">
+		<fieldDescription><![CDATA[nameFirstpart]]></fieldDescription>
+	</field>
+	<field name="nameLastpart" class="java.lang.String">
+		<fieldDescription><![CDATA[nameLastpart]]></fieldDescription>
+	</field>
+	<field name="rrrFilteredList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[rrrFilteredList]]></fieldDescription>
+	</field>
+	<field name="rrrSharesList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[rrrSharesList]]></fieldDescription>
+	</field>
+	<field name="status" class="org.sola.clients.beans.referencedata.RegistrationStatusTypeBean">
+		<fieldDescription><![CDATA[status]]></fieldDescription>
+	</field>
+	<field name="allBaUnitNotationList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[allBaUnitNotationList]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="842" splitType="Stretch">
+			<image hAlign="Center" vAlign="Top">
+				<reportElement x="0" y="0" width="595" height="842"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{SLTR_PLAN_IMAGE})]]></imageExpression>
+			</image>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="78" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ward Village: "+$P{WARD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="40" y="522" width="107" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Approved by:"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="95" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Local Government Area: "+$P{LGA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="61" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" rightIndent="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REFNR}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="112" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["State: "+$P{STATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="38" width="595" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Parcel Plan of"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="476" width="595" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="16" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["The area of the land in red above is approximately "+$P{SIZE}+" square metres"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="453" width="595" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="16" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Scale: "+$P{SCALE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="125" y="535" width="190" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="334" y="756" width="205" height="15" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Plan No:   "+$P{PLAN_NUMBER}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="40" y="135" width="520" height="300"/>
+				<image hAlign="Center" vAlign="Middle" isLazy="true">
+					<reportElement x="0" y="0" width="520" height="300"/>
+					<imageExpression><![CDATA[$P{MAP_IMAGE}]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="482" y="14" width="14" height="109"/>
+					<imageExpression><![CDATA["images/sola/u-north-arrow.png"]]></imageExpression>
+				</image>
+			</frame>
+			<staticText>
+				<reportElement mode="Transparent" x="334" y="715" width="205" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Location Map]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="335" y="512" width="204" height="198"/>
+				<image hAlign="Center">
+					<reportElement x="2" y="2" width="200" height="196"/>
+					<imageExpression><![CDATA[$P{MAP_IMAGE_SMALL}]]></imageExpression>
+				</image>
+			</frame>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="334" y="789" width="205" height="15" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Sheet No: "+$P{SHEET_NR}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="40" y="568" width="95" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Date:"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="110" y="582" width="205" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="126" y="538" width="190" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Surveyor General"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="41" y="597" width="84" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Surveyed by:"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="125" y="614" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{RANK}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="125" y="597" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Myriad Pro" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SURVEYOR}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="333" y="740" width="204" height="66"/>
+			</rectangle>
+			<textField>
+				<reportElement x="134" y="568" width="181" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Myriad Pro" size="13" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["/                    /"]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="35" y="640" width="280" height="172"/>
+				<textField>
+					<reportElement x="10" y="37" width="250" height="72"/>
+					<textElement>
+						<font fontName="Myriad Pro" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Plan has been prepared using orthorectified satellite imagery\n"+
+"Date of Imagery: "+$P{IMAGERY_DATE}+"\n"+
+"Imagery Resolution: "+$P{IMAGERY_RESOLUTION}+"\n"+
+"Coordinate System: "+$P{UTM}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="10" y="18" width="250" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Myriad Pro" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Do not scale distances from or enlarge this plan"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="18" width="10" height="15"/>
+					<textElement textAlignment="Left">
+						<font fontName="Myriad Pro" isBold="true"/>
+					</textElement>
+					<text><![CDATA[1.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="37" width="10" height="41" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[2.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="10" y="0" width="217" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Myriad Pro" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<text><![CDATA[Notes]]></text>
+				</staticText>
+			</frame>
+			<line>
+				<reportElement x="394" y="767" width="142" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>
