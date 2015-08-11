@@ -209,7 +209,18 @@ public final class CacheManager {
      * Cache key of the {@link LeaseConditionBean} collection.
      */
     public static final String CONDITION_TYPE_CODES_KEY = ConditionTypeBean.class.getName() + LIST_POSTFIX;
+    
+      /**
+     * Cache key of the {@link BaUnitDetailBean} collection.
+     */
+    public static final String BAUNIT_DETAIL_TYPE_CODES_KEY = BaUnitDetailTypeBean.class.getName() + LIST_POSTFIX;
+    
+      /**
+     * Cache key of the {@link RRR_DETAILBean} collection.
+     */
+    public static final String RRR_DETAIL_TYPE_CODES_KEY = RrrDetailTypeBean.class.getName() + LIST_POSTFIX;
 
+    
     /**
      * Cache key of the {@link HierarchyLevelBean} collection.
      */
@@ -268,6 +279,8 @@ public final class CacheManager {
     private static final String GET_BA_UNIT_REL_TYPES = "getBaUnitRelTypes";
     private static final String GET_LAND_USE_TYPES = "getLandUseTypes";
     private static final String GET_CONDITION_TYPES = "getConditionTypes";
+    private static final String GET_BAUNIT_DETAIL_TYPES = "getBaUnitDetailTypes";
+    private static final String GET_RRR_DETAIL_TYPES = "getRrrDetailTypes";
     private static final String GET_HIERARCHY_LEVELS = "getHierarchyLevels";
     private static final String GET_PANEL_LAUNCHER_CONFIG = "getPanelLauncherConfiguration";
     private static final String GET_PANEL_LAUNCHER_GROUPS = "getPanelLauncherGroups";
@@ -389,7 +402,18 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_CONDITION_TYPES, CONDITION_TYPE_CODES_KEY);
     }
-
+    
+     public static List<BaUnitDetailTypeBean> getBaUnitDetailTypes() {
+        return getCachedBeanList(BaUnitDetailTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_BAUNIT_DETAIL_TYPES, BAUNIT_DETAIL_TYPE_CODES_KEY);
+    }
+    
+     public static List<RrrDetailTypeBean> getRrrDetailTypes() {
+        return getCachedBeanList(RrrDetailTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_RRR_DETAIL_TYPES, RRR_DETAIL_TYPE_CODES_KEY);
+    } 
     public static List<PartyTypeBean> getPartyTypes() {
         return getCachedBeanList(PartyTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
