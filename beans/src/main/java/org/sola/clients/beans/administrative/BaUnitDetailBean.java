@@ -27,6 +27,7 @@
  */
 package org.sola.clients.beans.administrative;
 
+import java.util.ArrayList;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.sola.clients.beans.AbstractIdBean;
@@ -34,7 +35,7 @@ import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.referencedata.BaUnitDetailTypeBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
-//import org.sola.webservices.transferobjects.administrative.BaUnitDetailTO;
+import org.sola.webservices.transferobjects.administrative.BaUnitDetailTO;
 
 /**
  * Contains properties and methods to manage <b>detail_for_baUnit</b>
@@ -152,4 +153,5 @@ public class BaUnitDetailBean extends AbstractIdBean {
         propertySupport.firePropertyChange(DETAIL_TYPE_PROPERTY, oldValue, this.baUnitDetailType);
         propertySupport.firePropertyChange(DETAIL_TEXT_PROPERTY, null, getDetailText());
     }
+   
 }

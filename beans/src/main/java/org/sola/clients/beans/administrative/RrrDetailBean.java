@@ -34,7 +34,7 @@ import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.referencedata.RrrDetailTypeBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
-//import org.sola.webservices.transferobjects.administrative.RrrDetailTO;
+import org.sola.webservices.transferobjects.administrative.RrrDetailTO;
 
 /**
  * Contains properties and methods to manage <b>detail_for_rrr</b>

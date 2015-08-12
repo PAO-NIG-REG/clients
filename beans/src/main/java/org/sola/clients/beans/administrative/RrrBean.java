@@ -106,7 +106,8 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String SELECTED_RIGHTHOLDER_PROPERTY = "selectedRightHolder";
     public static final String DUE_DATE_PROPERTY = "dueDate";
     public static final String SELECTED_CONDITION_PROPERTY = "selectedCondition";
-
+    public static final String SELECTED_RRRDETAIL_PROPERTY = "selectedRrrDetail";
+ 
     private String baUnitId;
     private String nr;
     @Past(message = ClientMessage.CHECK_REGISTRATION_DATE, payload = Localized.class)
@@ -140,6 +141,9 @@ public class RrrBean extends AbstractTransactionedBean {
     private transient PartySummaryBean selectedRightholder;
     private transient ConditionForRrrBean selectedCondition;
     private String concatenatedName;
+    private SolaList<RrrDetailBean> rrrDetailList;
+    private transient RrrDetailBean selectedRrrDetail;
+   
 
     public String getConcatenatedName() {
         return concatenatedName;
@@ -156,6 +160,7 @@ public class RrrBean extends AbstractTransactionedBean {
         rrrShareList = new SolaList();
         rightHolderList = new SolaList();
         conditionsList = new SolaList<ConditionForRrrBean>();
+        rrrDetailList = new SolaList<RrrDetailBean>();
         notation = new BaUnitNotationBean();
     }
 
@@ -389,6 +394,17 @@ public class RrrBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(SELECTED_RIGHTHOLDER_PROPERTY, null, this.selectedRightholder);
     }
 
+    public RrrDetailBean getSelectedRrrDetail() {
+        return selectedRrrDetail;
+    }
+
+    public void setSelectedRrrDetail(RrrDetailBean selectedRrrDetail) {
+        this.selectedRrrDetail = selectedRrrDetail;
+         propertySupport.firePropertyChange(SELECTED_RRRDETAIL_PROPERTY, null, this.selectedRrrDetail);
+    }
+    
+    
+    
     public ConditionForRrrBean getSelectedCondition() {
         return selectedCondition;
     }
@@ -426,7 +442,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public void setConditionsList(SolaList<ConditionForRrrBean> conditionsList) {
         this.conditionsList = conditionsList;
     }
-
+  
     public ArrayList<ConditionForRrrBean> getCustomConditions() {
         ArrayList<ConditionForRrrBean> conditions = new ArrayList<ConditionForRrrBean>();
         for (ConditionForRrrBean cond : getConditionsFilteredList()) {
@@ -446,7 +462,22 @@ public class RrrBean extends AbstractTransactionedBean {
         }
         return conditions;
     }
+    
+    
+    public SolaList<RrrDetailBean> getRrrDetailList() {
+        return rrrDetailList;
+    }
 
+//    @Size(min = 1, groups = {LeaseValidationGroup.class},
+//            message = ClientMessage.CHECK_SIZE_CONDITIONS_LIST, payload = Localized.class)
+    public ObservableList<RrrDetailBean> getRrrDetailFilteredList() {
+        return rrrDetailList.getFilteredList();
+    }
+
+    public void setRrrDetailList(SolaList<RrrDetailBean> rrrDetailList) {
+        this.rrrDetailList = rrrDetailList;
+    }
+    
     public void setRightHolderList(SolaList<PartySummaryBean> rightHolderList) {
         this.rightHolderList = rightHolderList;
     }

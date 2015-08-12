@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import javax.validation.constraints.Size;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import org.jdesktop.observablecollections.ObservableListListener;
@@ -41,10 +42,12 @@ import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.controls.SolaObservableList;
 import org.sola.clients.beans.converters.TypeConverters;
+import org.sola.clients.beans.referencedata.BaUnitDetailTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.referencedata.TypeActionBean;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.utils.RrrComparatorByRegistrationDate;
+import org.sola.clients.beans.validation.Localized;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
@@ -179,6 +182,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public static final String PENDING_ACTION_CODE_PROPERTY = "pendingActionCode";
     public static final String PENDING_ACTION_PROPERTY = "pendingTypeAction";
     public static final String SELECTED_BA_UNIT_AREA_PROPERTY = "selectedBaUnitArea";
+    public static final String SELECTED_BAUNITDETAIL_PROPERTY  = "selectedBaUnitDetail";
     
     
     private SolaList<RrrBean> rrrList;
@@ -190,7 +194,9 @@ public class BaUnitBean extends BaUnitSummaryBean {
     private SolaObservableList<RrrShareWithStatus> rrrSharesList;
     private SolaList<RelatedBaUnitInfoBean> childBaUnits;
     private SolaList<RelatedBaUnitInfoBean> parentBaUnits;
-    
+    private SolaList<BaUnitDetailBean> baUnitDetailList;
+  
+    private transient BaUnitDetailBean selectedBaUnitDetail;
     private transient CadastreObjectBean selectedParcel;
     private transient SolaList<RrrBean> rrrHistoricList;
     private transient RrrBean selectedRight;
@@ -216,6 +222,8 @@ public class BaUnitBean extends BaUnitSummaryBean {
         rrrList = new SolaList();
         rrrHistoricList = new SolaList<RrrBean>();
         baUnitNotationList = new SolaList();
+        baUnitDetailList = new SolaList<BaUnitDetailBean>();
+       
         cadastreObjectList = new SolaList();
         childBaUnits = new SolaList();
         parentBaUnits = new SolaList();
@@ -548,7 +556,67 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public ObservableList<RrrBean> getRrrHistoricList() {
         return rrrHistoricList.getFilteredList();
     }
+    
+    
+    
+    /**
+     * Adds conditions to the list
+     *
+     * @param baUnitDetail List of {@link ConditionTypeBean} that needs to be
+     * added in the list
+     */
+    public void addBaUnitDetail(List<BaUnitDetailTypeBean> baUnitDetail) {
+        if (baUnitDetail == null || getBaUnitDetailList() == null) {
+            return;
+        }
+        for (BaUnitDetailTypeBean bud : baUnitDetail) {
+            addBaUnitDetail(bud);
+        }
+    }
 
+    /**
+     * Adds condition to the list
+     *
+     * @param condition {@link LeaseConditionForRrrBean} that needs to be added
+     * in the list
+     */
+    public void addBaUnitDetail(BaUnitDetailBean bud) {
+        if (bud == null || getBaUnitDetailList() == null) {
+            return;
+        }
+        if (bud.isCustomDetail()) {
+            bud.setDetailCode(null);
+        }
+        getBaUnitDetailList().addAsNew(bud);
+    }
+
+    /**
+     * Adds lease condition in the list
+     *
+     * @param condition {@link ConditionTypeBean} that needs to be added in the
+     * list. New {@link ConditionForRrrBean} will be created and added in the
+     * list.
+     */
+    public void addBaUnitDetail(BaUnitDetailTypeBean bud) {
+        if (bud == null || getBaUnitDetailList() == null) {
+            return;
+        }
+        for (BaUnitDetailBean baUnitDetail : getBaUnitDetailList()) {
+            if (baUnitDetail.getDetailCode()!= null
+                    && baUnitDetail.getDetailCode().equals(bud.getCode())) {
+                if (baUnitDetail.getEntityAction() == EntityAction.DELETE || baUnitDetail.getEntityAction() == EntityAction.DISASSOCIATE) {
+                    baUnitDetail.setEntityAction(null);
+                }
+                return;
+            }
+        }
+        BaUnitDetailBean newBaUnitDetail = new BaUnitDetailBean();
+        newBaUnitDetail.setDetailType(bud);
+        getBaUnitDetailList().addAsNew(newBaUnitDetail);
+    }
+
+    
+    
     public void addRrr(RrrBean rrrBean) {
         if (!this.updateListItem(rrrBean, rrrList, false)) {
             int i = 0;
@@ -723,5 +791,41 @@ public class BaUnitBean extends BaUnitSummaryBean {
         BaUnitBean bean = new BaUnitBean();
         collection.add(bean);
         return collection;
+    }
+
+    public BaUnitDetailBean getSelectedBaUnitDetail() {
+        return selectedBaUnitDetail;
+    }
+
+    public void setSelectedBaUnitDetail(BaUnitDetailBean selectedBaUnitDetail) {
+        this.selectedBaUnitDetail = selectedBaUnitDetail;
+        propertySupport.firePropertyChange(SELECTED_BAUNITDETAIL_PROPERTY, null, this.selectedBaUnitDetail);
+   
+    }
+    
+    
+     public SolaList<BaUnitDetailBean> getBaUnitDetailList() {
+        return baUnitDetailList;
+    }
+
+    @Size(min = 1, 
+//            groups = {LeaseValidationGroup.class},
+            message = ClientMessage.CHECK_SIZE_CONDITIONS_LIST, payload = Localized.class)
+    public ObservableList<BaUnitDetailBean> getBaUnitDetailFilteredList() {
+        return baUnitDetailList.getFilteredList();
+    }
+
+    public void setBaUnitDetailList(SolaList<BaUnitDetailBean> baUnitDetailList) {
+        this.baUnitDetailList = baUnitDetailList;
+    }
+    
+      public ArrayList<BaUnitDetailBean> getStandardBaUnitDetail() {
+        ArrayList<BaUnitDetailBean> conditions = new ArrayList<BaUnitDetailBean>();
+        for (BaUnitDetailBean cond : getBaUnitDetailFilteredList()) {
+            if (!cond.isCustomDetail()) {
+                conditions.add(cond);
+            }
+        }
+        return conditions;
     }
 }
