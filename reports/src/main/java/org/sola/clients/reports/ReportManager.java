@@ -663,7 +663,8 @@ public class ReportManager {
         String state = null;
         BigDecimal size = null;
         String groundRent = null;
-        String imageryResolution = "50 cm";
+        String imageryResolution = "";
+//        String imageryResolution = "50 cm";
         String sheetNr = "";
         String imagerySource = "";
         String surveyor = "";
@@ -834,7 +835,7 @@ public class ReportManager {
      *
      */
     public static JasperPrint getSysRegSlrtPlanReport(BaUnitBean baUnitBean, String location, ApplicationBean appBean, SysRegCertificatesBean appBaunit, String featureImageFileName,
-            String featureScalebarFileName, Integer srid, Number scale, String featureFront, String featureBack, String featureImageFileNameSmall) {
+        String featureScalebarFileName, Integer srid, Number scale, String featureFront, String featureBack, String featureImageFileNameSmall) {
         HashMap inputParameters = new HashMap();
         String featureFloatFront = "images/sola/front_float.svg";
         String featureFloatBack = "images/sola/back_float.svg";
@@ -859,67 +860,74 @@ public class ReportManager {
         String state = null;
         BigDecimal size = null;
         String groundRent = null;
-        String imageryResolution = "50 cm";
+//        String imageryResolution = "50 cm";  TBVD 
+        String imageryResolution = "";
         String sheetNr = "";
         String imagerySource = "";
         String surveyor = "";
         String rank = "";
-        claimant = appBean.getContactPerson().getFullName();
-        address = appBean.getContactPerson().getAddress().getDescription();
+        
+        
 
         appBaunit.getId();
 
-//   TBUPDT
-////          area size
-//        size = appBaunit.getSize();
-//
-////          function administrative.get_parcel_share
+//   NO
+//        claimant = appBean.getContactPerson().getFullName();
+//        address = appBean.getContactPerson().getAddress().getDescription();
+//        appNr = appBaunit.getNr();
+
+////      function administrative.get_parcel_share
 //        owners = appBaunit.getOwners();
-//
-////          ba unit detail  plan        
-//        title = appBaunit.getTitle();
-////          ba unit detail  lga        
-//        lga = appBaunit.getPropLocation();
-////          ba unit detail  sheetNr
-//        sheetNr = appBaunit.getSheetNr();
 ////          ba unit detail  location       
-//        propAddress = baUnitBean.getLocation();
-//
-//       
-////          rrr detail date commenced
+//        propAddress = appBaunit.getLocation();      
+
+////           ba unit detail  date commenced
 //        commencingDate = appBaunit.getCommencingDate();
-////          rrr detail purpose        
+////           ba unit detail  purpose        
 //        landUse = appBaunit.getLandUse();
-////          rrr term        
+////           ba unit detail term        
 //            term = appBaunit.getTerm().toString();
-////          rrr rent
+////           ba unit detail rent
 //        groundRent = appBaunit.getRent().toString();
 //
 //            
 //            
-////          rrr condition yearsTodevelope       
+////           ba unit detail yearsTodevelope       
 //            if (appBaunit.getYearsForDev() != null) {
 //                timeToDevelop = appBaunit.getYearsForDev().toString();
 //            }
-////          rrr condition valueTodevelope       
+////          ba unit detail  valueTodevelope       
 //            if (appBaunit.getValueToImp() != null) {
 //                valueForImprov = appBaunit.getValueToImp().toString();
 //            }
 //            
+//                    
+        
+//   YES
+//      area size
+        size = appBaunit.getSize();
+
+//          ba unit detail  plan        
+        title = appBaunit.getPlan();
+//          ba unit detail  lga        
+        lga = appBaunit.getLga();
+//          ba unit detail  lga        
+        ward = appBaunit.getZone();
+//          ba unit detail  sheetNr
+        sheetNr = appBaunit.getSheetnr();
+
 //            
-//            
-////          setting.system_id 
-//        state = appBaunit.getState();
-//        surveyor = appBaunit.getSurveyor();
-//        rank = appBaunit.getRank();
-//
-////          config_map_layer_metadata
-//        imageryDate = appBaunit.getImageryDate();
-//        imageryResolution = appBaunit.getImageryResolution();
-//        imagerySource = appBaunit.getImagerySource();
-//        TBV  
-//        ward = appBaunit.getWard();
-        appNr = appBaunit.getNr();
+//      setting.system_id 
+        state = appBaunit.getState();
+        surveyor = appBaunit.getSurveyor();
+        rank = appBaunit.getRank();
+
+//          config_map_layer_metadata
+        imageryDate = appBaunit.getImagerydate();
+        imageryResolution = appBaunit.getImageryresolution();
+        imagerySource = appBaunit.getImagerysource();
+          
+        
 
 //        TODO CALL THE METHOD FOR GETTING THE MAP IMAGE
 //        The method that will generate the map image will ask for these paramters/arguments:

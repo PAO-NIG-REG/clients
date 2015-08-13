@@ -42,17 +42,34 @@ public class SysRegCertificatesBean extends AbstractIdBean {
     public static final String NAME_LASTPART_PROPERTY = "nameLastpart";
     public static final String BAUNIT_PROPERTY = "baUnitId";
     public static final String NR_PROPERTY = "nr";
+    private String nr;
     private String nameFirstpart;
     private String nameLastpart;
     private String baUnitId;
-    private String nr;
+    private BigDecimal size;
+    private String owners;
+    private String state;
+    private String surveyor;
+    private String rank;
+    private String imagerydate;
+    private String imageryresolution;
+    private String imagerysource;
+    private String lga;
+    private String zone;
+    private String location;
+    private String plan;
+    private String sheetnr;
+//    private String commencingdate;
+    private String purpose;
+    private Integer term;
+    private Integer rent;
 
-    public String getBaUnitId() {
-        return baUnitId;
+    public String getNr() {
+        return nr;
     }
 
-    public void setBaUnitId(String baUnitId) {
-        this.baUnitId = baUnitId;
+    public void setNr(String nr) {
+        this.nr = nr;
     }
 
     public String getNameFirstpart() {
@@ -71,11 +88,141 @@ public class SysRegCertificatesBean extends AbstractIdBean {
         this.nameLastpart = nameLastpart;
     }
 
-    public String getNr() {
-        return nr;
+    public String getBaUnitId() {
+        return baUnitId;
     }
 
-    public void setNr(String nr) {
-        this.nr = nr;
+    public void setBaUnitId(String baUnitId) {
+        this.baUnitId = baUnitId;
     }
+
+    public BigDecimal getSize() {
+        return size;
+    }
+
+    public void setSize(BigDecimal size) {
+        this.size = size;
+    }
+
+    public String getOwners() {
+        return owners;
+    }
+
+    public void setOwners(String owners) {
+        this.owners = owners;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getSurveyor() {
+        return surveyor;
+    }
+
+    public void setSurveyor(String surveyor) {
+        this.surveyor = surveyor;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
+    public String getImagerydate() {
+        return imagerydate;
+    }
+
+    public void setImagerydate(String imagerydate) {
+        this.imagerydate = imagerydate;
+    }
+
+    public String getImageryresolution() {
+        return imageryresolution;
+    }
+
+    public void setImageryresolution(String imageryresolution) {
+        this.imageryresolution = imageryresolution;
+    }
+
+    public String getImagerysource() {
+        return imagerysource;
+    }
+
+    public void setImagerysource(String imagerysource) {
+        this.imagerysource = imagerysource;
+    }
+
+    public String getLga() {
+        return lga;
+    }
+
+    public void setLga(String lga) {
+        this.lga = lga;
+    }
+
+    public String getZone() {
+        return zone;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getPlan() {
+        return plan;
+    }
+
+    public void setPlan(String plan) {
+        this.plan = plan;
+    }
+
+    public String getSheetnr() {
+        return sheetnr;
+    }
+
+    public void setSheetnr(String sheetnr) {
+        this.sheetnr = sheetnr;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public Integer getTerm() {
+        return term;
+    }
+
+    public void setTerm(Integer term) {
+        this.term = term;
+    }
+
+    public Integer getRent() {
+        return rent;
+    }
+
+    public void setRent(Integer rent) {
+        this.rent = rent;
+    }
+   
+    
 }

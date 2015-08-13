@@ -195,8 +195,8 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 //    }
 
     
-      private String location;
-    private String title = "SLTR Document(s) for Work Unit ";
+    private String location;
+    private String title = "Document(s) for Work Unit ";
     private String nr;
     private String tmpLocation = "";
     private static String cachePath = System.getProperty("user.home") + "/sola/cache/documents/";
@@ -256,7 +256,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
      */
     private void showReport(JasperPrint report, String parcelLabel, String docType) {
         
-        if ((this.nr != "" && this.nr != null)) {
+        if ((this.nr != "" && this.nr != null) || whichReport == "coParcelPlan") {
              ReportViewerForm form = new ReportViewerForm(report);
              this.form = form;
 //             this.form.setVisible(true);
@@ -419,7 +419,12 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         if (nr != null) {
             sysRegCertificatesListBean.passParameterApp(tmpLocation, nr);
         } else {
-            sysRegCertificatesListBean.passParameter(tmpLocation);
+             if (whichReport == "coParcelPlan") {
+                 sysRegCertificatesListBean.passParameterCo(tmpLocation);
+             }
+             else {
+              sysRegCertificatesListBean.passParameter(tmpLocation);
+             } 
         }
         
         String prefix = getPrefix();
@@ -441,13 +446,13 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 //            MapImageGeneratorForSelectedParcel mapImageSmall = new MapImageGeneratorForSelectedParcel(225, 225, 150, 40);
   
 
-            if (prefix.contains("Jigawa")){ 
-                // A3 side by side according to SURCON sample
-                imageWidth   = 200;
-                imageHeight  = 300;
-                sketchWidth  = 200;
-                sketchHeight = 300;   
-            }
+//            if (prefix.contains("Jigawa")){ 
+//                // A3 side by side according to SURCON sample
+//                imageWidth   = 200;
+//                imageHeight  = 300;
+//                sketchWidth  = 200;
+//                sketchHeight = 300;   
+//            }
 
                            
             MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(imageWidth, imageHeight,sketchWidth,sketchHeight,false, 0, 0);
@@ -457,61 +462,101 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             JasperPrint ParcelPlan = null;
             for (Iterator<SysRegCertificatesBean> it = sysRegCertificatesListBean.getSysRegCertificates().iterator(); it.hasNext();) {
                 final SysRegCertificatesBean appBaunit = it.next();
-                baUnitId = appBaunit.getBaUnitId();
-//             TBU   appId = appBaunit.getAppId();
-//             TBU   prevCofO = appBaunit.getCofO();
-                cadastreObject=this.getCadastre(appBaunit.getNameFirstpart());
+                
+                if (whichReport != "coParcelPlan" || whichReport == null) {
+                    baUnitId = appBaunit.getBaUnitId();
+//                    appId = appBaunit.getAppId();
+//                    prevCofO = appBaunit.getCofO(); 
+                    cadastreObject=this.getCadastre(appBaunit.getNameFirstpart());
+                }
+                if (whichReport == "coParcelPlan") {
+                    cadastreObject=this.getCadastre(appBaunit.getNameFirstpart());
+                }
+
+                
                 if(cadastreObject!=null)
                 {
                     System.out.println(cadastreObject.getSourceReference());
                     sourceRef=cadastreObject.getSourceReference();
                 }
                 else sourceRef="";
-                this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
-                this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
-                this.reportTogenerate = this.reportTogenerate.replace("/", "_");
-                final BaUnitBean baUnit = getBaUnit(baUnitId);
-                final ApplicationBean applicationBean = getApplication(appId);
-                String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
-                final String featureFront = this.svgPath + "front.svg";
-                final String featureBack = this.svgPath + "back.svg";
-//                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
+//                TODO VERIFICARE QUESTO ELSE SENZA GRAFFA????
                 
-                MapImageInformation mapImageInfo = mapImage.getInformation(appBaunit.getId());
-                final String featureImageFileName = mapImageInfo.getMapImageLocation();
-                final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
-                final Number scale = mapImageInfo.getScale();
-                final Integer srid = mapImageInfo.getSrid();
-                //System.out.println(cadastreObjectBean.getSourceReference().toString());
-//                MapImageInformation mapImageInfoSmall = mapImageSmall.getMapAndScalebarImage(appBaunit.getId());
-                final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
-                    
-                if (this.whichReport.contains("parcelPlan")){  
-                    System.out.println("QUI::::   parcelPlan");
-                    ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
-                    showReport(ParcelPlan, parcelLabel, this.whichReport);
-                    jprintlist.add(ParcelPlan);
-                } else if (this.whichReport.contains("title")){  
-                    System.out.println("QUI::::  title");
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,sourceRef);
-                    showReport(CofO, parcelLabel, this.whichReport);
-                    jprintlist.add(CofO);
+                if (whichReport != "coParcelPlan") {
+                    this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
+                    final BaUnitBean baUnit = getBaUnit(baUnitId);
+                    final ApplicationBean applicationBean = getApplication(appId);
+              
+                    String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
+                    final String featureFront = this.svgPath + "front.svg";
+                    final String featureBack = this.svgPath + "back.svg";
+    //                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
+                    this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
+                    this.reportTogenerate = this.reportTogenerate.replace("/", "_");
+
+
+
+                    MapImageInformation mapImageInfo = mapImage.getInformation(appBaunit.getId());
+                    final String featureImageFileName = mapImageInfo.getMapImageLocation();
+                    final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
+                    final Number scale = mapImageInfo.getScale();
+                    final Integer srid = mapImageInfo.getSrid();
+                    //System.out.println(cadastreObjectBean.getSourceReference().toString());
+    //                MapImageInformation mapImageInfoSmall = mapImageSmall.getMapAndScalebarImage(appBaunit.getId());
+                    final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
+
+                    if (this.whichReport.contains("parcelPlan")){  
+                        System.out.println("QUI::::   parcelPlan");
+                        ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
+                        showReport(ParcelPlan, parcelLabel, this.whichReport);
+                        jprintlist.add(ParcelPlan);
+                    } else if (this.whichReport.contains("title")){  
+                        System.out.println("QUI::::  title");
+                        CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,sourceRef);
+                        showReport(CofO, parcelLabel, this.whichReport);
+                        jprintlist.add(CofO);
+                    }
+                    else {  
+                        System.out.println("QUI::::  else");
+
+                        CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,sourceRef);
+                        showReport(CofO, parcelLabel, "title");
+                        ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
+                        showReport(ParcelPlan, parcelLabel,"parcelPlan");
+                        jprintlist.add(CofO);
+                        jprintlist.add(ParcelPlan);
+                    }
                 }
-                else {  
-                    System.out.println("QUI::::  else");
-                    
-                    CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,sourceRef);
-                    showReport(CofO, parcelLabel, "title");
-                    ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
-                    showReport(ParcelPlan, parcelLabel,"parcelPlan");
-                    jprintlist.add(CofO);
-                    jprintlist.add(ParcelPlan);
-                }
-                 
-                 i = i + 1;
+
+                if (whichReport == "coParcelPlan") {
+                        this.reportTogenerate = tmpLocation + "_" + this.reportdate + ".pdf";
+                        String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
+                        final String featureFront = this.svgPath + "front.svg";
+                        final String featureBack = this.svgPath + "back.svg";
+        //                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
+                        this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
+                        this.reportTogenerate = this.reportTogenerate.replace("/", "_");
+
+
+
+                        MapImageInformation mapImageInfo = mapImage.getInformation(appBaunit.getId());
+                        final String featureImageFileName = mapImageInfo.getMapImageLocation();
+                        final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
+                        final Number scale = mapImageInfo.getScale();
+                        final Integer srid = mapImageInfo.getSrid();
+                        //System.out.println(cadastreObjectBean.getSourceReference().toString());
+        //                MapImageInformation mapImageInfoSmall = mapImageSmall.getMapAndScalebarImage(appBaunit.getId());
+                        final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
+                        System.out.println("QUI::::   parcelPlan");
+                        ParcelPlan = ReportManager.getSysRegSlrtPlanReport(null, tmpLocation, null, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
+                        showReport(ParcelPlan, parcelLabel, this.whichReport);
+                        jprintlist.add(ParcelPlan);
+                }                 
+                
+                i = i + 1;
             }
                  
-         if (this.nr == "" || this.nr == null) {     
+         if ((this.nr == "" || this.nr == null)&&(whichReport != "coParcelPlan")) {     
              System.out.println("QUI::::  FA TOTAL");
                     
             whichFile= "TOTAL_"+this.whichReport+"-"+ this.location.replace('/', '-');
@@ -587,10 +632,10 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 //            return;
 //        }
 //
-//        Date currentdate = new Date(System.currentTimeMillis());
-//        this.currentDate = currentdate;
-//        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy");
-//        this.reportdate = formatter.format(currentdate);
+        Date currentdate = new Date(System.currentTimeMillis());
+        this.currentDate = currentdate;
+        SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy");
+        this.reportdate = formatter.format(currentdate);
 //
 //        if (nr != null) {
 //            sysRegCertificatesListBean.passParameterApp(tmpLocation, nr);

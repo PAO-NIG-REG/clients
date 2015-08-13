@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ParcelPlan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" uuid="7f6acd4f-1f56-4728-a412-e3936346c619">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="210"/>
 	<subDataset name="dataset1" uuid="d718bbdc-22f8-4778-b19a-1d4d4c9166db">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>

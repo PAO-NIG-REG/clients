@@ -84,6 +84,17 @@ public class SysRegCertificatesListBean extends AbstractBindingBean {
                 SysRegCertificatesBean.class, (List) certificates);
     }
     
+    
+     //      /** Passes from date and to date search criteria. */
+    public void passParameterCo(String params) {
+
+        List<SysRegCertificatesTO> sysRegCertificatesTO =
+                WSManager.getInstance().getCaseManagementService().getSysRegCertificatesByCo(params);
+
+        TypeConverters.TransferObjectListToBeanList(sysRegCertificatesTO,
+                SysRegCertificatesBean.class, (List) certificates);
+    }
+    
      //      /** Passes from date and to date search criteria. */
     public void passParameterApp(String params, String nr) {
 

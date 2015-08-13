@@ -49,6 +49,7 @@ import org.sola.webservices.search.MapDefinitionTO;
 // CHOOSE WHICH TOOL IS PREFERRED FOR THE MAP PRINT COMMENTING AND UNCOMMENTING THE FOLLOWING LINES
 //this is the mapaction used for creating a jasper report map print
 import org.sola.clients.swing.gis.mapaction.SolaJasperPrint;
+import org.sola.clients.swing.gis.tool.ParcelPlanTool;
 import org.sola.common.RolesConstants;
 //this is the mapaction used for creating a pdf map print
 //import org.sola.clients.swing.gis.mapaction.SolaPrint;
@@ -100,6 +101,8 @@ public abstract class SolaControlsBundle extends ControlsBundle {
             this.addSearchPanel();
             InformationTool infoTool = new InformationTool(this.pojoDataAccess);
             this.getMap().addTool(infoTool, this.getToolbar(), true);
+            ParcelPlanTool parcelPlanTool = new ParcelPlanTool(this.pojoDataAccess);
+            this.getMap().addTool(parcelPlanTool, this.getToolbar(), true);
 
 
             // CHOOSE WHICH TOOL IS PREFERRED FOR THE MAP PRINT COMMENTING AND UNCOMMENTING THE FOLLOWING LINES

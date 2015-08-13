@@ -3075,7 +3075,7 @@ public class ApplicationPanel extends ContentPanel {
     }//GEN-LAST:event_txtAreaActionPerformed
 
     private void openSysRegCertParamsForm(String nr) {
-        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, nr, null);
+        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, nr,  null ,null);
         certificateGenerator.setVisible(true);
     }
 
