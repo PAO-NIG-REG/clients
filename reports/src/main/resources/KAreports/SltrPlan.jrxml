@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ParcelPlan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" uuid="7f6acd4f-1f56-4728-a412-e3936346c619">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="210"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1" uuid="d718bbdc-22f8-4778-b19a-1d4d4c9166db">
 		<parameter name="AREA" class="java.lang.Object">
 			<parameterDescription><![CDATA[]]></parameterDescription>
@@ -147,7 +147,7 @@
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{SLTR_PLAN_IMAGE})]]></imageExpression>
 			</image>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="78" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="093ddd40-841b-4611-837a-8080763e859d"/>
+				<reportElement mode="Transparent" x="0" y="78" width="595" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="093ddd40-841b-4611-837a-8080763e859d"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -236,7 +236,7 @@
 				</image>
 			</frame>
 			<staticText>
-				<reportElement mode="Transparent" x="334" y="715" width="205" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="5f4febc6-f874-4744-a9ae-9f9eb53ba18a"/>
+				<reportElement mode="Transparent" x="334" y="715" width="205" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="5f4febc6-f874-4744-a9ae-9f9eb53ba18a"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Myriad Pro" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -246,7 +246,7 @@
 			<frame>
 				<reportElement x="335" y="512" width="204" height="198" uuid="708ce97d-475b-4bf1-8d6b-d2facf730dfd"/>
 				<image hAlign="Center">
-					<reportElement x="2" y="2" width="200" height="196" uuid="a226d3b1-9eae-4ec5-80f9-cf5ebaef5c18"/>
+					<reportElement x="2" y="2" width="200" height="196" isRemoveLineWhenBlank="true" uuid="a226d3b1-9eae-4ec5-80f9-cf5ebaef5c18"/>
 					<imageExpression><![CDATA[$P{MAP_IMAGE_SMALL}]]></imageExpression>
 				</image>
 			</frame>
@@ -315,9 +315,9 @@
 				<textFieldExpression><![CDATA["/                    /"]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement x="35" y="640" width="280" height="172" uuid="6cb31fec-6d9f-4211-9632-fc30a5925f1b"/>
+				<reportElement x="35" y="640" width="280" height="172" isRemoveLineWhenBlank="true" uuid="6cb31fec-6d9f-4211-9632-fc30a5925f1b"/>
 				<textField>
-					<reportElement x="10" y="37" width="250" height="72" uuid="79c4c6dc-caa0-4f1c-804e-d478b0fa0188"/>
+					<reportElement x="10" y="37" width="250" height="72" isRemoveLineWhenBlank="true" uuid="79c4c6dc-caa0-4f1c-804e-d478b0fa0188"/>
 					<textElement>
 						<font fontName="Myriad Pro" size="10"/>
 					</textElement>
@@ -327,7 +327,7 @@
 "Coordinate System: "+$P{UTM}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="10" y="18" width="250" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="17cf8dec-9f33-4db4-aaf4-6be689ab1655"/>
+					<reportElement mode="Transparent" x="10" y="18" width="250" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="17cf8dec-9f33-4db4-aaf4-6be689ab1655"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -335,14 +335,14 @@
 					<textFieldExpression><![CDATA["Do not scale distances from or enlarge this plan"]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="18" width="10" height="15" uuid="aab874d5-c202-4b6b-9483-bb5c4d097732"/>
+					<reportElement x="0" y="18" width="10" height="15" isRemoveLineWhenBlank="true" uuid="aab874d5-c202-4b6b-9483-bb5c4d097732"/>
 					<textElement textAlignment="Left">
 						<font fontName="Myriad Pro" isBold="true"/>
 					</textElement>
 					<text><![CDATA[1.]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Transparent" x="0" y="37" width="10" height="41" forecolor="#000000" backcolor="#FFFFFF" uuid="6c881c52-50fc-4d27-8a54-a0fe7cbb98d8"/>
+					<reportElement mode="Transparent" x="0" y="37" width="10" height="41" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="6c881c52-50fc-4d27-8a54-a0fe7cbb98d8"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -350,7 +350,7 @@
 					<text><![CDATA[2.]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Transparent" x="10" y="0" width="217" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="9480401b-3c5b-4c19-b491-9f427c2f25af"/>
+					<reportElement mode="Transparent" x="10" y="0" width="217" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="9480401b-3c5b-4c19-b491-9f427c2f25af"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Myriad Pro" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
