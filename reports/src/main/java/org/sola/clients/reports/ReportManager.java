@@ -904,6 +904,8 @@ public class ReportManager {
 //                    
         
 //   YES
+        appNr = appBaunit.getNameFirstpart() + '/' + appBaunit.getNameLastpart();
+
 //      area size
         size = appBaunit.getSize();
 

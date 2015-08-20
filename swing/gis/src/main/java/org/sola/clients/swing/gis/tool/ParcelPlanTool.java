@@ -277,8 +277,8 @@ public class ParcelPlanTool extends ExtendedTool {
 
         document1 = DocumentBean.createDocumentFromLocalFile(file);
         document.setArchiveDocument(document1);
+        System.out.println("docType;   " + docType);
         System.out.println("this.document.setTypeCode(docType);   " + this.document.getTypeCode());
-        
         document.save();
         document.clean2();
     }
@@ -361,7 +361,7 @@ public class ParcelPlanTool extends ExtendedTool {
                     
                 final BaUnitBean baUnit = getBaUnit(baUnitId);
 //                final ApplicationBean applicationBean = getApplication(appId);
-                String parcelLabel = appBaunit.getNameFirstpart() + '/' + appBaunit.getNameFirstpart();
+                String parcelLabel = appBaunit.getNameFirstpart() + '/' + appBaunit.getNameLastpart();
                 final String featureFront = this.svgPath + "front.svg";
                 final String featureBack = this.svgPath + "back.svg";
 //                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
@@ -410,7 +410,8 @@ public class ParcelPlanTool extends ExtendedTool {
 
                 try {
                     FileUtility.saveFileFromStream(null, cachePath + whichFile + ".pdf");
-                    saveDocument(whichFile + ".pdf", this.currentDate, this.reportdate, whichFile, whichReport);
+                    saveDocument(whichFile + ".pdf", this.currentDate, this.reportdate, whichFile,  "title");
+//                     da metterci parcelplan
                     FileUtility.deleteFileFromCache(cachePath + whichFile + ".pdf");
                 } catch (Exception ex) {
                     Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
