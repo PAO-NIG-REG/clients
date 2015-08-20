@@ -120,6 +120,152 @@ public class ReportManager {
             return null;
         }
     }
+    
+    
+    
+    
+      /**
+     * Generates and displays <b>BA Unit</b> report.
+     *
+     * @param appBean Application bean containing data for the report.
+     */
+    public static JasperPrint getCofO(BaUnitBean baUnitBean) {
+        
+        
+        String featureFloatFront = "images/sola/front_float.svg";
+        String featureFloatBack = "images/sola/back_float.svg";
+        String featureFront = "images/sola/front.svg";
+        String featureBack = "images/sola/back.svg";
+        
+        String appNr = null;
+        String claimant = null;
+        String imageryDate = null;
+        String owners = null;
+        String title = null;
+        String address = null;
+        Date lodgingDate = null;
+        String timeToDevelop = null;
+        String valueForImprov = null;
+        String term = null;
+        Date commencingDate = null;
+        String landUse = null;
+        String propAddress = null;
+        String lga = null;
+        String ward = null;
+        String state = null;
+        BigDecimal size = null;
+        String groundRent = null;
+        String imageryResolution = "";
+//        String imageryResolution = "50 cm";
+        String sheetNr = "";
+        String imagerySource = "";
+        String surveyor = "";
+        String rank = "";
+        
+        
+//          TBUPD          
+//        appNr = appBaunit.getNr();
+//        claimant = appBean.getContactPerson().getFullName();
+//        address = appBean.getContactPerson().getAddress().getDescription();
+
+//          TOBUPDT   
+//        imageryDate = appBaunit.getImageryDate();
+//        owners = appBaunit.getOwners();
+//        title  =  appBaunit.getTitle();
+//        lodgingDate = appBean.getLodgingDatetime();
+//        commencingDate = appBaunit.getCommencingDate();
+//        size = appBaunit.getSize();
+//        landUse = appBaunit.getLandUse();
+//        lga = appBaunit.getPropLocation();
+//        ward = appBaunit.getWard();
+//        state = appBaunit.getState();propAddress = baUnitBean.getLocation();
+//        //Special addition for generating image
+//        imageryResolution=appBaunit.getImageryResolution();
+//        imagerySource=appBaunit.getImagerySource();        
+//        sheetNr=appBaunit.getSheetNr();
+//        surveyor=appBaunit.getSurveyor();
+//        rank=appBaunit.getRank();   
+//        if (!baUnitBean.isIsDeveloped()) {
+//            if (baUnitBean.getYearsForDev() != null) {
+//                timeToDevelop = baUnitBean.getYearsForDev().toString();
+//            }
+//            if (baUnitBean.getValueToImp() != null) {
+//                valueForImprov = baUnitBean.getValueToImp().toString();
+//            }
+//        }
+//        if (baUnitBean.getTerm() != null) {
+//            term = baUnitBean.getTerm().toString();
+//        }
+//        groundRent = appBaunit.getGroundRent().toString();
+
+        
+        HashMap inputParameters = new HashMap();
+        
+        
+//        <parameter name="CLIENT_NAME" class="java.lang.String"/>
+//        inputParameters.put("CLIENT_NAME", owners);
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+//        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("APP_NR", appNr);
+        inputParameters.put("IMAGERY_DATE", imageryDate);
+        inputParameters.put("ADDRESS", address);
+        inputParameters.put("LODGING_DATE", lodgingDate);
+        inputParameters.put("COMMENCING_DATE", commencingDate);
+        inputParameters.put("TIME_DEVELOP", timeToDevelop);
+        inputParameters.put("VALUE_IMPROV", valueForImprov);
+        inputParameters.put("TERM", term);
+        inputParameters.put("LAND_USE", landUse);
+        inputParameters.put("PROP_LOCATION", propAddress);
+        inputParameters.put("SIZE", size);
+        inputParameters.put("REFNR", title);
+        inputParameters.put("GROUND_RENT", groundRent);
+        inputParameters.put("FRONT_IMAGE", featureFront);
+        inputParameters.put("BACK_IMAGE", featureBack);
+        inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
+        inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
+        inputParameters.put("LGA", lga);
+        inputParameters.put("WARD", ward);
+        inputParameters.put("STATE", state);
+//        inputParameters.put("MAP_IMAGE", mapImage);
+//        inputParameters.put("SCALE", scaleLabel);
+//        inputParameters.put("UTM", utmZone);
+//        inputParameters.put("SCALEBAR", scalebarImageLocation);
+        
+        
+        
+        BaUnitBean[] beans = new BaUnitBean[1];
+        beans[0] = baUnitBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        String pdReport = null;
+        pdReport = "/"+getPrefix() + "reports/CofO.jasper";
+
+        System.err.println(pdReport);
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream(pdReport),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            LogUtility.log(LogUtility.getStackTraceAsString(ex), Level.SEVERE);
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
+
+//        try {
+//            return JasperFillManager.fillReport(
+//                    ReportManager.class.getResourceAsStream("/reports/BaUnitReport.jasper"),
+//                    inputParameters, jds);
+//        } catch (JRException ex) {
+//            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+//                    new Object[]{ex.getLocalizedMessage()});
+//            return null;
+//        }
+    }
+
+    
+    
+    
+    
 
     /**
      * Generates and displays <b>BA Unit</b> report.

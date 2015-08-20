@@ -393,6 +393,11 @@ public class PropertyPanel extends ContentPanel {
 //        TO BE REMOVED btnNext after well tested and before pushing the code
         btnNext.setVisible(false);
         btnNext.setEnabled(false);
+        
+        
+//      TOBE CUSTOMIZED BASED ON THE SERVICE PROPERTY REQUESTED ??  
+        detailsToolbar.setVisible(false);
+        detailsToolbar.setEnabled(false);
 
     }
 
@@ -927,7 +932,8 @@ public class PropertyPanel extends ContentPanel {
      */
     private void print() {
         if (ApplicationServiceBean.saveInformationService(RequestTypeBean.CODE_TITLE_SERACH)) {
-            showReport(ReportManager.getBaUnitReport(getBaUnit(
+//            showReport(ReportManager.getBaUnitReport(getBaUnit(
+            showReport(ReportManager.getCofO(getBaUnit(
                     baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
         }
     }
@@ -1266,7 +1272,7 @@ public class PropertyPanel extends ContentPanel {
         labArea = new javax.swing.JLabel();
         txtArea = new javax.swing.JFormattedTextField();
         tabDetail = new javax.swing.JPanel();
-        jToolBar9 = new javax.swing.JToolBar();
+        detailsToolbar = new javax.swing.JToolBar();
         btnAddCustomCondition = new javax.swing.JButton();
         btnEditCondition = new javax.swing.JButton();
         btnRemoveCondition = new javax.swing.JButton();
@@ -1794,9 +1800,9 @@ public class PropertyPanel extends ContentPanel {
 
         tabDetail.setName("tabDetail"); // NOI18N
 
-        jToolBar9.setFloatable(false);
-        jToolBar9.setRollover(true);
-        jToolBar9.setName("jToolBar9"); // NOI18N
+        detailsToolbar.setFloatable(false);
+        detailsToolbar.setRollover(true);
+        detailsToolbar.setName("detailsToolbar"); // NOI18N
 
         btnAddCustomCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/add.png"))); // NOI18N
         btnAddCustomCondition.setText(bundle.getString("PropertyPanel.btnAddCustomCondition.text")); // NOI18N
@@ -1807,7 +1813,7 @@ public class PropertyPanel extends ContentPanel {
                 btnAddCustomConditionActionPerformed(evt);
             }
         });
-        jToolBar9.add(btnAddCustomCondition);
+        detailsToolbar.add(btnAddCustomCondition);
 
         btnEditCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/pencil.png"))); // NOI18N
         btnEditCondition.setText(bundle.getString("PropertyPanel.btnEditCondition.text")); // NOI18N
@@ -1818,7 +1824,7 @@ public class PropertyPanel extends ContentPanel {
                 btnEditConditionActionPerformed(evt);
             }
         });
-        jToolBar9.add(btnEditCondition);
+        detailsToolbar.add(btnEditCondition);
 
         btnRemoveCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/remove.png"))); // NOI18N
         btnRemoveCondition.setText(bundle.getString("PropertyPanel.btnRemoveCondition.text")); // NOI18N
@@ -1829,13 +1835,13 @@ public class PropertyPanel extends ContentPanel {
                 btnRemoveConditionActionPerformed(evt);
             }
         });
-        jToolBar9.add(btnRemoveCondition);
+        detailsToolbar.add(btnRemoveCondition);
 
         jSeparator7.setName("jSeparator7"); // NOI18N
-        jToolBar9.add(jSeparator7);
+        detailsToolbar.add(jSeparator7);
 
         filler3.setName("filler3"); // NOI18N
-        jToolBar9.add(filler3);
+        detailsToolbar.add(filler3);
 
         cbxStandardConditions.setName("cbxStandardConditions"); // NOI18N
 
@@ -1845,10 +1851,10 @@ public class PropertyPanel extends ContentPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitDetailTypeListBean1, org.jdesktop.beansbinding.ELProperty.create("${selectedBaUnitDetailType}"), cbxStandardConditions, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
-        jToolBar9.add(cbxStandardConditions);
+        detailsToolbar.add(cbxStandardConditions);
 
         filler5.setName("filler5"); // NOI18N
-        jToolBar9.add(filler5);
+        detailsToolbar.add(filler5);
 
         btnAddStandardCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/add.png"))); // NOI18N
         btnAddStandardCondition.setText(bundle.getString("PropertyPanel.btnAddStandardCondition.text")); // NOI18N
@@ -1859,7 +1865,7 @@ public class PropertyPanel extends ContentPanel {
                 btnAddStandardConditionActionPerformed(evt);
             }
         });
-        jToolBar9.add(btnAddStandardCondition);
+        detailsToolbar.add(btnAddStandardCondition);
 
         jScrollPane6.setName("jScrollPane6"); // NOI18N
 
@@ -1877,12 +1883,6 @@ public class PropertyPanel extends ContentPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${customDetailText}"));
         columnBinding.setColumnName("Custom Detail Text");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${detailQuantity}"));
-        columnBinding.setColumnName("Detail Quantity");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${detailUnit}"));
-        columnBinding.setColumnName("Detail Unit");
-        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${selectedBaUnitDetail}"), detailsTable, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
@@ -1892,8 +1892,6 @@ public class PropertyPanel extends ContentPanel {
             detailsTable.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("PropertyPanel.detailsTable.columnModel.title0")); // NOI18N
             detailsTable.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("PropertyPanel.detailsTable.columnModel.title2")); // NOI18N
             detailsTable.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertyPanel.detailsTable.columnModel.title1")); // NOI18N
-            detailsTable.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("PropertyPanel.detailsTable.columnModel.title3")); // NOI18N
-            detailsTable.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("PropertyPanel.detailsTable.columnModel.title4")); // NOI18N
         }
 
         org.jdesktop.layout.GroupLayout tabDetailLayout = new org.jdesktop.layout.GroupLayout(tabDetail);
@@ -1902,7 +1900,7 @@ public class PropertyPanel extends ContentPanel {
             tabDetailLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(tabDetailLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jToolBar9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
+                .add(detailsToolbar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
                 .addContainerGap())
             .add(jScrollPane6)
         );
@@ -1910,7 +1908,7 @@ public class PropertyPanel extends ContentPanel {
             tabDetailLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, tabDetailLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jToolBar9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(detailsToolbar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
         );
@@ -3081,6 +3079,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JComboBox cbxRightType;
     private javax.swing.JComboBox cbxStandardConditions;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles detailsTable;
+    private javax.swing.JToolBar detailsToolbar;
     private org.sola.clients.swing.ui.source.DocumentsPanel documentsPanel1;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
@@ -3139,7 +3138,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JToolBar jToolBar6;
     private javax.swing.JToolBar jToolBar7;
     private javax.swing.JToolBar jToolBar8;
-    private javax.swing.JToolBar jToolBar9;
     private javax.swing.JLabel labArea;
     private javax.swing.JPanel mapPanel;
     private javax.swing.JMenuItem menuAddParcel;
