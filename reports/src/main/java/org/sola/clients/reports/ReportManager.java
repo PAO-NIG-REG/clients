@@ -927,7 +927,7 @@ public class ReportManager {
         imageryResolution = appBaunit.getImageryresolution();
         imagerySource = appBaunit.getImagerysource();
           
-        
+        System.out.println("sltrPlanFront    "+sltrPlanFront);
 
 //        TODO CALL THE METHOD FOR GETTING THE MAP IMAGE
 //        The method that will generate the map image will ask for these paramters/arguments:
@@ -950,9 +950,9 @@ public class ReportManager {
         String scalebarImageLocation = featureScalebarFileName;
 
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
-        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+//        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("LOCATION", location);
-        inputParameters.put("AREA", location);
+//        inputParameters.put("AREA", location);
         inputParameters.put("APP_NR", appNr);
         inputParameters.put("CLIENT_NAME", owners);
         inputParameters.put("ADDRESS", address);
@@ -975,23 +975,61 @@ public class ReportManager {
         inputParameters.put("STATE", state);
         inputParameters.put("SLTR_PLAN_IMAGE", sltrPlanFront);
         inputParameters.put("MAP_IMAGE", mapImage);
-//        inputParameters.put("MAP_IMAGE", map);
         inputParameters.put("SCALE", scaleLabel);
         inputParameters.put("UTM", utmZone);
         inputParameters.put("SCALEBAR", scalebarImageLocation);
         inputParameters.put("MAP_IMAGE_SMALL", mapImageSmall);
-//        inputParameters.put("MAP_IMAGE_SMALL", small);
         inputParameters.put("IMAGERY_RESOLUTION", imageryResolution);
         inputParameters.put("SHEET_NR", sheetNr);
         inputParameters.put("SURVEYOR", surveyor);
         inputParameters.put("RANK", rank);
+       
+        System.out.println("REPORT_LOCALE "+ Locale.getDefault());
+//        System.out.println("USER "+ SecurityBean.getCurrentUser().getFullUserName());
+     
+        System.out.println("LOCATION "+ location);
+//        System.out.println("AREA "+ location);
+        System.out.println("APP_NR "+ appNr);
+        System.out.println("CLIENT_NAME "+ owners);
+        System.out.println("ADDRESS "+ address);
+        System.out.println("IMAGERY_DATE "+ imageryDate);
+        System.out.println("COMMENCING_DATE "+ commencingDate);
+        System.out.println("TIME_DEVELOP "+ timeToDevelop);
+        System.out.println("VALUE_IMPROV "+ valueForImprov);
+        System.out.println("TERM "+ term);
+        System.out.println("LAND_USE "+ landUse);
+        System.out.println("PROP_LOCATION "+ propAddress);
+        System.out.println("SIZE "+ size);
+        System.out.println("REFNR "+ title);
+        System.out.println("GROUND_RENT "+ groundRent);
+        System.out.println("FRONT_IMAGE "+ featureFront);
+        System.out.println("BACK_IMAGE "+ featureBack);
+        System.out.println("FRONT_FLOAT_IMAGE "+ featureFloatFront);
+        System.out.println("BACK_FLOAT_IMAGE "+ featureFloatBack);
+        System.out.println("LGA "+ lga);
+        System.out.println("WARD "+ ward);
+        System.out.println("STATE "+ state);
+        System.out.println("SLTR_PLAN_IMAGE "+ sltrPlanFront);
+        System.out.println("MAP_IMAGE "+ mapImage);
+        System.out.println("SCALE "+ scaleLabel);
+        System.out.println("UTM "+ utmZone);
+        System.out.println("SCALEBAR "+ scalebarImageLocation);
+        System.out.println("MAP_IMAGE_SMALL "+ mapImageSmall);
+        System.out.println("IMAGERY_RESOLUTION "+ imageryResolution);
+        System.out.println("SHEET_NR "+ sheetNr);
+        System.out.println("SURVEYOR "+ surveyor);
+        System.out.println("RANK "+ rank);
 
+        System.out.println("SLTR REPORTMANAGER   BAUNITBEAN  "+baUnitBean.getNameLastpart());
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
+        
         String slrtReport = null;
-        slrtReport = getPrefix() + "/SltrPlan.jasper";
-
+        slrtReport = getPrefix() + "reports/SltrPlan.jasper";
+           
+        
+        System.out.println("slrtReport    "+slrtReport);
         InputStream inputStream = ReportManager.class.getClassLoader().getResourceAsStream(slrtReport);
 
         try {
@@ -999,17 +1037,22 @@ public class ReportManager {
                     inputStream,
                     inputParameters, jds);
             inputStream.close();
-
             return report;
 
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
                     new Object[]{ex.getLocalizedMessage()});
+            System.out.println("EXCEP FILLING 1   "+ex);
             return null;
         } catch (IOException ex) {
             Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("EXCEP FILLING 2   "+ex);
             return null;
         }
+        
+        
+        
+        
 
     }
 
