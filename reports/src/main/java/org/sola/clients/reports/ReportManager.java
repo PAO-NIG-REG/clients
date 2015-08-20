@@ -830,7 +830,7 @@ public class ReportManager {
      * Generates and displays <b>Systematic registration Certificates
      * report</b>.
      *
-     * @param certificatesList List Parcel list bean containing data for the
+     * @param TitleDeedsPlan List Parcel list bean containing data for the
      * report.
      *
      */
@@ -843,7 +843,7 @@ public class ReportManager {
         String small = "";
         String map = "";
 
-        String appNr = null;
+        String appNr = "";
         String claimant = null;
         String owners = null;
         String title = null;
@@ -904,7 +904,7 @@ public class ReportManager {
 //                    
         
 //   YES
-        appNr = appBaunit.getNameFirstpart() + '/' + appBaunit.getNameLastpart();
+        appNr = appBaunit.getNameFirstpart()+"/"+ appBaunit.getNameLastpart();
 
 //      area size
         size = appBaunit.getSize();
@@ -929,19 +929,6 @@ public class ReportManager {
         imageryResolution = appBaunit.getImageryresolution();
         imagerySource = appBaunit.getImagerysource();
           
-        System.out.println("sltrPlanFront    "+sltrPlanFront);
-
-//        TODO CALL THE METHOD FOR GETTING THE MAP IMAGE
-//        The method that will generate the map image will ask for these paramters/arguments:
-//1 - cadastreObjectId: This is the id of the cadastre_object.id
-//2 - width and height of the image in points: This is the width of the image which has to be the same as the image expected in the report. The same in the analogy with the existing reports where an map image can be embedded.
-//
-//The method will give back an object with:
-//1 - Path to the image
-//2 - Scale
-//3 - Area in m2
-//  4 - UTM zone
-//  5 - Scalebar 
         String mapImage = featureImageFileName;
         String mapImageSmall = featureImageFileNameSmall;
         String utmZone = srid.toString().substring(srid.toString().length() - 2);
@@ -952,9 +939,7 @@ public class ReportManager {
         String scalebarImageLocation = featureScalebarFileName;
 
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
-//        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("LOCATION", location);
-//        inputParameters.put("AREA", location);
         inputParameters.put("APP_NR", appNr);
         inputParameters.put("CLIENT_NAME", owners);
         inputParameters.put("ADDRESS", address);
@@ -986,43 +971,6 @@ public class ReportManager {
         inputParameters.put("SURVEYOR", surveyor);
         inputParameters.put("RANK", rank);
        
-        System.out.println("REPORT_LOCALE "+ Locale.getDefault());
-//        System.out.println("USER "+ SecurityBean.getCurrentUser().getFullUserName());
-     
-        System.out.println("LOCATION "+ location);
-//        System.out.println("AREA "+ location);
-        System.out.println("APP_NR "+ appNr);
-        System.out.println("CLIENT_NAME "+ owners);
-        System.out.println("ADDRESS "+ address);
-        System.out.println("IMAGERY_DATE "+ imageryDate);
-        System.out.println("COMMENCING_DATE "+ commencingDate);
-        System.out.println("TIME_DEVELOP "+ timeToDevelop);
-        System.out.println("VALUE_IMPROV "+ valueForImprov);
-        System.out.println("TERM "+ term);
-        System.out.println("LAND_USE "+ landUse);
-        System.out.println("PROP_LOCATION "+ propAddress);
-        System.out.println("SIZE "+ size);
-        System.out.println("REFNR "+ title);
-        System.out.println("GROUND_RENT "+ groundRent);
-        System.out.println("FRONT_IMAGE "+ featureFront);
-        System.out.println("BACK_IMAGE "+ featureBack);
-        System.out.println("FRONT_FLOAT_IMAGE "+ featureFloatFront);
-        System.out.println("BACK_FLOAT_IMAGE "+ featureFloatBack);
-        System.out.println("LGA "+ lga);
-        System.out.println("WARD "+ ward);
-        System.out.println("STATE "+ state);
-        System.out.println("SLTR_PLAN_IMAGE "+ sltrPlanFront);
-        System.out.println("MAP_IMAGE "+ mapImage);
-        System.out.println("SCALE "+ scaleLabel);
-        System.out.println("UTM "+ utmZone);
-        System.out.println("SCALEBAR "+ scalebarImageLocation);
-        System.out.println("MAP_IMAGE_SMALL "+ mapImageSmall);
-        System.out.println("IMAGERY_RESOLUTION "+ imageryResolution);
-        System.out.println("SHEET_NR "+ sheetNr);
-        System.out.println("SURVEYOR "+ surveyor);
-        System.out.println("RANK "+ rank);
-
-        System.out.println("SLTR REPORTMANAGER   BAUNITBEAN  "+baUnitBean.getNameLastpart());
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
@@ -1030,8 +978,6 @@ public class ReportManager {
         String slrtReport = null;
         slrtReport = getPrefix() + "reports/SltrPlan.jasper";
            
-        
-        System.out.println("slrtReport    "+slrtReport);
         InputStream inputStream = ReportManager.class.getClassLoader().getResourceAsStream(slrtReport);
 
         try {
@@ -1044,19 +990,12 @@ public class ReportManager {
         } catch (JRException ex) {
             MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
                     new Object[]{ex.getLocalizedMessage()});
-            System.out.println("EXCEP FILLING 1   "+ex);
             return null;
         } catch (IOException ex) {
             Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("EXCEP FILLING 2   "+ex);
             return null;
         }
-        
-        
-        
-        
-
-    }
+     }
 
 //      /**
 //     * Generates and displays <b>Sys Reg Status</b> report.

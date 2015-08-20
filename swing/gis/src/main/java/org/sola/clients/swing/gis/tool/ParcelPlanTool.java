@@ -112,7 +112,7 @@ public class ParcelPlanTool extends ExtendedTool {
     private String reportTogenerate;
     private Date currentDate;
     private SourceBean document;
-    private String whichReport = "ParcelPlan";
+    private String whichReport = "parcelPlan";
     private String whichFile;
     private Integer rowVersion = 0;
     private ReportViewerForm form;
@@ -173,9 +173,6 @@ public class ParcelPlanTool extends ExtendedTool {
             queryForSelect.setQueryName(queryNameForSelect);
             queryForSelect.setSrid(solaLayer.getSrid());
             queryForSelect.setFilteringGeometry(filteringGeometry);
-
-            System.out.println("QUERY NAME   " + queryForSelect.getQueryName());
-
             queriesForSelect.add(queryForSelect);
 
             if (queryForSelect.getQueryName().contains("dynamic.informationtool.get_parcel")) {
@@ -184,11 +181,8 @@ public class ParcelPlanTool extends ExtendedTool {
 
         }
         List<ResultForSelectionInfo> results = this.dataAccess.Select(queriesForSelect);
-        System.out.println("ARRAY RISULTATO    " + results.get(0).getResult().getFieldNames());
         this.document = new SourceBean();
         if (results.get(0).getResult().getFieldNames().size() > 0) {
-            System.out.println("NOME CAMPO RISULTATO    " + results.get(0).getResult().getFieldNames().get(0).toString());
-            System.out.println("VALORE RISULTATO    " + results.get(0).getResult().getValues().get(0).getItem().get(0).toString());
             location = results.get(0).getResult().getValues().get(0).getItem().get(0).toString();
             tmpLocation = location;
             SolaTask t = new SolaTask<Void, Void>() {
@@ -227,9 +221,6 @@ public class ParcelPlanTool extends ExtendedTool {
      * Opens {@link ReportViewerForm} to display report.
      */
     private void showReport(JasperPrint report, String parcelLabel, String docType) {
-        System.out.println("QUI SHOW REPORT   " + docType);
-        System.out.println("QUI SHOW REPORT parcellabel  " + parcelLabel);
-
         if ((this.nr != "" && this.nr != null)) {
             ReportViewerForm form = new ReportViewerForm(report);
             this.form = form;
@@ -239,7 +230,6 @@ public class ParcelPlanTool extends ExtendedTool {
         try {
             postProcessReport(report, parcelLabel, docType);
         } catch (Exception ex) {
-            System.out.println("EXCEPTION  " + ex.getMessage());
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -248,7 +238,6 @@ public class ParcelPlanTool extends ExtendedTool {
         Date recDate = this.currentDate;
         String location = this.tmpLocation.replace(" ", "_");
         this.reportTogenerate = docType + "-" + this.reportTogenerate;
-        System.out.print("QUI POSTPROCESS   " + this.reportTogenerate);
         JRPdfExporter exporterPdf = new JRPdfExporter();
         exporterPdf.setParameter(JRXlsExporterParameter.JASPER_PRINT, populatedReport);
         exporterPdf.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
@@ -257,9 +246,7 @@ public class ParcelPlanTool extends ExtendedTool {
         exporterPdf.setParameter(JRPdfExporterParameter.FORCE_SVG_SHAPES, Boolean.TRUE);
         exporterPdf.exportReport();
         FileUtility.saveFileFromStream(null, this.reportTogenerate);
-        System.out.println("QUI POSTPROCESS  DOPO SAVE FILE " + this.reportTogenerate);
         saveDocument(this.reportTogenerate, recDate, this.reportdate, parcelLabel, docType);
-        System.out.println("QUI POSTPROCESS  DOPO DOCUMENT   " + this.reportTogenerate);
         FileUtility.deleteFileFromCache(this.reportTogenerate);
 
     }
@@ -267,7 +254,6 @@ public class ParcelPlanTool extends ExtendedTool {
     private void saveDocument(String fileName, Date recDate, String subDate, String parcelLabel, String docType) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String reportdate = formatter.format(recDate);
-
         this.document.setTypeCode(docType);
         this.document.setRecordation(this.currentDate);
         this.document.setReferenceNr(this.location);
@@ -277,8 +263,6 @@ public class ParcelPlanTool extends ExtendedTool {
 
         document1 = DocumentBean.createDocumentFromLocalFile(file);
         document.setArchiveDocument(document1);
-        System.out.println("docType;   " + docType);
-        System.out.println("this.document.setTypeCode(docType);   " + this.document.getTypeCode());
         document.save();
         document.clean2();
     }
@@ -327,7 +311,6 @@ public class ParcelPlanTool extends ExtendedTool {
         String nrTmp = null;
         String appId = null;
         Integer prevCofO = 0;
-//    A CHE SERVE???   String sourceRef = "";
         int i = 0;
 
         int imageWidth = 520;
@@ -347,50 +330,32 @@ public class ParcelPlanTool extends ExtendedTool {
 
                 cadastreObject = this.getCadastre(appBaunit.getNameFirstpart());
                 baUnitId = appBaunit.getBaUnitId();
-//                if (cadastreObject != null) {
-//                    System.out.println("QUI CADASTRE OBJECT GETREFERENCE:::::   "+cadastreObject.getSourceReference());
-//                    sourceRef = cadastreObject.getSourceReference();
-//                } else    MA A CHE SERVE SOURCE REF????
-//                    sourceRef = "";
                 
                 this.reportTogenerate = appBaunit.getNameFirstpart() + appBaunit.getNameLastpart() + "_" + this.reportdate + ".pdf";
                 this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
                 this.reportTogenerate = this.reportTogenerate.replace("/", "_");
                 
-                System.out.println("this.reportTogenerate:::::   "+this.reportTogenerate);
-                    
                 final BaUnitBean baUnit = getBaUnit(baUnitId);
 //                final ApplicationBean applicationBean = getApplication(appId);
                 String parcelLabel = appBaunit.getNameFirstpart() + '/' + appBaunit.getNameLastpart();
                 final String featureFront = this.svgPath + "front.svg";
                 final String featureBack = this.svgPath + "back.svg";
-//                MapImageInformation mapImageInfo = mapImage.getMapAndScalebarImage(appBaunit.getId());
 
                 MapImageInformation mapImageInfo = mapImage.getInformation(appBaunit.getId());
                 final String featureImageFileName = mapImageInfo.getMapImageLocation();
                 final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
                 final Number scale = mapImageInfo.getScale();
                 final Integer srid = mapImageInfo.getSrid();
-                //System.out.println(cadastreObjectBean.getSourceReference().toString());
-//                MapImageInformation mapImageInfoSmall = mapImageSmall.getMapAndScalebarImage(appBaunit.getId());
                 final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
                 ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, null, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
-                System.out.println("QUI::::  FA SHOW ");
 
-                showReport(ParcelPlan, parcelLabel,  "title"); 
-//                da cambiare in parcelPLan
-                
-                System.out.println("QUI::::  DOPO SHOW");
+                showReport(ParcelPlan, parcelLabel,  "parcelPlan"); 
 
                 jprintlist.add(ParcelPlan);
                 i = i + 1;
-                   System.out.println(":::i:::" +i);
-
             }
 
             if (this.nr == "" || this.nr == null) {
-                System.out.println("QUI::::  FA TOTAL");
-
                 whichFile = "TOTAL_" + this.whichReport + "-" + this.location.replace('/', '-');
                 for (int c = 0; c < whichFile.length(); c++) {
                     if ((!Character.isLetterOrDigit(whichFile.charAt(c))) && (!Character.isSpaceChar(whichFile.charAt(c)))) {
@@ -410,8 +375,7 @@ public class ParcelPlanTool extends ExtendedTool {
 
                 try {
                     FileUtility.saveFileFromStream(null, cachePath + whichFile + ".pdf");
-                    saveDocument(whichFile + ".pdf", this.currentDate, this.reportdate, whichFile,  "title");
-//                     da metterci parcelplan
+                    saveDocument(whichFile + ".pdf", this.currentDate, this.reportdate, whichFile,  "parcelPlan");
                     FileUtility.deleteFileFromCache(cachePath + whichFile + ".pdf");
                 } catch (Exception ex) {
                     Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);

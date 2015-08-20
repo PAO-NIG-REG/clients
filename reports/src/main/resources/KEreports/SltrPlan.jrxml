@@ -1,65 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ParcelPlan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="49b645cf-cf8a-4946-b583-a6ce5d881eef">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ParcelPlan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7f6acd4f-1f56-4728-a412-e3936346c619">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<subDataset name="dataset1" uuid="42f70815-337c-4b0c-ab0b-7942c5df30a4">
-		<parameter name="AREA" class="java.lang.Object">
-			<parameterDescription><![CDATA[]]></parameterDescription>
-			<defaultValueExpression><![CDATA[$P{AREA}.toString()]]></defaultValueExpression>
-		</parameter>
-		<queryString language="SQL">
-			<![CDATA[]]>
-		</queryString>
-		<field name="nameFirstpart" class="java.lang.String">
-			<fieldDescription><![CDATA[nameFirstpart]]></fieldDescription>
-		</field>
-		<field name="nameLastpart" class="java.lang.String">
-			<fieldDescription><![CDATA[nameLastpart]]></fieldDescription>
-		</field>
-		<field name="cadastreObjectType" class="java.lang.String">
-			<fieldDescription><![CDATA[cadastreObjectType.displayValue]]></fieldDescription>
-		</field>
-		<field name="sourceReference" class="java.lang.String">
-			<fieldDescription><![CDATA[sourceReference]]></fieldDescription>
-		</field>
-		<field name="status" class="java.lang.String">
-			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
-		</field>
-	</subDataset>
-	<subDataset name="Rights" uuid="068779cb-87cc-4006-b489-087f5820c6bd">
-		<field name="rrrType" class="java.lang.String">
-			<fieldDescription><![CDATA[rrrType.displayValue]]></fieldDescription>
-		</field>
-		<field name="registrationDate" class="java.util.Date">
-			<fieldDescription><![CDATA[registrationDate]]></fieldDescription>
-		</field>
-		<field name="status" class="java.lang.String">
-			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
-		</field>
-	</subDataset>
-	<subDataset name="Ownership" uuid="70d961c8-7dae-46a1-a7b6-7403f65c0101">
-		<field name="Owners" class="java.lang.String">
-			<fieldDescription><![CDATA[rrrShare.rightHoldersStringList]]></fieldDescription>
-		</field>
-		<field name="Share" class="java.lang.String">
-			<fieldDescription><![CDATA[rrrShare.share]]></fieldDescription>
-		</field>
-		<field name="Status" class="java.lang.String">
-			<fieldDescription><![CDATA[status]]></fieldDescription>
-		</field>
-	</subDataset>
-	<subDataset name="Notations" uuid="21eb9108-e9dc-4a7e-9e25-ae580e768c3d">
-		<field name="Ref. Number" class="java.lang.String">
-			<fieldDescription><![CDATA[referenceNr]]></fieldDescription>
-		</field>
-		<field name="Notation Text" class="java.lang.String">
-			<fieldDescription><![CDATA[notationText]]></fieldDescription>
-		</field>
-		<field name="Status" class="java.lang.String">
-			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
-		</field>
-	</subDataset>
 	<parameter name="CLIENT_NAME" class="java.lang.String"/>
 	<parameter name="MAP_IMAGE" class="java.lang.String"/>
 	<parameter name="ADDRESS" class="java.lang.String"/>
@@ -104,50 +47,17 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="baUnitType" class="org.sola.clients.beans.referencedata.BaUnitTypeBean">
-		<fieldDescription><![CDATA[baUnitType]]></fieldDescription>
-	</field>
-	<field name="cadastreObjectFilteredList" class="org.jdesktop.observablecollections.ObservableList">
-		<fieldDescription><![CDATA[cadastreObjectFilteredList]]></fieldDescription>
-	</field>
-	<field name="estateType" class="java.lang.String">
-		<fieldDescription><![CDATA[estateType]]></fieldDescription>
-	</field>
-	<field name="filteredSourceList" class="org.jdesktop.observablecollections.ObservableList">
-		<fieldDescription><![CDATA[filteredSourceList]]></fieldDescription>
-	</field>
-	<field name="name" class="java.lang.String">
-		<fieldDescription><![CDATA[name]]></fieldDescription>
-	</field>
-	<field name="nameFirstpart" class="java.lang.String">
-		<fieldDescription><![CDATA[nameFirstpart]]></fieldDescription>
-	</field>
-	<field name="nameLastpart" class="java.lang.String">
-		<fieldDescription><![CDATA[nameLastpart]]></fieldDescription>
-	</field>
-	<field name="rrrFilteredList" class="org.jdesktop.observablecollections.ObservableList">
-		<fieldDescription><![CDATA[rrrFilteredList]]></fieldDescription>
-	</field>
-	<field name="rrrSharesList" class="org.jdesktop.observablecollections.ObservableList">
-		<fieldDescription><![CDATA[rrrSharesList]]></fieldDescription>
-	</field>
-	<field name="status" class="org.sola.clients.beans.referencedata.RegistrationStatusTypeBean">
-		<fieldDescription><![CDATA[status]]></fieldDescription>
-	</field>
-	<field name="allBaUnitNotationList" class="org.jdesktop.observablecollections.ObservableList">
-		<fieldDescription><![CDATA[allBaUnitNotationList]]></fieldDescription>
-	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
 		<band height="842" splitType="Stretch">
 			<image hAlign="Center" vAlign="Top">
-				<reportElement x="0" y="0" width="595" height="842" uuid="8ee6c2e0-573f-418c-a123-5e3abe233196"/>
+				<reportElement x="0" y="0" width="595" height="842" uuid="4d6c4f66-9880-41a0-8d20-3e1d7fdee298"/>
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{SLTR_PLAN_IMAGE})]]></imageExpression>
 			</image>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="78" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="24d00d59-60cf-484d-aa46-f344dd432bb7"/>
+				<reportElement mode="Transparent" x="0" y="78" width="595" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="093ddd40-841b-4611-837a-8080763e859d"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -155,7 +65,7 @@
 				<textFieldExpression><![CDATA["Ward Village: "+$P{WARD}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="40" y="522" width="107" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="dbeae0f4-a3c2-45ab-96e5-b4e254a026e2"/>
+				<reportElement mode="Transparent" x="40" y="522" width="107" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="513707e2-5561-426d-b34a-63bd516b474d"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -163,7 +73,7 @@
 				<textFieldExpression><![CDATA["Approved by:"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="95" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="01e38453-a308-4b2f-b5f5-5c55dab1ff19"/>
+				<reportElement mode="Transparent" x="0" y="95" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="fcc2ccf7-14ab-4bbb-bcb5-36de754af789"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -171,15 +81,15 @@
 				<textFieldExpression><![CDATA["Local Government Area: "+$P{LGA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="61" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="09e0052a-6758-41f7-897e-4104e75461d7"/>
+				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="61" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="e5c9c19d-1c5f-4929-9e37-f57f12e20ae9"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single" rightIndent="20"/>
+					<font fontName="Nyala" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{REFNR}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="112" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="15d72210-3439-4d6f-be5f-75196e958bd9"/>
+				<reportElement mode="Transparent" x="0" y="112" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="d6f61305-8f2a-4bb2-aeb9-14a66c6c1630"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -187,7 +97,7 @@
 				<textFieldExpression><![CDATA["State: "+$P{STATE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Transparent" x="0" y="38" width="595" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="cf6cedaf-1c4f-4b7e-8fbd-665b265cb8f7"/>
+				<reportElement mode="Transparent" x="0" y="38" width="595" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="7d35faac-aa02-4e51-9b0a-c5a12f79ec78"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -195,7 +105,7 @@
 				<textFieldExpression><![CDATA["Parcel Plan of"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="476" width="595" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="33fd9d20-7edc-4270-aa72-2264229b7346"/>
+				<reportElement mode="Transparent" x="0" y="476" width="595" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b7100e63-fac7-4d49-b072-a4154d62ad0d"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="16" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -203,7 +113,7 @@
 				<textFieldExpression><![CDATA["The area of the land in red above is approximately "+$P{SIZE}+" square metres"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="453" width="595" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4fbfd7ae-3bcb-4fbc-bb8c-13b509b8068d"/>
+				<reportElement mode="Transparent" x="0" y="453" width="595" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b2105b30-697e-4fa6-85a6-d06d7aff9fb2"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="16" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -211,13 +121,13 @@
 				<textFieldExpression><![CDATA["Scale: "+$P{SCALE}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="125" y="535" width="190" height="1" uuid="513a4abd-dfd4-4b04-8c6a-340969b673d9"/>
+				<reportElement x="125" y="535" width="190" height="1" uuid="e68488c5-10aa-4453-815c-47e98cf32d03"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="334" y="756" width="205" height="15" backcolor="#FFFFFF" uuid="5dc0f51b-b815-489b-9c15-93a3e982066c"/>
+				<reportElement mode="Transparent" x="334" y="756" width="205" height="15" backcolor="#FFFFFF" uuid="7778b3b4-8ae1-4648-9fd3-aea1719fdaee"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single" leftIndent="5"/>
@@ -225,18 +135,18 @@
 				<textFieldExpression><![CDATA["Plan No:   "+$P{PLAN_NUMBER}]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement x="40" y="135" width="520" height="300" uuid="ce7ad045-0909-4cdf-99f8-ddaf5f04dadf"/>
+				<reportElement x="40" y="135" width="520" height="300" uuid="9ddc76f4-3784-4b82-afda-4c7a697033b3"/>
 				<image hAlign="Center" vAlign="Middle" isLazy="true">
-					<reportElement x="0" y="0" width="520" height="300" uuid="d7acdba1-086a-4d5e-a750-c0e0b8c39909"/>
+					<reportElement x="0" y="0" width="520" height="300" uuid="2b9b7582-823a-4e74-84de-f93792404c5f"/>
 					<imageExpression><![CDATA[$P{MAP_IMAGE}]]></imageExpression>
 				</image>
 				<image>
-					<reportElement x="482" y="14" width="14" height="109" uuid="a9155a52-18ae-4f77-b93f-5439cd8c4ca9"/>
+					<reportElement x="482" y="14" width="14" height="109" uuid="4c3008a5-61d1-46db-a898-393f0aecc1ca"/>
 					<imageExpression><![CDATA["images/sola/u-north-arrow.png"]]></imageExpression>
 				</image>
 			</frame>
 			<staticText>
-				<reportElement mode="Transparent" x="334" y="715" width="205" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="4c342440-ec78-42d0-b501-e78edfc681af"/>
+				<reportElement mode="Transparent" x="334" y="715" width="205" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="5f4febc6-f874-4744-a9ae-9f9eb53ba18a"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -244,14 +154,14 @@
 				<text><![CDATA[Location Map]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="335" y="512" width="204" height="198" uuid="57b2a2dd-2cd4-44c0-a306-7930fa7b4c3a"/>
+				<reportElement x="335" y="512" width="204" height="198" uuid="708ce97d-475b-4bf1-8d6b-d2facf730dfd"/>
 				<image hAlign="Center">
-					<reportElement x="2" y="2" width="200" height="196" uuid="564068af-ecad-4915-989d-4e22a4413ce8"/>
+					<reportElement x="2" y="2" width="200" height="196" isRemoveLineWhenBlank="true" uuid="a226d3b1-9eae-4ec5-80f9-cf5ebaef5c18"/>
 					<imageExpression><![CDATA[$P{MAP_IMAGE_SMALL}]]></imageExpression>
 				</image>
 			</frame>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="334" y="789" width="205" height="15" backcolor="#FFFFFF" uuid="a826193e-0d95-4586-be82-4c3bef1d119a"/>
+				<reportElement mode="Transparent" x="334" y="789" width="205" height="15" backcolor="#FFFFFF" uuid="5db82da6-5898-4f87-9239-3be7cee211da"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single" leftIndent="5"/>
@@ -259,7 +169,7 @@
 				<textFieldExpression><![CDATA["Sheet No: "+$P{SHEET_NR}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="40" y="568" width="95" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="72550e6a-abe4-486d-8875-f6d7cf5e7f0a"/>
+				<reportElement mode="Transparent" x="40" y="568" width="95" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1a87f335-438e-4fd6-ab83-8b4f430bf44e"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -267,13 +177,13 @@
 				<textFieldExpression><![CDATA["Date:"]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="110" y="582" width="205" height="1" uuid="64438926-e296-42a6-b5e6-615a98a1cf02"/>
+				<reportElement x="110" y="582" width="205" height="1" uuid="367c439a-4f26-4976-830a-5c33dcb2b81b"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="126" y="538" width="190" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="7e2d5aa4-503b-4d06-83c1-967fab000fb8"/>
+				<reportElement mode="Transparent" x="126" y="538" width="190" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="62abac04-9467-4b07-b55f-e3e0e19fa222"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -281,7 +191,7 @@
 				<textFieldExpression><![CDATA["Surveyor General"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="41" y="597" width="84" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="9b8a8f83-4359-404e-8ac0-a779d2df6676"/>
+				<reportElement mode="Transparent" x="41" y="597" width="84" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="97d99379-4eb1-490a-a4c9-3045a5499474"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -289,7 +199,7 @@
 				<textFieldExpression><![CDATA["Surveyed by:"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="125" y="614" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="ad52d315-ce67-41e5-a926-02a2eba8e24c"/>
+				<reportElement mode="Transparent" x="125" y="614" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="09ecce86-d95e-488c-8aac-3b5b410c602f"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -297,7 +207,7 @@
 				<textFieldExpression><![CDATA[$P{RANK}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="125" y="597" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="285a39e0-4d73-4bee-a8ca-a375fe13bff5"/>
+				<reportElement mode="Transparent" x="125" y="597" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="8ad8f202-834f-4874-86b3-d8a26118ed3f"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -305,19 +215,19 @@
 				<textFieldExpression><![CDATA[$P{SURVEYOR}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement mode="Transparent" x="333" y="740" width="204" height="66" uuid="88dd6031-1449-42e4-98a1-08c620085a61"/>
+				<reportElement mode="Transparent" x="333" y="740" width="204" height="66" uuid="20710996-243d-49e4-bd27-c21e1a4bc198"/>
 			</rectangle>
 			<textField>
-				<reportElement x="134" y="568" width="181" height="15" uuid="ed0401ad-c06a-4de0-b7bb-90112d0ba62d"/>
+				<reportElement x="134" y="568" width="181" height="15" uuid="13da23b5-fa18-43a5-8f4a-9d3d03bc74b1"/>
 				<textElement textAlignment="Center">
 					<font fontName="Nyala" size="13" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["/                    /"]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement x="35" y="640" width="280" height="172" uuid="29ed3584-173a-456e-a17b-48b752dd8535"/>
+				<reportElement x="35" y="640" width="280" height="172" isRemoveLineWhenBlank="true" uuid="6cb31fec-6d9f-4211-9632-fc30a5925f1b"/>
 				<textField>
-					<reportElement x="10" y="37" width="250" height="72" uuid="72143153-6850-444d-9aad-15ccde9a1b38"/>
+					<reportElement x="10" y="37" width="250" height="72" isRemoveLineWhenBlank="true" uuid="79c4c6dc-caa0-4f1c-804e-d478b0fa0188"/>
 					<textElement>
 						<font fontName="Nyala" size="10"/>
 					</textElement>
@@ -327,7 +237,7 @@
 "Coordinate System: "+$P{UTM}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="10" y="18" width="250" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="a8035515-95ee-41fe-be4a-5f9076cda05d"/>
+					<reportElement mode="Transparent" x="10" y="18" width="250" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="17cf8dec-9f33-4db4-aaf4-6be689ab1655"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Nyala" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -335,14 +245,14 @@
 					<textFieldExpression><![CDATA["Do not scale distances from or enlarge this plan"]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="18" width="10" height="15" uuid="1c752b3e-63c1-461e-986c-338bdfe583ef"/>
+					<reportElement x="0" y="18" width="10" height="15" isRemoveLineWhenBlank="true" uuid="aab874d5-c202-4b6b-9483-bb5c4d097732"/>
 					<textElement textAlignment="Left">
 						<font fontName="Nyala" isBold="true"/>
 					</textElement>
 					<text><![CDATA[1.]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Transparent" x="0" y="37" width="10" height="41" forecolor="#000000" backcolor="#FFFFFF" uuid="114c8d27-f144-4f4f-ad95-38584008cc0a"/>
+					<reportElement mode="Transparent" x="0" y="37" width="10" height="41" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="6c881c52-50fc-4d27-8a54-a0fe7cbb98d8"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Nyala" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -350,7 +260,7 @@
 					<text><![CDATA[2.]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Transparent" x="10" y="0" width="217" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="8ca31faf-ee2b-4df3-9999-e960a5f7a464"/>
+					<reportElement mode="Transparent" x="10" y="0" width="217" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="9480401b-3c5b-4c19-b491-9f427c2f25af"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Nyala" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -359,7 +269,7 @@
 				</staticText>
 			</frame>
 			<line>
-				<reportElement x="394" y="767" width="142" height="1" uuid="24e6d5a3-3e02-4b87-9001-8b62a0a55bdc"/>
+				<reportElement x="394" y="767" width="142" height="1" uuid="0972e374-e2aa-4795-87be-469ca90a3fef"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
