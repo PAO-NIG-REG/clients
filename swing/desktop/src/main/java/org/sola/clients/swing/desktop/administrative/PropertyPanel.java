@@ -932,9 +932,16 @@ public class PropertyPanel extends ContentPanel {
      */
     private void print() {
         if (ApplicationServiceBean.saveInformationService(RequestTypeBean.CODE_TITLE_SERACH)) {
-//            showReport(ReportManager.getBaUnitReport(getBaUnit(
+//            System.out.println("CHE SERVICE???   "+applicationService.getRequestTypeCode());
+            if (baUnitBean1.getStatusCode().equals( "current")) {
             showReport(ReportManager.getCofO(getBaUnit(
                     baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
+            } 
+            else {
+                showReport(ReportManager.getBaUnitReport(getBaUnit(
+                        baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
+
+            }
         }
     }
 

@@ -36,14 +36,18 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import org.sola.clients.beans.administrative.BaUnitAreaBean;
 import org.sola.clients.beans.administrative.BaUnitBean;
+import org.sola.clients.beans.administrative.BaUnitDetailBean;
 import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.application.*;
+import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.system.BrReportBean;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.system.BrListBean;
@@ -52,6 +56,7 @@ import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
+import org.sola.webservices.transferobjects.administrative.BaUnitAreaTO;
 
 /**
  * Provides methods to generate and display various reports.
@@ -59,8 +64,9 @@ import org.sola.services.boundary.wsclients.WSManager;
 public class ReportManager {
 
     private static String strconfFile = System.getProperty("user.home") + "/sola/configuration.properties";
+    private static String cachePath = System.getProperty("user.home") + "\\sola\\cache\\documents\\";
     public static String prefix = "reports";
-
+ 
     public static String getPrefix() {
 
         prefix = WSManager.getInstance().getInstance().getAdminService().getSetting(
@@ -120,94 +126,107 @@ public class ReportManager {
             return null;
         }
     }
-    
-    
-    
-    
-      /**
+
+    /**
      * Generates and displays <b>BA Unit</b> report.
      *
      * @param appBean Application bean containing data for the report.
      */
     public static JasperPrint getCofO(BaUnitBean baUnitBean) {
-        
-        
+
         String featureFloatFront = "images/sola/front_float.svg";
         String featureFloatBack = "images/sola/back_float.svg";
         String featureFront = "images/sola/front.svg";
         String featureBack = "images/sola/back.svg";
-        
+        String diagramImage = "";
+
         String appNr = null;
-        String claimant = null;
-        String imageryDate = null;
-        String owners = null;
         String title = null;
+        String plan = null;
         String address = null;
-        Date lodgingDate = null;
         String timeToDevelop = null;
         String valueForImprov = null;
         String term = null;
-        Date commencingDate = null;
+        String commencingDate = null;
         String landUse = null;
         String propAddress = null;
         String lga = null;
-        String ward = null;
+        String zone = null;
         String state = null;
-        BigDecimal size = null;
         String groundRent = null;
-        String imageryResolution = "";
-//        String imageryResolution = "50 cm";
-        String sheetNr = "";
-        String imagerySource = "";
-        String surveyor = "";
-        String rank = "";
-        
-        
-//          TBUPD          
-//        appNr = appBaunit.getNr();
-//        claimant = appBean.getContactPerson().getFullName();
-//        address = appBean.getContactPerson().getAddress().getDescription();
+        String advpayment = "";
+        String estate = "";
+        String revperiod = "";
+        Date lodgingDate = null;
+        BigDecimal size = null;
 
-//          TOBUPDT   
-//        imageryDate = appBaunit.getImageryDate();
-//        owners = appBaunit.getOwners();
-//        title  =  appBaunit.getTitle();
-//        lodgingDate = appBean.getLodgingDatetime();
-//        commencingDate = appBaunit.getCommencingDate();
-//        size = appBaunit.getSize();
-//        landUse = appBaunit.getLandUse();
-//        lga = appBaunit.getPropLocation();
-//        ward = appBaunit.getWard();
-//        state = appBaunit.getState();propAddress = baUnitBean.getLocation();
-//        //Special addition for generating image
-//        imageryResolution=appBaunit.getImageryResolution();
-//        imagerySource=appBaunit.getImagerySource();        
-//        sheetNr=appBaunit.getSheetNr();
-//        surveyor=appBaunit.getSurveyor();
-//        rank=appBaunit.getRank();   
-//        if (!baUnitBean.isIsDeveloped()) {
-//            if (baUnitBean.getYearsForDev() != null) {
-//                timeToDevelop = baUnitBean.getYearsForDev().toString();
-//            }
-//            if (baUnitBean.getValueToImp() != null) {
-//                valueForImprov = baUnitBean.getValueToImp().toString();
-//            }
-//        }
-//        if (baUnitBean.getTerm() != null) {
-//            term = baUnitBean.getTerm().toString();
-//        }
-//        groundRent = appBaunit.getGroundRent().toString();
+         BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
+         BaUnitAreaBean baUnitAreaBean= TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
+         size = baUnitAreaBean.getSize();
+         
+         diagramImage =  cachePath+baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
+         
+         state = getSettingValue("state");
+         
+        for (Iterator<BaUnitDetailBean> it = baUnitBean.getBaUnitDetailList().iterator(); it.hasNext();) {
+            BaUnitDetailBean appdetail = it.next();
+            if (appdetail.getDetailCode().equals("instrnum")) {
+                appNr = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("startdate")) {
+                commencingDate = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("lga")) {
+                lga = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("zone")) {
+                zone = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("term")) {
+                term = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("purpose")) {
+                landUse = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("rent")) {
+                groundRent = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("valueTodevelope")) {
+                valueForImprov = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("yearsTodevelope")) {
+                timeToDevelop = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("location")) {
+                propAddress = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("plan")) {
+                plan = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("title")) {
+                title = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("advpayment")) {
+                advpayment = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("revperiod")) {
+                revperiod = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("estate")) {
+                estate = appdetail.getCustomDetailText();
+            }
+        }
 
         
+
         HashMap inputParameters = new HashMap();
-        
-        
-//        <parameter name="CLIENT_NAME" class="java.lang.String"/>
-//        inputParameters.put("CLIENT_NAME", owners);
+
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
-//        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         inputParameters.put("APP_NR", appNr);
-        inputParameters.put("IMAGERY_DATE", imageryDate);
+        inputParameters.put("REFNR", title);
+        inputParameters.put("LGA", lga);
+        inputParameters.put("WARD", zone);
+        inputParameters.put("STATE", state);
         inputParameters.put("ADDRESS", address);
         inputParameters.put("LODGING_DATE", lodgingDate);
         inputParameters.put("COMMENCING_DATE", commencingDate);
@@ -216,28 +235,20 @@ public class ReportManager {
         inputParameters.put("TERM", term);
         inputParameters.put("LAND_USE", landUse);
         inputParameters.put("PROP_LOCATION", propAddress);
+        inputParameters.put("PLAN_NUMBER", plan);
         inputParameters.put("SIZE", size);
-        inputParameters.put("REFNR", title);
         inputParameters.put("GROUND_RENT", groundRent);
         inputParameters.put("FRONT_IMAGE", featureFront);
         inputParameters.put("BACK_IMAGE", featureBack);
         inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
         inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
-        inputParameters.put("LGA", lga);
-        inputParameters.put("WARD", ward);
-        inputParameters.put("STATE", state);
-//        inputParameters.put("MAP_IMAGE", mapImage);
-//        inputParameters.put("SCALE", scaleLabel);
-//        inputParameters.put("UTM", utmZone);
-//        inputParameters.put("SCALEBAR", scalebarImageLocation);
-        
-        
-        
+        inputParameters.put("DIAGRAM_IMAGE",diagramImage);
+
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         String pdReport = null;
-        pdReport = "/"+getPrefix() + "reports/CofO.jasper";
+        pdReport = "/" + getPrefix() + "reports/CofO.jasper";
 
         System.err.println(pdReport);
         try {
@@ -261,11 +272,6 @@ public class ReportManager {
 //            return null;
 //        }
     }
-
-    
-    
-    
-    
 
     /**
      * Generates and displays <b>BA Unit</b> report.
@@ -858,10 +864,10 @@ public class ReportManager {
         String prefix = getPrefix();
         cofoReport = prefix + "/CofO.jasper";
 
-        featureFloatFront = getSvg("featureFloatFront");
-        featureFloatBack = getSvg("featureFloatBack");
-        featureFront = getSvg("featureFront");
-        featureBack = getSvg("featureBack");
+        featureFloatFront = getSettingValue("featureFloatFront");
+        featureFloatBack = getSettingValue("featureFloatBack");
+        featureFront = getSettingValue("featureFront");
+        featureBack = getSettingValue("featureBack");
 
         if (prefix.contains("Jigawa")) {
             featureFloatFront = "images/sola/front_float_" + prefix + ".svg";
@@ -981,7 +987,7 @@ public class ReportManager {
      *
      */
     public static JasperPrint getSysRegSlrtPlanReport(BaUnitBean baUnitBean, String location, ApplicationBean appBean, SysRegCertificatesBean appBaunit, String featureImageFileName,
-        String featureScalebarFileName, Integer srid, Number scale, String featureFront, String featureBack, String featureImageFileNameSmall) {
+            String featureScalebarFileName, Integer srid, Number scale, String featureFront, String featureBack, String featureImageFileNameSmall) {
         HashMap inputParameters = new HashMap();
         String featureFloatFront = "images/sola/front_float.svg";
         String featureFloatBack = "images/sola/back_float.svg";
@@ -1012,8 +1018,6 @@ public class ReportManager {
         String imagerySource = "";
         String surveyor = "";
         String rank = "";
-        
-        
 
         appBaunit.getId();
 
@@ -1021,12 +1025,10 @@ public class ReportManager {
 //        claimant = appBean.getContactPerson().getFullName();
 //        address = appBean.getContactPerson().getAddress().getDescription();
 //        appNr = appBaunit.getNr();
-
 ////      function administrative.get_parcel_share
 //        owners = appBaunit.getOwners();
 ////          ba unit detail  location       
 //        propAddress = appBaunit.getLocation();      
-
 ////           ba unit detail  date commenced
 //        commencingDate = appBaunit.getCommencingDate();
 ////           ba unit detail  purpose        
@@ -1048,9 +1050,8 @@ public class ReportManager {
 //            }
 //            
 //                    
-        
 //   YES
-        appNr = appBaunit.getNameFirstpart()+"/"+ appBaunit.getNameLastpart();
+        appNr = appBaunit.getNameFirstpart() + "/" + appBaunit.getNameLastpart();
 
 //      area size
         size = appBaunit.getSize();
@@ -1074,7 +1075,7 @@ public class ReportManager {
         imageryDate = appBaunit.getImagerydate();
         imageryResolution = appBaunit.getImageryresolution();
         imagerySource = appBaunit.getImagerysource();
-          
+
         String mapImage = featureImageFileName;
         String mapImageSmall = featureImageFileNameSmall;
         String utmZone = srid.toString().substring(srid.toString().length() - 2);
@@ -1116,14 +1117,14 @@ public class ReportManager {
         inputParameters.put("SHEET_NR", sheetNr);
         inputParameters.put("SURVEYOR", surveyor);
         inputParameters.put("RANK", rank);
-       
+
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
-        
+
         String slrtReport = null;
         slrtReport = getPrefix() + "reports/SltrPlan.jasper";
-           
+
         InputStream inputStream = ReportManager.class.getClassLoader().getResourceAsStream(slrtReport);
 
         try {
@@ -1141,7 +1142,7 @@ public class ReportManager {
             Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-     }
+    }
 
 //      /**
 //     * Generates and displays <b>Sys Reg Status</b> report.
@@ -1235,13 +1236,13 @@ public class ReportManager {
         }
     }
 
-    public static String getSvg(String svg) {
-        String svgFile;
+    public static String getSettingValue(String setting) {
+        String settingValue;
 
-        svgFile = WSManager.getInstance().getInstance().getAdminService().getSetting(
-                svg, "");
+        settingValue = WSManager.getInstance().getInstance().getAdminService().getSetting(
+                setting, "");
 
-        return svgFile;
+        return settingValue;
 
     }
 

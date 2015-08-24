@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty" uuid="0a3917ce-86d8-4f47-b98a-dce032263ed2">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="33"/>
+	<property name="ireport.y" value="1557"/>
 	<style name="table 1">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -221,7 +221,7 @@
 	<subDataset name="Table Dataset 1" uuid="7febb7d9-5650-4b1d-aa3c-1ec95991e72c"/>
 	<parameter name="ADDRESS" class="java.lang.String"/>
 	<parameter name="LODGING_DATE" class="java.util.Date"/>
-	<parameter name="COMMENCING_DATE" class="java.util.Date"/>
+	<parameter name="COMMENCING_DATE" class="java.lang.String"/>
 	<parameter name="TIME_DEVELOP" class="java.lang.String"/>
 	<parameter name="VALUE_IMPROV" class="java.lang.String"/>
 	<parameter name="TERM" class="java.lang.String"/>
@@ -236,11 +236,12 @@
 	<parameter name="FRONT_FLOAT_IMAGE" class="java.lang.String"/>
 	<parameter name="BACK_FLOAT_IMAGE" class="java.lang.String"/>
 	<parameter name="PLAN_NUMBER" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{REFNR}]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="STATE" class="java.lang.String"/>
 	<parameter name="LGA" class="java.lang.String"/>
 	<parameter name="WARD" class="java.lang.String"/>
+	<parameter name="DIAGRAM_IMAGE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -306,8 +307,6 @@ Term:
 
 Commencement Date:
 
-Address for notice: 
-
 Subject to the statutory conditions listed in the Third Schedule and any and all of the following specific conditions:
 
 1. The permitted land use shall be:
@@ -319,7 +318,7 @@ Given under my hand on:
 ]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="218" y="395" width="200" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="51904640-c519-4713-b606-12c8cc3481f9"/>
+				<reportElement positionType="Float" mode="Transparent" x="218" y="377" width="200" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="51904640-c519-4713-b606-12c8cc3481f9"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -334,7 +333,7 @@ Given under my hand on:
 				</textElement>
 				<textFieldExpression><![CDATA[$P{TERM}+" years"]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="295" y="57" width="268" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b9c09534-734f-42f9-ad33-a603cf578daa"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Nyala" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -343,7 +342,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA[$P{REFNR}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="218" y="416" width="214" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="15c375b8-6409-4aef-a02c-d56207ba78b7">
+				<reportElement positionType="Float" mode="Transparent" x="218" y="400" width="214" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="15c375b8-6409-4aef-a02c-d56207ba78b7">
 					<printWhenExpression><![CDATA[!$P{GROUND_RENT}.equals( "0" )]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
@@ -352,19 +351,12 @@ Given under my hand on:
 				</textElement>
 				<textFieldExpression><![CDATA[$P{GROUND_RENT}+" "+$R{currency}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="169" y="343" width="320" height="20" forecolor="#000000" uuid="e2db5d6e-dd6a-4dbc-80c6-95e39b52e547"/>
-				<textElement textAlignment="Left" verticalAlignment="Bottom">
-					<font fontName="Nyala" size="11" isBold="true" isUnderline="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{ADDRESS}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd MMMMM yyyy">
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="false">
 				<reportElement positionType="Float" x="169" y="320" width="100" height="20" forecolor="#000000" uuid="55704ded-531e-42ef-9a5b-90256780711d"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Nyala" size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{COMMENCING_DATE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="39" y="230" width="200" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="36e9bed0-db3f-46e8-a8b4-f7ba3ced0eb9"/>
@@ -378,7 +370,7 @@ Given under my hand on:
 				<reportElement x="418" y="537" width="120" height="1" uuid="f376a489-e243-45b6-ba27-c763b55a2211"/>
 			</line>
 			<frame>
-				<reportElement positionType="Float" x="39" y="590" width="551" height="116" uuid="e78a9f2e-3d99-4155-a669-122fde50b2ea"/>
+				<reportElement positionType="Float" x="39" y="598" width="551" height="116" uuid="e78a9f2e-3d99-4155-a669-122fde50b2ea"/>
 				<textField pattern="" isBlankWhenNull="false">
 					<reportElement positionType="Float" mode="Transparent" x="0" y="17" width="200" height="20" backcolor="#FFFFFF" uuid="54fb2e76-27d8-48e6-9d03-e4eeeb053556"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
@@ -491,32 +483,20 @@ Given under my hand on:
 				<text><![CDATA[Governor]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement key="table 3" style="table 3" positionType="Float" x="39" y="251" width="533" height="22" uuid="b6478bdc-6bf3-4cf1-afe5-da987a638250"/>
+				<reportElement key="table" style="table" positionType="Float" x="39" y="245" width="533" height="28" uuid="b6478bdc-6bf3-4cf1-afe5-da987a638250"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Ownership" uuid="efbe276b-6fc9-4948-b31d-510200d46ab8">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{rrrSharesList}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="421" uuid="3706dc3a-baed-42e2-a437-f2dab9d79ac7">
-						<jr:detailCell style="table 3_TD" height="22" rowSpan="1">
+					<jr:column width="532" uuid="3706dc3a-baed-42e2-a437-f2dab9d79ac7">
+						<jr:detailCell style="table_TD" height="22" rowSpan="1">
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="421" height="20" uuid="9d120150-24fd-4f9a-8277-3b72e89d6e20"/>
+								<reportElement x="0" y="0" width="532" height="20" uuid="9d120150-24fd-4f9a-8277-3b72e89d6e20"/>
 								<textElement textAlignment="Center">
-									<font fontName="Tahoma" size="12"/>
+									<font fontName="Nyala" size="13"/>
 									<paragraph leftIndent="4" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{Owners}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90" uuid="5328d0e3-cab5-49ba-ad16-713ed48e24e9">
-						<jr:detailCell style="table 3_TD" height="22" rowSpan="1">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="90" height="20" uuid="62c9404b-866c-43a6-a034-51c56f2fcb82"/>
-								<textElement>
-									<font fontName="Tahoma" size="12"/>
-									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{Share}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -544,7 +524,7 @@ Given under my hand on:
 				</textElement>
 				<textFieldExpression><![CDATA["OTHER INTERESTS"]]></textFieldExpression>
 			</textField>
-			<textField pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="375" y="54" width="188" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="ad4cee38-f937-4348-a3c5-90c44e89177a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="Nyala" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -692,6 +672,28 @@ Given under my hand on:
 			<line>
 				<reportElement x="385" y="620" width="157" height="1" uuid="7b3524a7-0d9a-4840-87b5-fa23d7f1b5d8"/>
 			</line>
+		</band>
+		<band height="842">
+			<image>
+				<reportElement x="0" y="0" width="595" height="842" uuid="c2a93fa7-3259-4664-b562-d9474ca4826b"/>
+				<imageExpression><![CDATA[$P{DIAGRAM_IMAGE}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="-3" y="54" width="184" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="9d4e79ae-9637-4400-887f-95db21908036"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Nyala" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[DIAGRAM IMAGE]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="183" y="54" width="306" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="c3f3f52e-7510-4406-a289-99ca3a0c848c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Nyala" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
