@@ -361,7 +361,12 @@ public class ApplicationPanel extends ContentPanel {
             documentsPanel.setAllowEdit(editAllowed);
             cadastreObjectSearch.setEnabled(editAllowed);
             if (appBean.getStatusCode().equals("approved")) {
-                btnCertificate.setEnabled(true);
+                for (Iterator<ApplicationServiceBean> it = appBean.getServiceList().iterator(); it.hasNext();) {
+                    final ApplicationServiceBean appService = it.next();
+                    if (appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)) {
+                        btnCertificate.setEnabled(true);
+                    }
+                }
             }
         } else {
             if (!SecurityBean.isInRole(RolesConstants.APPLICATION_CREATE_APPS)) {
@@ -3047,7 +3052,7 @@ public class ApplicationPanel extends ContentPanel {
     }//GEN-LAST:event_btnVerifyPropertyActionPerformed
 
     private void btnCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCertificateActionPerformed
-        openSysRegCertParamsForm(appBean.getNr());
+        openSysRegCertParamsForm(appBean.getId());
     }//GEN-LAST:event_btnCertificateActionPerformed
 
     private void btnAddParcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddParcelActionPerformed
@@ -3074,9 +3079,9 @@ public class ApplicationPanel extends ContentPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAreaActionPerformed
 
-    private void openSysRegCertParamsForm(String nr) {
-        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, nr,  null ,null);
-        certificateGenerator.setVisible(true);
+    private void openSysRegCertParamsForm(String id) {
+        SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, id, null, "title");
+//        certificateGenerator.setVisible(true);
     }
 
     /**

@@ -238,10 +238,11 @@ public class PropertyPanel extends ContentPanel {
      * Makes post initialization tasks.
      */
     private void portInit() {
-       // Populate detail list with standard conditions for new RrrBean
-            baUnitBean1.addBaUnitDetail(baUnitDetailTypeListBean1.getBaUnitDetailList());
+
+        // Populate detail list with standard conditions for new RrrBean
+        baUnitBean1.addBaUnitDetail(baUnitDetailTypeListBean1.getBaUnitDetailList());
 //                    conditionTypes.getLeaseConditionList());
-       
+
         baUnitDetailTypeListBean1.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
@@ -251,8 +252,7 @@ public class PropertyPanel extends ContentPanel {
                 }
             }
         });
-        
-        
+
         customizeForm();
 
         rrrTypes.addPropertyChangeListener(new PropertyChangeListener() {
@@ -299,29 +299,43 @@ public class PropertyPanel extends ContentPanel {
         });
 
         saveBaUnitState();
+        
+        if (applicationService!= null && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)) ){
+                this.tabDetail.setVisible(false);
+                this.tabDetail.setEnabled(false);
+                tabsMain.removeTabAt(tabsMain.indexOfComponent(tabDetail));
+                this.btnPrintBaUnit1.setVisible(false);
+                
+            } else {
+                if (baUnitBean1 != null && baUnitBean1.getStatusCode().equals("current")) {
+                    this.btnPrintBaUnit1.setVisible(baUnitBean1.getRowVersion() > 0);
+                } else {
+                    this.btnPrintBaUnit1.setVisible(false);
+                }
+            }
+        
     }
 
     private void formatSize(String size) {
         txtArea.setText(size.substring(0, size.indexOf('.')));
     }
-     
+
     private void addStandardBaUnitDetail() {
         baUnitBean1.addBaUnitDetail(baUnitDetailTypeListBean1.getSelectedBaUnitDetailType());
     }
+
     private void customizeAddStandardConditionButton() {
 //        if (rrrAction != RrrBean.RRR_ACTION.VIEW) {
 //            return;test
 //        }
         btnAddStandardCondition.setEnabled(baUnitDetailTypeListBean1.getSelectedBaUnitDetailType() != null);
     }
-    
-    
+
     /**
      * Runs form customization, to restrict certain actions, bind listeners on
      * the {@link BaUnitBean} and other components.
      */
     private void customizeForm() {
-
         if (nameFirstPart != null && nameLastPart != null) {
             headerPanel.setTitleText(String.format(
                     resourceBundle.getString("PropertyPanel.existingProperty.Text"),
@@ -331,7 +345,6 @@ public class PropertyPanel extends ContentPanel {
             if (txtArea.getText().indexOf('.') != -1) {
                 formatSize(txtArea.getText());
             }
-
         } else {
             headerPanel.setTitleText(resourceBundle.getString("PropertyPanel.newProperty.Text"));
 
@@ -365,6 +378,20 @@ public class PropertyPanel extends ContentPanel {
                     headerPanel.getTitleText(),
                     String.format(resourceBundle.getString("PropertyPanel.applicationInfo.Text"),
                             applicationService.getRequestType().getDisplayValue(), applicationBean.getNr())));
+
+//            if (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)) {
+//                this.tabDetail.setVisible(false);
+//                this.tabDetail.setEnabled(false);
+//                tabsMain.removeTabAt(tabsMain.indexOfComponent(tabDetail));
+//                this.btnPrintBaUnit1.setVisible(false);
+//                
+//            } else {
+//                if (baUnitBean1 != null && baUnitBean1.getStatusCode().equals("current")) {
+//                    this.btnPrintBaUnit1.setVisible(baUnitBean1.getRowVersion() > 0);
+//                } else {
+//                    this.btnPrintBaUnit1.setVisible(false);
+//                }
+//            }
         }
 
         btnSave.setEnabled(!readOnly);
@@ -384,7 +411,7 @@ public class PropertyPanel extends ContentPanel {
         customizeChildPropertyButtons();
         customizeTerminationButton();
         customizeHistoricRightsViewButton();
-        
+
         btnSecurity.setVisible(btnSave.isEnabled()
                 && SecurityBean.isInRole(RolesConstants.CLASSIFICATION_CHANGE_CLASS));
 
@@ -393,12 +420,10 @@ public class PropertyPanel extends ContentPanel {
 //        TO BE REMOVED btnNext after well tested and before pushing the code
         btnNext.setVisible(false);
         btnNext.setEnabled(false);
-        
-        
+
 //      TOBE CUSTOMIZED BASED ON THE SERVICE PROPERTY REQUESTED ??  
         detailsToolbar.setVisible(false);
         detailsToolbar.setEnabled(false);
-
     }
 
     /**
@@ -932,12 +957,21 @@ public class PropertyPanel extends ContentPanel {
      */
     private void print() {
         if (ApplicationServiceBean.saveInformationService(RequestTypeBean.CODE_TITLE_SERACH)) {
-//            System.out.println("CHE SERVICE???   "+applicationService.getRequestTypeCode());
-            if (baUnitBean1.getStatusCode().equals( "current")) {
-            showReport(ReportManager.getCofO(getBaUnit(
+            showReport(ReportManager.getBaUnitReport(getBaUnit(
                     baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
-            } 
-            else {
+
+        }
+    }
+
+    /**
+     * Prints cofo certificate.
+     */
+    private void certificate() {
+        if (ApplicationServiceBean.saveInformationService(RequestTypeBean.CODE_TITLE_SERACH)) {
+            if (baUnitBean1.getStatusCode().equals("current")) {
+                showReport(ReportManager.getCofO(getBaUnit(
+                        baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
+            } else {
                 showReport(ReportManager.getBaUnitReport(getBaUnit(
                         baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
 
@@ -1046,8 +1080,7 @@ public class PropertyPanel extends ContentPanel {
                 baUnitAreaBean1.setBaUnitId(baUnitBean1.getId());
             }
         }
-        
-        
+
         SolaTask<Void, Void> t = new SolaTask<Void, Void>() {
 
             @Override
@@ -1252,6 +1285,7 @@ public class PropertyPanel extends ContentPanel {
         jSeparator4 = new javax.swing.JToolBar.Separator();
         btnSecurity = new javax.swing.JButton();
         btnPrintBaUnit = new javax.swing.JButton();
+        btnPrintBaUnit1 = new javax.swing.JButton();
         tabsMain = new javax.swing.JTabbedPane();
         jPanel7 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -1552,6 +1586,19 @@ public class PropertyPanel extends ContentPanel {
             }
         });
         jToolBar5.add(btnPrintBaUnit);
+
+        btnPrintBaUnit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/approve1.png"))); // NOI18N
+        btnPrintBaUnit1.setText(bundle.getString("PropertyPanel.btnPrintBaUnit1.text")); // NOI18N
+        btnPrintBaUnit1.setFocusable(false);
+        btnPrintBaUnit1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPrintBaUnit1.setName("btnPrintBaUnit1"); // NOI18N
+        btnPrintBaUnit1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrintBaUnit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintBaUnit1ActionPerformed(evt);
+            }
+        });
+        jToolBar5.add(btnPrintBaUnit1);
 
         tabsMain.setName("tabsMain"); // NOI18N
         tabsMain.setPreferredSize(new java.awt.Dimension(494, 300));
@@ -3049,6 +3096,10 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
 //        addStandardCondition();
     }//GEN-LAST:event_btnAddStandardConditionActionPerformed
 
+    private void btnPrintBaUnit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBaUnit1ActionPerformed
+        certificate();
+    }//GEN-LAST:event_btnPrintBaUnit1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel areaPanel;
     private org.sola.clients.beans.administrative.BaUnitAreaBean baUnitAreaBean1;
@@ -3071,6 +3122,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JButton btnOpenChild;
     private javax.swing.JButton btnOpenParent;
     private javax.swing.JButton btnPrintBaUnit;
+    private javax.swing.JButton btnPrintBaUnit1;
     private javax.swing.JButton btnRemoveCondition;
     private javax.swing.JButton btnRemoveNotation;
     private javax.swing.JButton btnRemoveParcel;
