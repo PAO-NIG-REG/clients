@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ParcelPlan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7f6acd4f-1f56-4728-a412-e3936346c619">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="382"/>
 	<parameter name="CLIENT_NAME" class="java.lang.String"/>
 	<parameter name="MAP_IMAGE" class="java.lang.String"/>
 	<parameter name="ADDRESS" class="java.lang.String"/>
@@ -57,14 +57,6 @@
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{SLTR_PLAN_IMAGE})]]></imageExpression>
 			</image>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="78" width="595" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="093ddd40-841b-4611-837a-8080763e859d"/>
-				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Ward Village: "+$P{WARD}]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="40" y="522" width="107" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="513707e2-5561-426d-b34a-63bd516b474d"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -73,7 +65,7 @@
 				<textFieldExpression><![CDATA["Approved by:"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="95" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="fcc2ccf7-14ab-4bbb-bcb5-36de754af789"/>
+				<reportElement mode="Transparent" x="0" y="86" width="595" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="fcc2ccf7-14ab-4bbb-bcb5-36de754af789"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -127,7 +119,7 @@
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="334" y="756" width="205" height="15" backcolor="#FFFFFF" uuid="7778b3b4-8ae1-4648-9fd3-aea1719fdaee"/>
+				<reportElement mode="Transparent" x="313" y="715" width="205" height="15" backcolor="#FFFFFF" uuid="7778b3b4-8ae1-4648-9fd3-aea1719fdaee"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single" leftIndent="5"/>
@@ -145,25 +137,16 @@
 					<imageExpression><![CDATA["images/sola/u-north-arrow.png"]]></imageExpression>
 				</image>
 			</frame>
-			<staticText>
-				<reportElement mode="Transparent" x="334" y="715" width="205" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="5f4febc6-f874-4744-a9ae-9f9eb53ba18a"/>
-				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<text><![CDATA[Location Map]]></text>
-			</staticText>
 			<frame>
 				<reportElement x="335" y="512" width="204" height="198" uuid="708ce97d-475b-4bf1-8d6b-d2facf730dfd"/>
 				<image hAlign="Center">
-					<reportElement x="2" y="2" width="200" height="196" isRemoveLineWhenBlank="true" uuid="a226d3b1-9eae-4ec5-80f9-cf5ebaef5c18"/>
-					<imageExpression><![CDATA[$P{MAP_IMAGE_SMALL}]]></imageExpression>
+					<reportElement x="2" y="2" width="200" height="196" uuid="a226d3b1-9eae-4ec5-80f9-cf5ebaef5c18"/>
 				</image>
 			</frame>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="334" y="789" width="205" height="15" backcolor="#FFFFFF" uuid="5db82da6-5898-4f87-9239-3be7cee211da"/>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="311" y="749" width="225" height="15" backcolor="#FFFFFF" uuid="5db82da6-5898-4f87-9239-3be7cee211da"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Nyala" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single" leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Sheet No: "+$P{SHEET_NR}]]></textFieldExpression>
@@ -191,7 +174,7 @@
 				<textFieldExpression><![CDATA["Surveyor General"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="41" y="597" width="84" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="97d99379-4eb1-490a-a4c9-3045a5499474"/>
+				<reportElement mode="Transparent" x="41" y="614" width="84" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="97d99379-4eb1-490a-a4c9-3045a5499474"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -199,7 +182,7 @@
 				<textFieldExpression><![CDATA["Surveyed by:"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="125" y="614" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="09ecce86-d95e-488c-8aac-3b5b410c602f"/>
+				<reportElement mode="Transparent" x="125" y="638" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="09ecce86-d95e-488c-8aac-3b5b410c602f"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -207,7 +190,7 @@
 				<textFieldExpression><![CDATA[$P{RANK}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="125" y="597" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="8ad8f202-834f-4874-86b3-d8a26118ed3f"/>
+				<reportElement mode="Transparent" x="125" y="615" width="176" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="8ad8f202-834f-4874-86b3-d8a26118ed3f"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 					<font fontName="Nyala" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -215,7 +198,7 @@
 				<textFieldExpression><![CDATA[$P{SURVEYOR}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement mode="Transparent" x="333" y="740" width="204" height="66" uuid="20710996-243d-49e4-bd27-c21e1a4bc198"/>
+				<reportElement mode="Transparent" x="313" y="710" width="224" height="66" uuid="20710996-243d-49e4-bd27-c21e1a4bc198"/>
 			</rectangle>
 			<textField>
 				<reportElement x="134" y="568" width="181" height="15" uuid="13da23b5-fa18-43a5-8f4a-9d3d03bc74b1"/>
@@ -225,51 +208,18 @@
 				<textFieldExpression><![CDATA["/                    /"]]></textFieldExpression>
 			</textField>
 			<frame>
-				<reportElement x="35" y="640" width="280" height="172" isRemoveLineWhenBlank="true" uuid="6cb31fec-6d9f-4211-9632-fc30a5925f1b"/>
-				<textField>
-					<reportElement x="10" y="37" width="250" height="72" isRemoveLineWhenBlank="true" uuid="79c4c6dc-caa0-4f1c-804e-d478b0fa0188"/>
-					<textElement>
-						<font fontName="Nyala" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Plan has been prepared using orthorectified satellite imagery\n"+
-"Date of Imagery: "+$P{IMAGERY_DATE}+"\n"+
-"Imagery Resolution: "+$P{IMAGERY_RESOLUTION}+"\n"+
-"Coordinate System: "+$P{UTM}]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="10" y="18" width="250" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="17cf8dec-9f33-4db4-aaf4-6be689ab1655"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Do not scale distances from or enlarge this plan"]]></textFieldExpression>
-				</textField>
+				<reportElement x="25" y="663" width="280" height="172" uuid="6cb31fec-6d9f-4211-9632-fc30a5925f1b"/>
 				<staticText>
-					<reportElement x="0" y="18" width="10" height="15" isRemoveLineWhenBlank="true" uuid="aab874d5-c202-4b6b-9483-bb5c4d097732"/>
-					<textElement textAlignment="Left">
-						<font fontName="Nyala" isBold="true"/>
-					</textElement>
-					<text><![CDATA[1.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Transparent" x="0" y="37" width="10" height="41" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="6c881c52-50fc-4d27-8a54-a0fe7cbb98d8"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<text><![CDATA[2.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Transparent" x="10" y="0" width="217" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="9480401b-3c5b-4c19-b491-9f427c2f25af"/>
+					<reportElement mode="Transparent" x="10" y="0" width="217" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="9480401b-3c5b-4c19-b491-9f427c2f25af"/>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
 						<font fontName="Nyala" size="11" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<text><![CDATA[Notes]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 			</frame>
 			<line>
-				<reportElement x="394" y="767" width="142" height="1" uuid="0972e374-e2aa-4795-87be-469ca90a3fef"/>
+				<reportElement x="375" y="735" width="142" height="1" uuid="0972e374-e2aa-4795-87be-469ca90a3fef"/>
 				<graphicElement>
 					<pen lineStyle="Dotted"/>
 				</graphicElement>
