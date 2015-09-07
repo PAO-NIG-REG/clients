@@ -214,9 +214,9 @@ public class ReportManager {
                 plan = appdetail.getCustomDetailText();
             }
             if (appdetail.getDetailCode().equals("cofonum"))  {
-                if (appdetail.getCustomDetailText().toString() != null) {
+//                if (!appdetail.getCustomDetailText().equals(null)&&!appdetail.getCustomDetailText().equals("") ) {
                      title = appdetail.getCustomDetailText();
-                }
+//                }
             }
             if (appdetail.getDetailCode().equals("advpayment")) {
                 advpayment = appdetail.getCustomDetailText();

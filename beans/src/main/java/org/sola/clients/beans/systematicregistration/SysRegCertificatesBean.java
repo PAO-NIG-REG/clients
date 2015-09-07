@@ -61,8 +61,8 @@ public class SysRegCertificatesBean extends AbstractIdBean {
     private String sheetnr;
 //    private String commencingdate;
     private String purpose;
-    private Integer term;
-    private Integer rent;
+    private String term;
+    private String rent;
 
     public String getNr() {
         return nr;
@@ -208,19 +208,19 @@ public class SysRegCertificatesBean extends AbstractIdBean {
         this.purpose = purpose;
     }
 
-    public Integer getTerm() {
+    public String getTerm() {
         return term;
     }
 
-    public void setTerm(Integer term) {
+    public void setTerm(String term) {
         this.term = term;
     }
 
-    public Integer getRent() {
+    public String getRent() {
         return rent;
     }
 
-    public void setRent(Integer rent) {
+    public void setRent(String rent) {
         this.rent = rent;
     }
    
