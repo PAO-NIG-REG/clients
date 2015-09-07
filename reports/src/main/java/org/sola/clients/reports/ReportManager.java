@@ -177,14 +177,14 @@ public class ReportManager {
             }
             if (appdetail.getDetailCode().equals("startdate")) {
                 commencingDate = appdetail.getCustomDetailText();
-                DateFormat format = new SimpleDateFormat("d MMMM yyyy");
-                Date date = new Date(System.currentTimeMillis());
-                try {
-                    date = format.parse(commencingDate);
-                } catch (ParseException ex) {
-                    Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                System.out.println(date); // Sat Jan 02 00:00:00 GMT 2010
+//                DateFormat format = new SimpleDateFormat("d MMMM yyyy");
+//                Date date = new Date(System.currentTimeMillis());
+//                try {
+//                    date = format.parse(commencingDate);
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                System.out.println(date); // Sat Jan 02 00:00:00 GMT 2010
             }
             if (appdetail.getDetailCode().equals("lga")) {
                 lga = appdetail.getCustomDetailText();

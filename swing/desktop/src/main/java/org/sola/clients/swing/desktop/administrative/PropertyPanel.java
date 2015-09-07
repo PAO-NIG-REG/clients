@@ -308,13 +308,13 @@ public class PropertyPanel extends ContentPanel {
                 
             } else {
                 this.btnPrintBaUnit1.setVisible(false);
-               if (baUnitBean1 != null && !baUnitBean1.equals(null) && !baUnitBean1.isNew() ) { 
-                if (baUnitBean1 != null && baUnitBean1.getStatusCode().equals("current")) {
-                    this.btnPrintBaUnit1.setVisible(baUnitBean1.getRowVersion() > 0);
-                } else {
-                    this.btnPrintBaUnit1.setVisible(false);
-                }
-               }  
+//               if (baUnitBean1 != null && !baUnitBean1.equals(null) && !baUnitBean1.isNew() ) { 
+//                if (baUnitBean1 != null && baUnitBean1.getStatusCode().equals("current")) {
+//                    this.btnPrintBaUnit1.setVisible(baUnitBean1.getRowVersion() > 0);
+//                } else {
+//                    this.btnPrintBaUnit1.setVisible(false);
+//                }
+//               }  
            }
         
     }
