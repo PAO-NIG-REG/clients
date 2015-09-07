@@ -36,6 +36,7 @@ import org.sola.clients.beans.AbstractCodeBean;
  */
 public class BaUnitDetailTypeBean extends AbstractCodeBean {
     private String isFor;
+    private String fieldType;
     
     public BaUnitDetailTypeBean(){
         super();
@@ -48,6 +49,13 @@ public class BaUnitDetailTypeBean extends AbstractCodeBean {
     public void setIsFor(String isFor) {
         this.isFor = isFor;
     }
-    
+
+    public String getFieldType() {
+        return fieldType;
+    }
+
+    public void setFieldType(String fieldType) {
+        this.fieldType = fieldType;
+    }
     
 }

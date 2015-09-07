@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -66,7 +68,7 @@ public class ReportManager {
     private static String strconfFile = System.getProperty("user.home") + "/sola/configuration.properties";
     private static String cachePath = System.getProperty("user.home") + "\\sola\\cache\\documents\\";
     public static String prefix = "reports";
- 
+
     public static String getPrefix() {
 
         prefix = WSManager.getInstance().getInstance().getAdminService().getSetting(
@@ -160,14 +162,14 @@ public class ReportManager {
         Date lodgingDate = null;
         BigDecimal size = null;
 
-         BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
-         BaUnitAreaBean baUnitAreaBean= TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
-         size = baUnitAreaBean.getSize();
-         
-         diagramImage =  cachePath+baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
-         
-         state = getSettingValue("state");
-         
+        BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
+        BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
+        size = baUnitAreaBean.getSize();
+
+        diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
+
+        state = getSettingValue("state");
+
         for (Iterator<BaUnitDetailBean> it = baUnitBean.getBaUnitDetailList().iterator(); it.hasNext();) {
             BaUnitDetailBean appdetail = it.next();
             if (appdetail.getDetailCode().equals("instrnum")) {
@@ -175,6 +177,14 @@ public class ReportManager {
             }
             if (appdetail.getDetailCode().equals("startdate")) {
                 commencingDate = appdetail.getCustomDetailText();
+                DateFormat format = new SimpleDateFormat("d MMMM yyyy");
+                Date date = new Date(System.currentTimeMillis());
+                try {
+                    date = format.parse(commencingDate);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println(date); // Sat Jan 02 00:00:00 GMT 2010
             }
             if (appdetail.getDetailCode().equals("lga")) {
                 lga = appdetail.getCustomDetailText();
@@ -203,8 +213,10 @@ public class ReportManager {
             if (appdetail.getDetailCode().equals("plan")) {
                 plan = appdetail.getCustomDetailText();
             }
-            if (appdetail.getDetailCode().equals("title")) {
-                title = appdetail.getCustomDetailText();
+            if (appdetail.getDetailCode().equals("cofonum"))  {
+                if (appdetail.getCustomDetailText().toString() != null) {
+                     title = appdetail.getCustomDetailText();
+                }
             }
             if (appdetail.getDetailCode().equals("advpayment")) {
                 advpayment = appdetail.getCustomDetailText();
@@ -216,8 +228,6 @@ public class ReportManager {
                 estate = appdetail.getCustomDetailText();
             }
         }
-
-        
 
         HashMap inputParameters = new HashMap();
 
@@ -242,7 +252,7 @@ public class ReportManager {
         inputParameters.put("BACK_IMAGE", featureBack);
         inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
         inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
-        inputParameters.put("DIAGRAM_IMAGE",diagramImage);
+        inputParameters.put("DIAGRAM_IMAGE", diagramImage);
 
         BaUnitBean[] beans = new BaUnitBean[1];
         beans[0] = baUnitBean;

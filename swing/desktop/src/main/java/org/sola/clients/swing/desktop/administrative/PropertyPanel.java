@@ -307,12 +307,15 @@ public class PropertyPanel extends ContentPanel {
                 this.btnPrintBaUnit1.setVisible(false);
                 
             } else {
+                this.btnPrintBaUnit1.setVisible(false);
+               if (baUnitBean1 != null && !baUnitBean1.equals(null) && !baUnitBean1.isNew() ) { 
                 if (baUnitBean1 != null && baUnitBean1.getStatusCode().equals("current")) {
                     this.btnPrintBaUnit1.setVisible(baUnitBean1.getRowVersion() > 0);
                 } else {
                     this.btnPrintBaUnit1.setVisible(false);
                 }
-            }
+               }  
+           }
         
     }
 
@@ -1927,25 +1930,32 @@ public class PropertyPanel extends ContentPanel {
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${baUnitDetailFilteredList}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, eLProperty, detailsTable);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${detailType.displayValue}"));
-        columnBinding.setColumnName("Detail Type.display Value");
-        columnBinding.setColumnClass(String.class);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${detailType.displayValue},${detailType.code}"));
+        columnBinding.setColumnName("Detail Type.display Value},${detail Type.code");
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${detailText}"));
-        columnBinding.setColumnName("Detail Text");
-        columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${customDetailText}"));
         columnBinding.setColumnName("Custom Detail Text");
         columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${detailText}"));
+        columnBinding.setColumnName("Detail Text");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${selectedBaUnitDetail}"), detailsTable, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
         jScrollPane6.setViewportView(detailsTable);
         if (detailsTable.getColumnModel().getColumnCount() > 0) {
+            detailsTable.getColumnModel().getColumn(0).setMinWidth(200);
+            detailsTable.getColumnModel().getColumn(0).setPreferredWidth(200);
+            detailsTable.getColumnModel().getColumn(0).setMaxWidth(200);
             detailsTable.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("PropertyPanel.detailsTable.columnModel.title0")); // NOI18N
-            detailsTable.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("PropertyPanel.detailsTable.columnModel.title2")); // NOI18N
-            detailsTable.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertyPanel.detailsTable.columnModel.title1")); // NOI18N
+            detailsTable.getColumnModel().getColumn(0).setCellRenderer(new org.sola.clients.swing.ui.renderers.ColumnBaUnitDetailRenderer());
+            detailsTable.getColumnModel().getColumn(1).setMinWidth(120);
+            detailsTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+            detailsTable.getColumnModel().getColumn(1).setMaxWidth(120);
+            detailsTable.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("PropertyPanel.detailsTable.columnModel.title1")); // NOI18N
+            detailsTable.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertyPanel.detailsTable.columnModel.title2")); // NOI18N
         }
 
         org.jdesktop.layout.GroupLayout tabDetailLayout = new org.jdesktop.layout.GroupLayout(tabDetail);
