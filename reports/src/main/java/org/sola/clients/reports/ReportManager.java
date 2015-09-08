@@ -188,7 +188,7 @@ public class ReportManager {
             }
             if (appdetail.getDetailCode().equals("lga")) {
                 lga = appdetail.getCustomDetailText();
-            }
+            }    
             if (appdetail.getDetailCode().equals("zone")) {
                 zone = appdetail.getCustomDetailText();
             }

@@ -301,9 +301,9 @@ public class PropertyPanel extends ContentPanel {
         saveBaUnitState();
         
         if (applicationService!= null && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)) ){
-                this.tabDetail.setVisible(false);
-                this.tabDetail.setEnabled(false);
-                tabsMain.removeTabAt(tabsMain.indexOfComponent(tabDetail));
+                this.tabTitle.setVisible(false);
+                this.tabTitle.setEnabled(false);
+                tabsMain.removeTabAt(tabsMain.indexOfComponent(tabTitle));
                 this.btnPrintBaUnit1.setVisible(false);
                 
             } else {
@@ -1315,7 +1315,7 @@ public class PropertyPanel extends ContentPanel {
         areaPanel = new javax.swing.JPanel();
         labArea = new javax.swing.JLabel();
         txtArea = new javax.swing.JFormattedTextField();
-        tabDetail = new javax.swing.JPanel();
+        tabTitle = new javax.swing.JPanel();
         detailsToolbar = new javax.swing.JToolBar();
         btnAddCustomCondition = new javax.swing.JButton();
         btnEditCondition = new javax.swing.JButton();
@@ -1855,7 +1855,7 @@ public class PropertyPanel extends ContentPanel {
 
         tabsMain.addTab(bundle.getString("PropertyPanel.jPanel7.TabConstraints.tabTitle"), jPanel7); // NOI18N
 
-        tabDetail.setName("tabDetail"); // NOI18N
+        tabTitle.setName("tabTitle"); // NOI18N
 
         detailsToolbar.setFloatable(false);
         detailsToolbar.setRollover(true);
@@ -1958,26 +1958,26 @@ public class PropertyPanel extends ContentPanel {
             detailsTable.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("PropertyPanel.detailsTable.columnModel.title2")); // NOI18N
         }
 
-        org.jdesktop.layout.GroupLayout tabDetailLayout = new org.jdesktop.layout.GroupLayout(tabDetail);
-        tabDetail.setLayout(tabDetailLayout);
-        tabDetailLayout.setHorizontalGroup(
-            tabDetailLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(tabDetailLayout.createSequentialGroup()
+        org.jdesktop.layout.GroupLayout tabTitleLayout = new org.jdesktop.layout.GroupLayout(tabTitle);
+        tabTitle.setLayout(tabTitleLayout);
+        tabTitleLayout.setHorizontalGroup(
+            tabTitleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabTitleLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(detailsToolbar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
                 .addContainerGap())
             .add(jScrollPane6)
         );
-        tabDetailLayout.setVerticalGroup(
-            tabDetailLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, tabDetailLayout.createSequentialGroup()
+        tabTitleLayout.setVerticalGroup(
+            tabTitleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, tabTitleLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(detailsToolbar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
         );
 
-        tabsMain.addTab(bundle.getString("PropertyPanel.tabDetail.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif")), tabDetail); // NOI18N
+        tabsMain.addTab(bundle.getString("PropertyPanel.tabTitle.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif")), tabTitle); // NOI18N
 
         jPanel1.setName("jPanel1"); // NOI18N
 
@@ -3229,7 +3229,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JPopupMenu popupParentBaUnits;
     private javax.swing.JPopupMenu popupRights;
     private org.sola.clients.beans.referencedata.RrrTypeListBean rrrTypes;
-    private javax.swing.JPanel tabDetail;
+    private javax.swing.JPanel tabTitle;
     private javax.swing.JTable tableChildBaUnits;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableNotations;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableOwnership;

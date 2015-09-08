@@ -823,15 +823,15 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="tabDetail">
+        <Container class="javax.swing.JPanel" name="tabTitle">
           <Properties>
-            <Property name="name" type="java.lang.String" value="tabDetail" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="tabTitle" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Detail">
+              <JTabbedPaneConstraints tabName="CofO">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="PropertyPanel.tabDetail.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="PropertyPanel.tabTitle.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/common/red_asterisk.gif"/>
