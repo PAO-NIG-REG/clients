@@ -122,7 +122,7 @@ public class ParcelPlanTool extends ExtendedTool {
     private int pixelTolerance = 10;
     private InformationResultWindow resultWindow;
     private String toolTip = MessageUtility.getLocalizedMessage(
-            GisMessage.GENERAL_UNDER_CONSTRUCTION).getMessage();
+            GisMessage.GENERAL_PARCEL_PLAN).getMessage();
 
     /**
      * Constructor
