@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty" uuid="0a3917ce-86d8-4f47-b98a-dce032263ed2">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1557"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table 1">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -301,7 +301,7 @@
 					<font fontName="Nyala" size="11"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Hereafter called "the holder" is entitled to a right of occupancy of and over land described in the First Schedule for the terms and conditions stated herein:
+				<text><![CDATA[Hereafter called "the holder" is/are entitled to a right of occupancy of and over land described in the First Schedule for the terms and conditions stated herein:
 
 Term:
 
@@ -352,7 +352,7 @@ Given under my hand on:
 				<textFieldExpression><![CDATA[$P{GROUND_RENT}+" "+$R{currency}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="false">
-				<reportElement positionType="Float" x="169" y="320" width="100" height="20" forecolor="#000000" uuid="55704ded-531e-42ef-9a5b-90256780711d"/>
+				<reportElement positionType="Float" x="169" y="320" width="136" height="20" forecolor="#000000" uuid="55704ded-531e-42ef-9a5b-90256780711d"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Nyala" size="11" isBold="true"/>
 				</textElement>
