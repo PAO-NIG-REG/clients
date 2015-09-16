@@ -44,10 +44,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.sola.clients.beans.administrative.*;
 import org.sola.clients.beans.application.ApplicationBean;
@@ -62,6 +65,8 @@ import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.source.SourceListBean;
 import org.sola.clients.beans.system.PanelLauncherGroupBean;
 import org.sola.clients.reports.ReportManager;
+import org.sola.clients.swing.common.controls.CalendarForm;
+import org.sola.clients.swing.common.controls.WatermarkDate;
 import org.sola.clients.swing.common.laf.LafManager;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
@@ -327,19 +332,19 @@ public class PropertyPanel extends ContentPanel {
             this.btnPrintBaUnit1.setVisible(false);
             // ...
             int rowCnt = this.baUnitBean1.getBaUnitDetailFilteredList().size();
-            matrixPanel.setLayout(new GridLayout(rowCnt, rowCnt)); // matrixPanel is the dedicated JPanel
+//            matrixPanel.setLayout(new GridLayout(rowCnt, rowCnt)); // matrixPanel is the dedicated JPanel
             matrixPanel.setPreferredSize(new java.awt.Dimension(20, 25 * rowCnt));
             matrixPanel.setMaximumSize(new java.awt.Dimension(20, 25 * rowCnt));
 
-////            GridBagLayout gridbag = new GridBagLayout();
-////            matrixPanel.setLayout(gridbag);
-//
-//            GridBagConstraints c = new GridBagConstraints();
+            GridBagLayout gridbag = new GridBagLayout();
+            matrixPanel.setLayout(gridbag);
+
+            GridBagConstraints c = new GridBagConstraints();
             for (Iterator<BaUnitDetailBean> it = this.baUnitBean1.getBaUnitDetailFilteredList().iterator(); it.hasNext();) {
                 final BaUnitDetailBean appBaUnitDetail = it.next();
                 String pre = "";
                 pre = String.format("%" + 8 + "s", pre);
-                JLabel l = new JLabel(appBaUnitDetail.getDetailType().getDisplayValue()+pre, JLabel.TRAILING);
+                JLabel l = new JLabel(appBaUnitDetail.getDetailType().getDisplayValue() + pre, JLabel.TRAILING);
                 l.setPreferredSize(new java.awt.Dimension(10, 25));
                 l.setMaximumSize(new java.awt.Dimension(10, 25));
                 l.setHorizontalAlignment(JLabel.TRAILING);
@@ -358,35 +363,93 @@ public class PropertyPanel extends ContentPanel {
                     }
                 });
 
+                final WatermarkDate txtDate = new org.sola.clients.swing.common.controls.WatermarkDate();
+                txtDate.setText(appBaUnitDetail.getCustomDetailText());
+                txtDate.addFocusListener(new java.awt.event.FocusAdapter() {
+                    public void focusLost(java.awt.event.FocusEvent evt) {
+                        appBaUnitDetail.setCustomDetailText(txtDate.getText());
+
+                    }
+                });
+
+                JButton btnDate = new javax.swing.JButton();
+                btnDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+                btnDate.setBorder(null);
+                btnDate.setHorizontalAlignment(JTextField.LEFT);
+                Object newBgCol = "paleSolaGrey";
+                Color newBgColor = UIManager.getColor(newBgCol);
+
+                btnDate.setBackground(Color.LIGHT_GRAY);
+                btnDate.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        showCalendar(txtDate);
+                    }
+                });
+
                 JLabel l2 = new JLabel();
                 JLabel l3 = new JLabel();
                 JLabel l4 = new JLabel();
                 JLabel l5 = new JLabel();
 
-//                c = new GridBagConstraints();
-//                c.fill = GridBagConstraints.HORIZONTAL;
-//                c.ipady = 0;       //reset to default
-//                c.weightx = 0.5;
-//                c.gridx = 1;
+                c = new GridBagConstraints();
+                c.fill = GridBagConstraints.HORIZONTAL;
+                c.ipady = 5;       //reset to default
+//                c.gridx = 0;   
+                System.out.println("c.gridx:::::   "+c.gridx);
+                c.weightx = 1;
+                c.gridwidth = 1;
 //                c.gridy = 0;
-////                gridbag.setConstraints(l, c);
-//                matrixPanel.add(l, c); // add the labels into the panelGridBagConstraints 
-//
-//                c.fill = GridBagConstraints.HORIZONTAL;
-//                c.ipady = 25;       //reset to default
-//                c.weighty = 1.0;   //request any extra vertical space
-////                c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-////                c.insets = new Insets(10, 0, 0, 0);  //top padding
-//                c.gridx = 1;       //aligned with button 2
-//                c.gridwidth = 2;   //3 columns wide
-////                gridbag.setConstraints(textField, c);
-//                matrixPanel.add(textField, c); // add the fields into the panel .add(txtNotationText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                matrixPanel.add(l);
-                matrixPanel.add(textField);
-                matrixPanel.add(l2); // add the labels into the panel
-                matrixPanel.add(l3); // add the labels into the panel
-                matrixPanel.add(l4); // add the labels into the panel
-                matrixPanel.add(l5); // add the labels into the panel
+//                gridbag.setConstraints(l, c);
+                matrixPanel.add(l, c); // add the labels into the panelGridBagConstraints 
+
+//                matrixPanel.add(l);
+                if (appBaUnitDetail.getDetailType().getFieldType().contentEquals("DATE")) {
+//                    c.fill = GridBagConstraints.HORIZONTAL;
+//                    c.ipady = 10;       //reset to default
+//                    c.weighty = 1.0;   //request any extra vertical space
+//                c.anchor = GridBagConstraints.PAGE_END; //bottom of space
+//                c.insets = new Insets(10, 0, 0, 0);  //top padding
+                    c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
+                    c.weightx = 2;
+                    c.gridwidth = 2;   //3 columns wide
+//                gridbag.setConstraints(textField, c);
+                    matrixPanel.add(txtDate, c); // add the fields into the panel .add(txtNotationText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+
+//                    c.fill = GridBagConstraints.HORIZONTAL;
+//                    c.ipady = 10;       //reset to default
+                    c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
+                    c.weightx = 0;
+                    c.gridwidth = 0;
+//                    c.gridy = 0;
+                    matrixPanel.add(btnDate, c);
+//                    matrixPanel.add(txtDate);
+//                    matrixPanel.add(btnDate);
+                } else {
+
+//                    c.fill = GridBagConstraints.HORIZONTAL;
+//                    c.ipady = 25;       //reset to default
+//                    c.weighty = 1.0;   //request any extra vertical space
+//                c.anchor = GridBagConstraints.PAGE_END; //bottom of space
+//                c.insets = new Insets(10, 0, 0, 0);  //top padding
+                    c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
+                    c.weightx = 2;
+                    c.gridwidth = 2;   //3 columns wide
+                    matrixPanel.add(textField, c);
+
+//                    c.fill = GridBagConstraints.HORIZONTAL;
+//                    c.ipady = 0;       //reset to default
+                    c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
+                    c.weightx = 0;
+                    c.gridwidth = 0;
+//                    c.gridy = 0;
+                    matrixPanel.add(l2, c); // add the labels into the panel
+                }
+                c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
+                c.weightx = 1;
+                c.gridwidth = 1;
+                matrixPanel.add(l3, c); // add the labels into the panel
+//                matrixPanel.add(l4, c); // add the labels into the panel
+//                matrixPanel.add(l5, c); // add the labels into the panel
             }
 
         }
@@ -901,6 +964,11 @@ public class PropertyPanel extends ContentPanel {
         ReportViewerForm form = new ReportViewerForm(report);
         form.setLocationRelativeTo(this);
         form.setVisible(true);
+    }
+
+    private void showCalendar(JFormattedTextField dateField) {
+        CalendarForm calendar = new CalendarForm(null, true, dateField);
+        calendar.setVisible(true);
     }
 
     /**
@@ -1932,7 +2000,7 @@ public class PropertyPanel extends ContentPanel {
         );
         matrixPanelLayout.setVerticalGroup(
             matrixPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 453, Short.MAX_VALUE)
+            .add(0, 480, Short.MAX_VALUE)
         );
 
         org.jdesktop.layout.GroupLayout tabTitleLayout = new org.jdesktop.layout.GroupLayout(tabTitle);
@@ -1948,8 +2016,7 @@ public class PropertyPanel extends ContentPanel {
                 .addContainerGap()
                 .add(groupPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(matrixPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .add(matrixPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabsMain.addTab(bundle.getString("PropertyPanel.tabTitle.TabConstraints.tabTitle"), tabTitle); // NOI18N
