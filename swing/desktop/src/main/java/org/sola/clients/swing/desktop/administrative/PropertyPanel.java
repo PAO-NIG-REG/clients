@@ -340,6 +340,8 @@ public class PropertyPanel extends ContentPanel {
             matrixPanel.setLayout(gridbag);
 
             GridBagConstraints c = new GridBagConstraints();
+            c = new GridBagConstraints();
+
             for (Iterator<BaUnitDetailBean> it = this.baUnitBean1.getBaUnitDetailFilteredList().iterator(); it.hasNext();) {
                 final BaUnitDetailBean appBaUnitDetail = it.next();
                 String pre = "";
@@ -365,21 +367,16 @@ public class PropertyPanel extends ContentPanel {
 
                 final WatermarkDate txtDate = new org.sola.clients.swing.common.controls.WatermarkDate();
                 txtDate.setText(appBaUnitDetail.getCustomDetailText());
-                txtDate.addFocusListener(new java.awt.event.FocusAdapter() {
-                    public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+                    public void propertyChange(java.beans.PropertyChangeEvent evt) {
                         appBaUnitDetail.setCustomDetailText(txtDate.getText());
 
                     }
                 });
-
                 JButton btnDate = new javax.swing.JButton();
                 btnDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
                 btnDate.setBorder(null);
                 btnDate.setHorizontalAlignment(JTextField.LEFT);
-                Object newBgCol = "paleSolaGrey";
-                Color newBgColor = UIManager.getColor(newBgCol);
-
-                btnDate.setBackground(Color.LIGHT_GRAY);
                 btnDate.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         showCalendar(txtDate);
@@ -387,67 +384,56 @@ public class PropertyPanel extends ContentPanel {
                 });
 
                 JLabel l2 = new JLabel();
-                JLabel l3 = new JLabel();
-                JLabel l4 = new JLabel();
-                JLabel l5 = new JLabel();
+                JLabel l3 = new JLabel("PAOLA");
+                JLabel l4 = new JLabel(pre);
+                JLabel l5 = new JLabel(pre);
 
-                c = new GridBagConstraints();
                 c.fill = GridBagConstraints.HORIZONTAL;
-                c.ipady = 5;       //reset to default
-//                c.gridx = 0;   
-                System.out.println("c.gridx:::::   "+c.gridx);
-                c.weightx = 1;
+                c.ipady = 5;
+                c.gridx = 0;
+                c.weightx = 0.5;
                 c.gridwidth = 1;
-//                c.gridy = 0;
-//                gridbag.setConstraints(l, c);
                 matrixPanel.add(l, c); // add the labels into the panelGridBagConstraints 
 
-//                matrixPanel.add(l);
                 if (appBaUnitDetail.getDetailType().getFieldType().contentEquals("DATE")) {
 //                    c.fill = GridBagConstraints.HORIZONTAL;
 //                    c.ipady = 10;       //reset to default
 //                    c.weighty = 1.0;   //request any extra vertical space
 //                c.anchor = GridBagConstraints.PAGE_END; //bottom of space
 //                c.insets = new Insets(10, 0, 0, 0);  //top padding
-                    c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
-                    c.weightx = 2;
-                    c.gridwidth = 2;   //3 columns wide
+                    c.gridx = 1;       //aligned with button 2
+                    c.weightx = 0.5;
+                    c.gridwidth = 1;   //3 columns wide
 //                gridbag.setConstraints(textField, c);
                     matrixPanel.add(txtDate, c); // add the fields into the panel .add(txtNotationText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
 
-//                    c.fill = GridBagConstraints.HORIZONTAL;
+                    c.fill = GridBagConstraints.NONE;
 //                    c.ipady = 10;       //reset to default
-                    c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
+                    c.gridx = 2;       //aligned with button 2
                     c.weightx = 0;
                     c.gridwidth = 0;
 //                    c.gridy = 0;
                     matrixPanel.add(btnDate, c);
-//                    matrixPanel.add(txtDate);
-//                    matrixPanel.add(btnDate);
                 } else {
 
-//                    c.fill = GridBagConstraints.HORIZONTAL;
-//                    c.ipady = 25;       //reset to default
-//                    c.weighty = 1.0;   //request any extra vertical space
-//                c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-//                c.insets = new Insets(10, 0, 0, 0);  //top padding
-                    c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
-                    c.weightx = 2;
-                    c.gridwidth = 2;   //3 columns wide
+                    c.gridx = 1;       //aligned with button 2
+                    c.weightx = 0.5;
+                    c.gridwidth = 1;   //3 columns wide
                     matrixPanel.add(textField, c);
 
-//                    c.fill = GridBagConstraints.HORIZONTAL;
-//                    c.ipady = 0;       //reset to default
-                    c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
+                    c.fill = GridBagConstraints.NONE;
+                    c.gridx = 2;       //aligned with button 2
                     c.weightx = 0;
                     c.gridwidth = 0;
-//                    c.gridy = 0;
                     matrixPanel.add(l2, c); // add the labels into the panel
+
                 }
-                c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
-                c.weightx = 1;
-                c.gridwidth = 1;
-                matrixPanel.add(l3, c); // add the labels into the panel
+
+//                c.fill = GridBagConstraints.HORIZONTAL;
+//                c.gridx = 3;       //aligned with button 2
+//                c.weightx = 0.5;
+//                c.gridwidth = 1;
+//                matrixPanel.add(l3, c); // add the labels into the panel
 //                matrixPanel.add(l4, c); // add the labels into the panel
 //                matrixPanel.add(l5, c); // add the labels into the panel
             }
