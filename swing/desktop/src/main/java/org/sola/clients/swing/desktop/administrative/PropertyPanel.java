@@ -332,9 +332,6 @@ public class PropertyPanel extends ContentPanel {
             this.btnPrintBaUnit1.setVisible(false);
             // ...
             int rowCnt = this.baUnitBean1.getBaUnitDetailFilteredList().size();
-//            matrixPanel.setLayout(new GridLayout(rowCnt, rowCnt)); // matrixPanel is the dedicated JPanel
-            matrixPanel.setPreferredSize(new java.awt.Dimension(20, 25 * rowCnt));
-            matrixPanel.setMaximumSize(new java.awt.Dimension(20, 25 * rowCnt));
 
             GridBagLayout gridbag = new GridBagLayout();
             matrixPanel.setLayout(gridbag);
@@ -342,8 +339,13 @@ public class PropertyPanel extends ContentPanel {
             GridBagConstraints c = new GridBagConstraints();
             c = new GridBagConstraints();
 
-            for (Iterator<BaUnitDetailBean> it = this.baUnitBean1.getBaUnitDetailFilteredList().iterator(); it.hasNext();) {
-                final BaUnitDetailBean appBaUnitDetail = it.next();
+            BaUnitDetailBean[] orderedDetail = new BaUnitDetailBean[rowCnt];
+
+            for (BaUnitDetailBean it : this.baUnitBean1.getBaUnitDetailFilteredList()) {
+                orderedDetail[(it.getDetailType().getOrderView()) - 1] = it;
+            }
+
+            for (final BaUnitDetailBean appBaUnitDetail : orderedDetail) {
                 String pre = "";
                 pre = String.format("%" + 8 + "s", pre);
                 JLabel l = new JLabel(appBaUnitDetail.getDetailType().getDisplayValue() + pre, JLabel.TRAILING);
@@ -352,7 +354,11 @@ public class PropertyPanel extends ContentPanel {
                 l.setHorizontalAlignment(JLabel.TRAILING);
                 l.setSize(new java.awt.Dimension(10, 25));
                 l.setFont((this.labName.getFont())); // NOI18N
-
+                
+                JLabel l2 = new JLabel();
+                
+                
+                
                 final JTextField textField = new JTextField(appBaUnitDetail.getCustomDetailText());
                 textField.setPreferredSize(new java.awt.Dimension(50, 25));
                 textField.setMaximumSize(new java.awt.Dimension(50, 25));
@@ -383,59 +389,41 @@ public class PropertyPanel extends ContentPanel {
                     }
                 });
 
-                JLabel l2 = new JLabel();
-                JLabel l3 = new JLabel("PAOLA");
-                JLabel l4 = new JLabel(pre);
-                JLabel l5 = new JLabel(pre);
-
+               
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.ipady = 5;
                 c.gridx = 0;
                 c.weightx = 0.5;
                 c.gridwidth = 1;
-                matrixPanel.add(l, c); // add the labels into the panelGridBagConstraints 
+                matrixPanel.add(l, c); 
 
                 if (appBaUnitDetail.getDetailType().getFieldType().contentEquals("DATE")) {
-//                    c.fill = GridBagConstraints.HORIZONTAL;
-//                    c.ipady = 10;       //reset to default
-//                    c.weighty = 1.0;   //request any extra vertical space
-//                c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-//                c.insets = new Insets(10, 0, 0, 0);  //top padding
-                    c.gridx = 1;       //aligned with button 2
-                    c.weightx = 0.5;
-                    c.gridwidth = 1;   //3 columns wide
-//                gridbag.setConstraints(textField, c);
-                    matrixPanel.add(txtDate, c); // add the fields into the panel .add(txtNotationText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+
+                    c.gridx = 1;       
+                    c.weightx = 1;
+                    c.gridwidth = 1;   
+                    matrixPanel.add(txtDate, c); 
 
                     c.fill = GridBagConstraints.NONE;
-//                    c.ipady = 10;       //reset to default
-                    c.gridx = 2;       //aligned with button 2
-                    c.weightx = 0;
+                    c.gridx = 2;       
+                    c.weightx = 0.02;
                     c.gridwidth = 0;
-//                    c.gridy = 0;
                     matrixPanel.add(btnDate, c);
                 } else {
 
-                    c.gridx = 1;       //aligned with button 2
-                    c.weightx = 0.5;
-                    c.gridwidth = 1;   //3 columns wide
+                    c.gridx = 1;       
+                    c.weightx = 1;
+                    c.gridwidth = 1;   
                     matrixPanel.add(textField, c);
 
                     c.fill = GridBagConstraints.NONE;
-                    c.gridx = 2;       //aligned with button 2
-                    c.weightx = 0;
+                    c.gridx = 2;       
+                    c.weightx = 0.02;
                     c.gridwidth = 0;
                     matrixPanel.add(l2, c); // add the labels into the panel
 
                 }
 
-//                c.fill = GridBagConstraints.HORIZONTAL;
-//                c.gridx = 3;       //aligned with button 2
-//                c.weightx = 0.5;
-//                c.gridwidth = 1;
-//                matrixPanel.add(l3, c); // add the labels into the panel
-//                matrixPanel.add(l4, c); // add the labels into the panel
-//                matrixPanel.add(l5, c); // add the labels into the panel
             }
 
         }
@@ -1436,6 +1424,7 @@ public class PropertyPanel extends ContentPanel {
         txtArea = new javax.swing.JFormattedTextField();
         tabTitle = new javax.swing.JPanel();
         groupPanel2 = new org.sola.clients.swing.ui.GroupPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
         matrixPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -1970,6 +1959,8 @@ public class PropertyPanel extends ContentPanel {
         groupPanel2.setName("groupPanel2"); // NOI18N
         groupPanel2.setTitleText(bundle.getString("PropertyPanel.groupPanel2.titleText")); // NOI18N
 
+        jScrollPane6.setName("jScrollPane6"); // NOI18N
+
         matrixPanel.setAutoscrolls(true);
         matrixPanel.setName("matrixPanel"); // NOI18N
         matrixPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1989,12 +1980,14 @@ public class PropertyPanel extends ContentPanel {
             .add(0, 480, Short.MAX_VALUE)
         );
 
+        jScrollPane6.setViewportView(matrixPanel);
+
         org.jdesktop.layout.GroupLayout tabTitleLayout = new org.jdesktop.layout.GroupLayout(tabTitle);
         tabTitle.setLayout(tabTitleLayout);
         tabTitleLayout.setHorizontalGroup(
             tabTitleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(matrixPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(groupPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 804, Short.MAX_VALUE)
+            .add(jScrollPane6)
         );
         tabTitleLayout.setVerticalGroup(
             tabTitleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -2002,7 +1995,7 @@ public class PropertyPanel extends ContentPanel {
                 .addContainerGap()
                 .add(groupPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(matrixPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jScrollPane6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
         );
 
         tabsMain.addTab(bundle.getString("PropertyPanel.tabTitle.TabConstraints.tabTitle"), tabTitle); // NOI18N
@@ -3197,6 +3190,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JToolBar.Separator jSeparator1;
