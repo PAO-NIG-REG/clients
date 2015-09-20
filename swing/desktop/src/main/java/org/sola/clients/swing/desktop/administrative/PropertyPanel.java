@@ -346,6 +346,7 @@ public class PropertyPanel extends ContentPanel {
             }
 
             for (final BaUnitDetailBean appBaUnitDetail : orderedDetail) {
+              if (appBaUnitDetail.getDetailType().getStatus().equalsIgnoreCase("c")) {  
                 String pre = "";
                 pre = String.format("%" + 8 + "s", pre);
                 JLabel l = new JLabel(appBaUnitDetail.getDetailType().getDisplayValue() + pre, JLabel.TRAILING);
@@ -423,7 +424,7 @@ public class PropertyPanel extends ContentPanel {
                     matrixPanel.add(l2, c); // add the labels into the panel
 
                 }
-
+              }
             }
 
         }
