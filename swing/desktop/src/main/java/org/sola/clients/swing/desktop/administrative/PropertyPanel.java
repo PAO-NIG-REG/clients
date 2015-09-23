@@ -358,13 +358,18 @@ public class PropertyPanel extends ContentPanel {
                 
                 JLabel l2 = new JLabel();
                 
-                
-                
                 final JTextField textField = new JTextField(appBaUnitDetail.getCustomDetailText());
                 textField.setPreferredSize(new java.awt.Dimension(50, 25));
                 textField.setMaximumSize(new java.awt.Dimension(50, 25));
                 textField.setSize(new java.awt.Dimension(50, 25));
                 textField.setHorizontalAlignment(JTextField.LEFT);
+                if (appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cofonum")) {
+                    textField.setEditable(false);
+                    textField.setEnabled(false);
+                } else {
+                    textField.setEditable(true);
+                    textField.setEnabled(true);
+                }
                 textField.addFocusListener(new java.awt.event.FocusAdapter() {
                     public void focusLost(java.awt.event.FocusEvent evt) {
                         appBaUnitDetail.setCustomDetailText(textField.getText());
@@ -426,7 +431,6 @@ public class PropertyPanel extends ContentPanel {
                 }
               }
             }
-
         }
 
     }
