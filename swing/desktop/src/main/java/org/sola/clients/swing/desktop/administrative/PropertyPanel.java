@@ -37,6 +37,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.math.BigDecimal;
@@ -45,6 +47,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -130,6 +133,7 @@ public class PropertyPanel extends ContentPanel {
     private PropertyChangeListener newPropertyWizardListener;
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
+    private JComboBox cbxGen = new javax.swing.JComboBox();
 
     /**
      * Creates {@link BaUnitBean} used to bind form components.
@@ -346,90 +350,118 @@ public class PropertyPanel extends ContentPanel {
             }
 
             for (final BaUnitDetailBean appBaUnitDetail : orderedDetail) {
-              if (appBaUnitDetail.getDetailType().getStatus().equalsIgnoreCase("c")) {  
-                String pre = "";
-                pre = String.format("%" + 8 + "s", pre);
-                JLabel l = new JLabel(appBaUnitDetail.getDetailType().getDisplayValue() + pre, JLabel.TRAILING);
-                l.setPreferredSize(new java.awt.Dimension(10, 25));
-                l.setMaximumSize(new java.awt.Dimension(10, 25));
-                l.setHorizontalAlignment(JLabel.TRAILING);
-                l.setSize(new java.awt.Dimension(10, 25));
-                l.setFont((this.labName.getFont())); // NOI18N
-                
-                JLabel l2 = new JLabel();
-                
-                final JTextField textField = new JTextField(appBaUnitDetail.getCustomDetailText());
-                textField.setPreferredSize(new java.awt.Dimension(50, 25));
-                textField.setMaximumSize(new java.awt.Dimension(50, 25));
-                textField.setSize(new java.awt.Dimension(50, 25));
-                textField.setHorizontalAlignment(JTextField.LEFT);
-                if (appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cofonum")) {
-                    textField.setEditable(false);
-                    textField.setEnabled(false);
-                } else {
-                    textField.setEditable(true);
-                    textField.setEnabled(true);
+                if (appBaUnitDetail.getDetailType().getStatus().equalsIgnoreCase("c")) {
+                    String pre = "";
+                    pre = String.format("%" + 8 + "s", pre);
+                    JLabel l = new JLabel(appBaUnitDetail.getDetailType().getDisplayValue() + pre, JLabel.TRAILING);
+                    l.setPreferredSize(new java.awt.Dimension(10, 25));
+                    l.setMaximumSize(new java.awt.Dimension(10, 25));
+                    l.setHorizontalAlignment(JLabel.TRAILING);
+                    l.setSize(new java.awt.Dimension(10, 25));
+                    l.setFont((this.labName.getFont())); // NOI18N
+
+                    JLabel l2 = new JLabel();
+
+                    final JTextField textField = new JTextField(appBaUnitDetail.getCustomDetailText());
+                    textField.setPreferredSize(new java.awt.Dimension(50, 25));
+                    textField.setMaximumSize(new java.awt.Dimension(50, 25));
+                    textField.setSize(new java.awt.Dimension(50, 25));
+                    textField.setHorizontalAlignment(JTextField.LEFT);
+                    if (appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cofonum")) {
+                        textField.setEditable(false);
+                        textField.setEnabled(false);
+                    } else {
+                        textField.setEditable(true);
+                        textField.setEnabled(true);
+                    }
+                    textField.addFocusListener(new java.awt.event.FocusAdapter() {
+                        public void focusLost(java.awt.event.FocusEvent evt) {
+                            appBaUnitDetail.setCustomDetailText(textField.getText());
+
+                        }
+                    });
+
+                    final WatermarkDate txtDate = new org.sola.clients.swing.common.controls.WatermarkDate();
+                    txtDate.setText(appBaUnitDetail.getCustomDetailText());
+                    txtDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+                        public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                            appBaUnitDetail.setCustomDetailText(txtDate.getText());
+
+                        }
+                    });
+                    JButton btnDate = new javax.swing.JButton();
+                    btnDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
+                    btnDate.setBorder(null);
+                    btnDate.setHorizontalAlignment(JTextField.LEFT);
+                    btnDate.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            showCalendar(txtDate);
+                        }
+                    });
+
+                    c.fill = GridBagConstraints.HORIZONTAL;
+                    c.ipady = 5;
+                    c.gridx = 0;
+                    c.weightx = 0.5;
+                    c.gridwidth = 1;
+                    matrixPanel.add(l, c);
+
+                    if (appBaUnitDetail.getDetailType().getFieldType().contentEquals("DATE")) {
+
+                        c.gridx = 1;
+                        c.weightx = 1;
+                        c.gridwidth = 1;
+                        matrixPanel.add(txtDate, c);
+
+                        c.fill = GridBagConstraints.NONE;
+                        c.gridx = 2;
+                        c.weightx = 0.02;
+                        c.gridwidth = 0;
+                        matrixPanel.add(btnDate, c);
+
+                    } else if (appBaUnitDetail.getDetailType().getFieldType().equalsIgnoreCase("COMBO") && appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("purpose")) {
+                        int lutCnt = this.landUseTypeListBean1.getLandUseTypeList().size();
+                        int i = 0;
+                        String[] lut = new String[lutCnt];
+                        for (final LandUseTypeBean appLandUseType : this.landUseTypeListBean1.getLandUseTypeList()) {
+                            lut[i] = appLandUseType.getDisplayValue();
+                            i = i + 1;
+                        }
+                        String[] comboBoxArray = lut;
+                        cbxGen = new javax.swing.JComboBox(comboBoxArray);
+                        final JComboBox cbxCBX = cbxGen;
+                        cbxCBX.setSelectedItem(appBaUnitDetail.getCustomDetailText());
+                        cbxCBX.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                appBaUnitDetail.setCustomDetailText(cbxCBX.getSelectedItem().toString());
+                            }
+                        });
+
+                        c.gridx = 1;
+                        c.weightx = 1;
+                        c.gridwidth = 1;
+                        matrixPanel.add(cbxCBX, c);
+
+                        c.fill = GridBagConstraints.NONE;
+                        c.gridx = 2;
+                        c.weightx = 0.02;
+                        c.gridwidth = 0;
+                        matrixPanel.add(l2, c);
+                    } else {
+
+                        c.gridx = 1;
+                        c.weightx = 1;
+                        c.gridwidth = 1;
+                        matrixPanel.add(textField, c);
+
+                        c.fill = GridBagConstraints.NONE;
+                        c.gridx = 2;
+                        c.weightx = 0.02;
+                        c.gridwidth = 0;
+                        matrixPanel.add(l2, c); // add the labels into the panel
+
+                    }
                 }
-                textField.addFocusListener(new java.awt.event.FocusAdapter() {
-                    public void focusLost(java.awt.event.FocusEvent evt) {
-                        appBaUnitDetail.setCustomDetailText(textField.getText());
-
-                    }
-                });
-
-                final WatermarkDate txtDate = new org.sola.clients.swing.common.controls.WatermarkDate();
-                txtDate.setText(appBaUnitDetail.getCustomDetailText());
-                txtDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-                    public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                        appBaUnitDetail.setCustomDetailText(txtDate.getText());
-
-                    }
-                });
-                JButton btnDate = new javax.swing.JButton();
-                btnDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
-                btnDate.setBorder(null);
-                btnDate.setHorizontalAlignment(JTextField.LEFT);
-                btnDate.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        showCalendar(txtDate);
-                    }
-                });
-
-               
-                c.fill = GridBagConstraints.HORIZONTAL;
-                c.ipady = 5;
-                c.gridx = 0;
-                c.weightx = 0.5;
-                c.gridwidth = 1;
-                matrixPanel.add(l, c); 
-
-                if (appBaUnitDetail.getDetailType().getFieldType().contentEquals("DATE")) {
-
-                    c.gridx = 1;       
-                    c.weightx = 1;
-                    c.gridwidth = 1;   
-                    matrixPanel.add(txtDate, c); 
-
-                    c.fill = GridBagConstraints.NONE;
-                    c.gridx = 2;       
-                    c.weightx = 0.02;
-                    c.gridwidth = 0;
-                    matrixPanel.add(btnDate, c);
-                } else {
-
-                    c.gridx = 1;       
-                    c.weightx = 1;
-                    c.gridwidth = 1;   
-                    matrixPanel.add(textField, c);
-
-                    c.fill = GridBagConstraints.NONE;
-                    c.gridx = 2;       
-                    c.weightx = 0.02;
-                    c.gridwidth = 0;
-                    matrixPanel.add(l2, c); // add the labels into the panel
-
-                }
-              }
             }
         }
 
@@ -491,19 +523,6 @@ public class PropertyPanel extends ContentPanel {
                     String.format(resourceBundle.getString("PropertyPanel.applicationInfo.Text"),
                             applicationService.getRequestType().getDisplayValue(), applicationBean.getNr())));
 
-//            if (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)) {
-//                this.tabDetail.setVisible(false);
-//                this.tabDetail.setEnabled(false);
-//                tabsMain.removeTabAt(tabsMain.indexOfComponent(tabDetail));
-//                this.btnPrintBaUnit1.setVisible(false);
-//                
-//            } else {
-//                if (baUnitBean1 != null && baUnitBean1.getStatusCode().equals("current")) {
-//                    this.btnPrintBaUnit1.setVisible(baUnitBean1.getRowVersion() > 0);
-//                } else {
-//                    this.btnPrintBaUnit1.setVisible(false);
-//                }
-//            }
         }
 
         btnSave.setEnabled(!readOnly);
@@ -1394,6 +1413,7 @@ public class PropertyPanel extends ContentPanel {
         baUnitAreaBean1 = createBaUnitAreaBean();
         baUnitDetailTypeListBean1 = new org.sola.clients.beans.referencedata.BaUnitDetailTypeListBean();
         baUnitDetailBean1 = new org.sola.clients.beans.administrative.BaUnitDetailBean();
+        landUseTypeListBean1 = new org.sola.clients.beans.referencedata.LandUseTypeListBean();
         jToolBar5 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
         btnTerminate = new javax.swing.JButton();
@@ -3214,6 +3234,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JToolBar jToolBar8;
     private javax.swing.JLabel labArea;
     private javax.swing.JLabel labName;
+    private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypeListBean1;
     private javax.swing.JPanel mapPanel;
     private javax.swing.JPanel matrixPanel;
     private javax.swing.JMenuItem menuAddParcel;
