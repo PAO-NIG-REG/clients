@@ -323,7 +323,12 @@ public class PropertyPanel extends ContentPanel {
             }
         });
 
+        customizeTitleTab();
         saveBaUnitState();
+
+    }
+
+    private void customizeTitleTab() {
 
         if (applicationService != null && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD))
                 && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_MORTGAGE))
@@ -334,6 +339,10 @@ public class PropertyPanel extends ContentPanel {
             this.btnPrintBaUnit1.setVisible(false);
 
         } else {
+            java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
+            this.groupPanel1.setTitleText(bundle.getString("PropertyPanel.TitlePaperTitle.text"));
+            this.btnLinkPaperTitle.setText(bundle.getString("PropertyPanel.btnLinkDiagram.text"));
+            this.btnViewPaperTitle.setText(bundle.getString("PropertyPanel.btnViewDiagram.text"));
             this.btnPrintBaUnit1.setVisible(false);
 //            int rrrCnt = 0;
 //            for (RrrBean rrrit : this.baUnitBean1.getRrrFilteredList()) {
@@ -364,8 +373,8 @@ public class PropertyPanel extends ContentPanel {
 //            }
 
             // ...
-           int rowCnt = this.baUnitBean1.getBaUnitDetailFilteredList().size();
- 
+            int rowCnt = this.baUnitBean1.getBaUnitDetailFilteredList().size();
+
             GridBagLayout gridbag = new GridBagLayout();
             matrixPanel.setLayout(gridbag);
 
