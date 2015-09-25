@@ -55,6 +55,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.administrative.*;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
@@ -334,9 +335,37 @@ public class PropertyPanel extends ContentPanel {
 
         } else {
             this.btnPrintBaUnit1.setVisible(false);
-            // ...
-            int rowCnt = this.baUnitBean1.getBaUnitDetailFilteredList().size();
+//            int rrrCnt = 0;
+//            for (RrrBean rrrit : this.baUnitBean1.getRrrFilteredList()) {
+//                System.out.println("RRR   " + rrrit.getNr());
+//                if (rrrit.isPrimary()) {
+//                    System.out.println("RRRPRIMARY   " + rrrit.getNr());
+//////                ObservableList<ConditionForRrrBean> appRrr = rrrit.getConditionsFilteredList();
+////                    int rrrCnt = rrrit.getConditionsFilteredList().size();
+//                    ConditionTypeListBean ctb = new ConditionTypeListBean();
+//                    rrrCnt = ctb.getLeaseConditionList().size();
+//
+//                    System.out.println("RRRCNT   " + rrrCnt);
+////                    ConditionForRrrBean[] ordConRRR = new ConditionForRrrBean[rrrCnt];
+////                    for (ConditionForRrrBean appRrr : rrrit.getConditionsFilteredList()) {
+////                        System.out.println("APPRRR   "+appRrr.getConditionType().getDisplayValue());
+////                    }
+//                    String[] ordConRRR = new String[rrrCnt];
+//                    int j = 0;
+//                    for (ConditionTypeBean appRrr : ctb.getLeaseConditionList()) {
+//                        if (appRrr.getDescription().contains("cofo")) {
+//                        System.out.println("APPRRR   " + appRrr.getDisplayValue());
+//                        ordConRRR[j] = appRrr.getDisplayValue();
+//                            j = j + 1;
+//                        }    
+//                    }
+//                    System.out.println("JJJJJ   " + j);
+//                }
+//            }
 
+            // ...
+           int rowCnt = this.baUnitBean1.getBaUnitDetailFilteredList().size();
+ 
             GridBagLayout gridbag = new GridBagLayout();
             matrixPanel.setLayout(gridbag);
 
