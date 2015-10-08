@@ -188,7 +188,7 @@ public class ReportManager {
             }
             if (appdetail.getDetailCode().equals("lga")) {
                 lga = appdetail.getCustomDetailText();
-            }    
+            }
             if (appdetail.getDetailCode().equals("zone")) {
                 zone = appdetail.getCustomDetailText();
             }
@@ -213,9 +213,9 @@ public class ReportManager {
             if (appdetail.getDetailCode().equals("plan")) {
                 plan = appdetail.getCustomDetailText();
             }
-            if (appdetail.getDetailCode().equals("cofonum"))  {
+            if (appdetail.getDetailCode().equals("cofonum")) {
 //                if (!appdetail.getCustomDetailText().equals(null)&&!appdetail.getCustomDetailText().equals("") ) {
-                     title = appdetail.getCustomDetailText();
+                title = appdetail.getCustomDetailText();
 //                }
             }
             if (appdetail.getDetailCode().equals("advpayment")) {
@@ -290,6 +290,45 @@ public class ReportManager {
      */
     public static JasperPrint getBaUnitReport(BaUnitBean baUnitBean) {
         HashMap inputParameters = new HashMap();
+//       
+////        ADDED FOR NEW REPORT    
+//        String state = getSettingValue("state");
+//        String diagramImage = "";
+//        String title = null;
+//        diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
+//            String appNr = null;
+//        String landUse = null;
+//        String propAddress = null;
+//        BigDecimal size = null;
+//
+//        BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
+//        BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
+//        size = baUnitAreaBean.getSize();
+//         for (Iterator<BaUnitDetailBean> it = baUnitBean.getBaUnitDetailList().iterator(); it.hasNext();) {
+//            BaUnitDetailBean appdetail = it.next();
+//            if (appdetail.getDetailCode().equals("cofonum"))  {
+//                     title = appdetail.getCustomDetailText();
+//            }
+//        if (appdetail.getDetailCode().equals("purpose")) {
+//            landUse = appdetail.getCustomDetailText();
+//        }
+//        if (appdetail.getDetailCode().equals("location")) {
+//            propAddress = appdetail.getCustomDetailText();
+//        }
+//            
+//         }  
+//        inputParameters.put("REFNR", title);
+//        inputParameters.put("STATE", state);
+//        inputParameters.put("DIAGRAM_IMAGE", diagramImage);
+//        inputParameters.put("SIZE", diagramImage);
+//        inputParameters.put("PROP_LOCATION", diagramImage);
+//        inputParameters.put("LAND_USE", diagramImage);
+//        inputParameters.put("LAND_USE", landUse);
+//        inputParameters.put("PROP_LOCATION", propAddress);
+//        inputParameters.put("SIZE", size);
+
+////   END ADDED FOR NEW REPORT  
+//        
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
         inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
         BaUnitBean[] beans = new BaUnitBean[1];
@@ -297,7 +336,6 @@ public class ReportManager {
         JRDataSource jds = new JRBeanArrayDataSource(beans);
         String pdReport = null;
         pdReport = "/" + getPrefix() + "reports/BaUnitReport.jasper";
-
         System.err.println(pdReport);
         try {
             return JasperFillManager.fillReport(
@@ -309,16 +347,34 @@ public class ReportManager {
                     new Object[]{ex.getLocalizedMessage()});
             return null;
         }
+    }
 
-//        try {
-//            return JasperFillManager.fillReport(
-//                    ReportManager.class.getResourceAsStream("/reports/BaUnitReport.jasper"),
-//                    inputParameters, jds);
-//        } catch (JRException ex) {
-//            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
-//                    new Object[]{ex.getLocalizedMessage()});
-//            return null;
-//        }
+    /**
+     * Generates and displays <b>BA Unit</b> report.
+     *
+     * @param appBean Application bean containing data for the report.
+     */
+    public static JasperPrint getBaUnitReportStandard(BaUnitBean baUnitBean) {
+        HashMap inputParameters = new HashMap();
+
+        inputParameters.put("REPORT_LOCALE", Locale.getDefault());
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        BaUnitBean[] beans = new BaUnitBean[1];
+        beans[0] = baUnitBean;
+        JRDataSource jds = new JRBeanArrayDataSource(beans);
+        String pdReport = null;
+        pdReport = "/" + getPrefix() + "reports/BaUnitReportStandard.jasper";
+        System.err.println(pdReport);
+        try {
+            return JasperFillManager.fillReport(
+                    ReportManager.class.getResourceAsStream(pdReport),
+                    inputParameters, jds);
+        } catch (JRException ex) {
+            LogUtility.log(LogUtility.getStackTraceAsString(ex), Level.SEVERE);
+            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
+                    new Object[]{ex.getLocalizedMessage()});
+            return null;
+        }
     }
 
     /**

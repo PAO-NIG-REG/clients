@@ -60,12 +60,12 @@
 
                             String desktopJnlp = "/webstart/sola-desktop-test.jnlp";
                             String adminJnlp = "/webstart/sola-admin-test.jnlp";
-                            if (hostName.equalsIgnoreCase("demo.flossola.org")) { // Update hostname as required
+//                            if (hostName.equalsIgnoreCase("demo.flossola.org")) { // Update hostname as required
                                 // This is the production host so use the production
                                 // JNLP files
                                 desktopJnlp = "/webstart/sola-desktop.jnlp";
                                 adminJnlp = "/webstart/sola-admin.jnlp";
-                            }
+//                            }
                             String desktopLocation = request.getContextPath() + desktopJnlp;
                             String adminLocation = request.getContextPath() + adminJnlp;
                         %> 

@@ -50,6 +50,8 @@ $explicitTimestampUTC
         <property name="jnlp.SOLA_WS_SPATIAL_SERVICE_URL" value="$$context/webservices/spatial-service?wsdl"/>
         <property name="jnlp.SOLA_WS_ADMINISTRATIVE_SERVICE_URL" value="$$context/webservices/administrative-service?wsdl"/>
         <property name="jnlp.SOLA_WS_FILE_STREAMING_SERVICE_URL" value="$$context/webservices/filestreaming-service?wsdl"/>
+        <property name="jnlp.SOLA_WS_BULK_OPERATIONS_SERVICE_URL" value="$$context/webservices/bulkoperations-service?wsdl"/>
+        <property name="jnlp.SOLA_STATE_SERVLET_SERVICE_URL.text" value="$$context/webservices/StateServlet"/>
         <property name="jnlp.SOLA_WEB_START_HOST" value="$$hostname"/>
         $dependencies
     </resources>

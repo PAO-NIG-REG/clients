@@ -70,12 +70,19 @@ import org.sola.clients.swing.desktop.reports.SysRegManagementParamsForm;
 import org.sola.clients.swing.desktop.source.DocumentSearchForm;
 import org.sola.clients.swing.desktop.source.PowerOfAttorneyViewForm;
 import org.sola.clients.swing.ui.MainContentPanel;
+import org.sola.clients.swing.bulkoperations.sources.LoadSourcesPanel;
+import org.sola.clients.swing.bulkoperations.spatialobjects.ImportSpatialPanel;
+import org.sola.clients.swing.bulkoperations.spatialobjects.MapPanel;
 import org.sola.common.RolesConstants;
 import org.sola.common.WindowUtility;
 import org.sola.common.help.HelpUtility;
 import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
+import org.sola.clients.beans.security.SecurityBean;
+
+
+
 
 /**
  * Main form of the application.
@@ -346,7 +353,42 @@ public class MainForm extends javax.swing.JFrame {
         };
         TaskManager.getInstance().runTask(t);
     }
+    
+    
+      private void loadSourcesPanel() {
+        SolaTask t = new SolaTask<Void, Void>() {
 
+            @Override
+            public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(
+                        ClientMessage.PROGRESS_MSG_SOURCE_LOAD_STARTING));
+                LoadSourcesPanel panel = new LoadSourcesPanel();
+                pnlContent.addPanel(panel, panel.getName(), true);
+                return null;
+            }
+        };
+        TaskManager.getInstance().runTask(t);
+
+    }
+      
+      
+    
+      private void importSpatialPanel() {
+        SolaTask t = new SolaTask<Void, Void>() {
+
+            @Override
+            public Void doTask() {
+                setMessage(MessageUtility.getLocalizedMessageText(
+                        ClientMessage.PROGRESS_MSG_SPATIAL_OBJECT_LOAD_STARTING));
+                ImportSpatialPanel panel = new ImportSpatialPanel();
+                pnlContent.addPanel(panel, panel.getName(), true);
+                return null;
+            }
+        };
+        TaskManager.getInstance().runTask(t);
+
+    }  
+      
     private void openMapPublicDisplay() {
         SolaTask t = new SolaTask<Void, Void>() {
 
@@ -819,6 +861,8 @@ public class MainForm extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnOpenMap = new javax.swing.JButton();
         btnSetPassword = new javax.swing.JButton();
+        btnImportSpatial = new javax.swing.JButton();
+        btnLoadDocuments = new javax.swing.JButton();
         statusPanel = new javax.swing.JPanel();
         labStatus = new javax.swing.JLabel();
         taskPanel1 = new org.sola.clients.swing.common.tasks.TaskPanel();
@@ -973,6 +1017,31 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         applicationsMain.add(btnSetPassword);
+
+        btnImportSpatial.setBackground(new java.awt.Color(255, 255, 255));
+        btnImportSpatial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/right.png"))); // NOI18N
+        btnImportSpatial.setText(bundle.getString("MainForm.btnImportSpatial.text_1")); // NOI18N
+        btnImportSpatial.setFocusable(false);
+        btnImportSpatial.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnImportSpatial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportSpatialActionPerformed(evt);
+            }
+        });
+        applicationsMain.add(btnImportSpatial);
+
+        btnLoadDocuments.setBackground(new java.awt.Color(255, 255, 255));
+        btnLoadDocuments.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/document-link.png"))); // NOI18N
+        btnLoadDocuments.setText(bundle.getString("MainForm.btnLoadDocuments.text_1")); // NOI18N
+        btnLoadDocuments.setAutoscrolls(true);
+        btnLoadDocuments.setFocusable(false);
+        btnLoadDocuments.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLoadDocuments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadDocumentsActionPerformed(evt);
+            }
+        });
+        applicationsMain.add(btnLoadDocuments);
 
         statusPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         statusPanel.setPreferredSize(new java.awt.Dimension(1024, 24));
@@ -1315,9 +1384,19 @@ public class MainForm extends javax.swing.JFrame {
         openMapSpatialUnitGroupEditor();
     }//GEN-LAST:event_menuZoneEditorActionPerformed
 
+    private void btnImportSpatialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportSpatialActionPerformed
+       importSpatialPanel();
+    }//GEN-LAST:event_btnImportSpatialActionPerformed
+
+    private void btnLoadDocumentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadDocumentsActionPerformed
+        loadSourcesPanel();
+    }//GEN-LAST:event_btnLoadDocumentsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar applicationsMain;
     private javax.swing.JButton btnDocumentSearch;
+    private javax.swing.JButton btnImportSpatial;
+    private javax.swing.JButton btnLoadDocuments;
     private javax.swing.JButton btnManageParties;
     private javax.swing.JButton btnNewApplication;
     private javax.swing.JButton btnOpenBaUnitSearch;
