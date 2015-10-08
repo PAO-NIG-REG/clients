@@ -292,40 +292,38 @@ public class ReportManager {
         HashMap inputParameters = new HashMap();
 //       
 ////        ADDED FOR NEW REPORT    
-//        String state = getSettingValue("state");
-//        String diagramImage = "";
-//        String title = null;
-//        diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
-//            String appNr = null;
-//        String landUse = null;
-//        String propAddress = null;
-//        BigDecimal size = null;
-//
-//        BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
-//        BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
-//        size = baUnitAreaBean.getSize();
-//         for (Iterator<BaUnitDetailBean> it = baUnitBean.getBaUnitDetailList().iterator(); it.hasNext();) {
-//            BaUnitDetailBean appdetail = it.next();
-//            if (appdetail.getDetailCode().equals("cofonum"))  {
-//                     title = appdetail.getCustomDetailText();
-//            }
-//        if (appdetail.getDetailCode().equals("purpose")) {
-//            landUse = appdetail.getCustomDetailText();
-//        }
-//        if (appdetail.getDetailCode().equals("location")) {
-//            propAddress = appdetail.getCustomDetailText();
-//        }
-//            
-//         }  
-//        inputParameters.put("REFNR", title);
-//        inputParameters.put("STATE", state);
-//        inputParameters.put("DIAGRAM_IMAGE", diagramImage);
-//        inputParameters.put("SIZE", diagramImage);
-//        inputParameters.put("PROP_LOCATION", diagramImage);
-//        inputParameters.put("LAND_USE", diagramImage);
-//        inputParameters.put("LAND_USE", landUse);
-//        inputParameters.put("PROP_LOCATION", propAddress);
-//        inputParameters.put("SIZE", size);
+        String state = getSettingValue("state");
+        String diagramImage = "";
+        String title = null;
+        diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
+            String appNr = null;
+        String landUse = null;
+        String propAddress = null;
+        BigDecimal size = null;
+
+        BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
+        BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
+        size = baUnitAreaBean.getSize();
+         for (Iterator<BaUnitDetailBean> it = baUnitBean.getBaUnitDetailList().iterator(); it.hasNext();) {
+            BaUnitDetailBean appdetail = it.next();
+            if (appdetail.getDetailCode().equals("cofonum"))  {
+                     title = appdetail.getCustomDetailText();
+            }
+        if (appdetail.getDetailCode().equals("purpose")) {
+            landUse = appdetail.getCustomDetailText();
+        }
+        if (appdetail.getDetailCode().equals("location")) {
+            propAddress = appdetail.getCustomDetailText();
+        }
+            
+         }  
+        inputParameters.put("REFNR", title);
+        inputParameters.put("STATE", state);
+        inputParameters.put("DIAGRAM_IMAGE", diagramImage);
+        inputParameters.put("SIZE", size);
+        inputParameters.put("PROP_LOCATION", propAddress);
+        inputParameters.put("LAND_USE", landUse);
+       
 
 ////   END ADDED FOR NEW REPORT  
 //        
