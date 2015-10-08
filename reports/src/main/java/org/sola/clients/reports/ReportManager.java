@@ -296,7 +296,7 @@ public class ReportManager {
         String diagramImage = "";
         String title = null;
         diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
-            String appNr = null;
+        String appNr = null;
         String landUse = null;
         String propAddress = null;
         BigDecimal size = null;
