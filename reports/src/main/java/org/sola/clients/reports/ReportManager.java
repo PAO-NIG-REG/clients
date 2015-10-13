@@ -186,7 +186,8 @@ public class ReportManager {
 //                }
 //                System.out.println(date); // Sat Jan 02 00:00:00 GMT 2010
             }
-            if (appdetail.getDetailCode().equals("lga")) {
+
+            if (appdetail.getDetailCode().equals("LGA")) {
                 lga = appdetail.getCustomDetailText();
             }
             if (appdetail.getDetailCode().equals("zone")) {
@@ -195,10 +196,10 @@ public class ReportManager {
             if (appdetail.getDetailCode().equals("term")) {
                 term = appdetail.getCustomDetailText();
             }
-            if (appdetail.getDetailCode().equals("purpose")) {
+            if (appdetail.getDetailCode().equals("cOfOtype")) {
                 landUse = appdetail.getCustomDetailText();
             }
-            if (appdetail.getDetailCode().equals("rent")) {
+            if (appdetail.getDetailCode().equals("yearlyRent")) {
                 groundRent = appdetail.getCustomDetailText();
             }
             if (appdetail.getDetailCode().equals("valueTodevelope")) {
@@ -210,18 +211,18 @@ public class ReportManager {
             if (appdetail.getDetailCode().equals("location")) {
                 propAddress = appdetail.getCustomDetailText();
             }
-            if (appdetail.getDetailCode().equals("plan")) {
+            if (appdetail.getDetailCode().equals("layoutPlan")) {
                 plan = appdetail.getCustomDetailText();
             }
-            if (appdetail.getDetailCode().equals("cofonum")) {
+            if (appdetail.getDetailCode().equals("cOfO")) {
 //                if (!appdetail.getCustomDetailText().equals(null)&&!appdetail.getCustomDetailText().equals("") ) {
                 title = appdetail.getCustomDetailText();
 //                }
             }
-            if (appdetail.getDetailCode().equals("advpayment")) {
+            if (appdetail.getDetailCode().equals("advancePayment")) {
                 advpayment = appdetail.getCustomDetailText();
             }
-            if (appdetail.getDetailCode().equals("revperiod")) {
+            if (appdetail.getDetailCode().equals("reviewPeriod")) {
                 revperiod = appdetail.getCustomDetailText();
             }
             if (appdetail.getDetailCode().equals("estate")) {
@@ -304,26 +305,25 @@ public class ReportManager {
         BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
         BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
         size = baUnitAreaBean.getSize();
-         for (Iterator<BaUnitDetailBean> it = baUnitBean.getBaUnitDetailList().iterator(); it.hasNext();) {
+        for (Iterator<BaUnitDetailBean> it = baUnitBean.getBaUnitDetailList().iterator(); it.hasNext();) {
             BaUnitDetailBean appdetail = it.next();
-            if (appdetail.getDetailCode().equals("cofonum"))  {
-                     title = appdetail.getCustomDetailText();
+            if (appdetail.getDetailCode().equals("cOfO")) {
+                title = appdetail.getCustomDetailText();
             }
-        if (appdetail.getDetailCode().equals("purpose")) {
-            landUse = appdetail.getCustomDetailText();
+            if (appdetail.getDetailCode().equals("cOfOtype")) {
+                landUse = appdetail.getCustomDetailText();
+            }
+            if (appdetail.getDetailCode().equals("location")) {
+                propAddress = appdetail.getCustomDetailText();
+            }
+
         }
-        if (appdetail.getDetailCode().equals("location")) {
-            propAddress = appdetail.getCustomDetailText();
-        }
-            
-         }  
         inputParameters.put("REFNR", title);
         inputParameters.put("STATE", state);
         inputParameters.put("DIAGRAM_IMAGE", diagramImage);
         inputParameters.put("SIZE", size);
         inputParameters.put("PROP_LOCATION", propAddress);
         inputParameters.put("LAND_USE", landUse);
-       
 
 ////   END ADDED FOR NEW REPORT  
 //        
@@ -1084,42 +1084,10 @@ public class ReportManager {
         String rank = "";
 
         appBaunit.getId();
-
-//   NO
-//        claimant = appBean.getContactPerson().getFullName();
-//        address = appBean.getContactPerson().getAddress().getDescription();
-//        appNr = appBaunit.getNr();
-////      function administrative.get_parcel_share
-//        owners = appBaunit.getOwners();
-////          ba unit detail  location       
-//        propAddress = appBaunit.getLocation();      
-////           ba unit detail  date commenced
-//        commencingDate = appBaunit.getCommencingDate();
-////           ba unit detail  purpose        
-//        landUse = appBaunit.getLandUse();
-////           ba unit detail term        
-//            term = appBaunit.getTerm().toString();
-////           ba unit detail rent
-//        groundRent = appBaunit.getRent().toString();
-//
-//            
-//            
-////           ba unit detail yearsTodevelope       
-//            if (appBaunit.getYearsForDev() != null) {
-//                timeToDevelop = appBaunit.getYearsForDev().toString();
-//            }
-////          ba unit detail  valueTodevelope       
-//            if (appBaunit.getValueToImp() != null) {
-//                valueForImprov = appBaunit.getValueToImp().toString();
-//            }
-//            
-//                    
-//   YES
         appNr = appBaunit.getNameFirstpart() + "/" + appBaunit.getNameLastpart();
 
 //      area size
         size = appBaunit.getSize();
-
 //          ba unit detail  plan        
         title = appBaunit.getPlan();
 //          ba unit detail  lga        

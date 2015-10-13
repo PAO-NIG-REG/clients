@@ -40,6 +40,7 @@ import org.jdesktop.beansbinding.Binding;
 import org.reflections.Reflections;
 import org.sola.clients.swing.bulkoperations.ValidationResultPanel;
 import org.sola.clients.swing.bulkoperations.beans.*;
+import org.sola.clients.swing.bulkoperations.*;
 import org.sola.clients.swing.common.tasks.SolaTask;
 import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.gis.data.PojoDataAccess;
@@ -111,9 +112,15 @@ public class ImportSpatialPanel extends ContentPanel {
                 && spatialDestinationPotentialList.getBeanList().size() > 0) {
             destinationBeanToSelect = (SpatialDestinationBean) spatialDestinationPotentialList.getBeanList().get(0);
         }
+       if (destinationBeanToSelect != null) {
         spatialDestinationPotentialList.setSelectedSpatialDestinationBean(
                 destinationBeanToSelect);
-
+       }
+       
+       if (destinationBeanToSelect == null){
+           destinationBeanToSelect = (SpatialDestinationBean) new SpatialDestinationCadastreObjectBean();
+       }
+       
         spatialBulkMove.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
@@ -127,7 +134,13 @@ public class ImportSpatialPanel extends ContentPanel {
 
     private void destinationChanged(SpatialDestinationBean newDestination) {
         setPostLoadEnabled(false);
-        String panelName = newDestination.getPanelName();
+       System.out.println("newDestination.getDisplayValue():::::"+newDestination.getDisplayValue());
+       System.out.println("newDestination.getPanelName():::::"+newDestination.getPanelName());
+       
+        LogUtility.log("newDestination.getDisplayValue():::::"+newDestination.getDisplayValue());
+        LogUtility.log("newDestination.getPanelName():::::"+ newDestination.getPanelName());
+     
+       String panelName = newDestination.getPanelName();
         pnlMainPanel.showPanel(panelName);
         spatialBulkMove.setDestination(
                 ((ISpatialDestinationUI) pnlMainPanel.getPanel(panelName)).getBean());

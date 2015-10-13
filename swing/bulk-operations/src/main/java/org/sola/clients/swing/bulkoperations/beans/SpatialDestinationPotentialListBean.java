@@ -82,6 +82,9 @@ public class SpatialDestinationPotentialListBean extends AbstractListBean{
     public final void setSelectedSpatialDestinationBean(SpatialDestinationBean newValue) {
         SpatialDestinationBean old = getSelectedSpatialDestinationBean();
         super.setSelectedBean((AbstractBindingBean)newValue);
+        
+        LogUtility.log("old:::: = "+getSelectedSpatialDestinationBean());
+        LogUtility.log("new:::: = "+newValue);
         propertySupport.firePropertyChange(SELECTED_BEAN_PROPERTY, old, newValue);
     }
     
