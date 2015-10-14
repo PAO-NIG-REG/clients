@@ -743,7 +743,9 @@ The Land herein may be subject to any existing interest whether recorded therein
 				<text><![CDATA[DIAGRAM IMAGE]]></text>
 			</staticText>
 			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
-				<reportElement x="1" y="75" width="555" height="511" uuid="c27124e0-5751-413c-a9fb-d2827001404d"/>
+				<reportElement x="1" y="75" width="555" height="511" isRemoveLineWhenBlank="true" uuid="c27124e0-5751-413c-a9fb-d2827001404d">
+					<printWhenExpression><![CDATA[!$P{DIAGRAM_IMAGE}.equalsIgnoreCase(null)]]></printWhenExpression>
+				</reportElement>
 				<imageExpression><![CDATA[$P{DIAGRAM_IMAGE}]]></imageExpression>
 			</image>
 		</band>

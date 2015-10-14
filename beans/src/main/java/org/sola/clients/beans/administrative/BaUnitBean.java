@@ -1,28 +1,30 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations (FAO).
- * All rights reserved.
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations
+ * (FAO). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
- *       promote products derived from this software without specific prior written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the name of FAO nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 package org.sola.clients.beans.administrative;
@@ -56,13 +58,12 @@ import org.sola.webservices.transferobjects.administrative.BaUnitTO;
 import org.sola.webservices.transferobjects.search.SpatialSearchResultTO;
 import org.sola.webservices.transferobjects.administrative.BaUnitAreaTO;
 
-/** 
- * Contains properties and methods to manage <b>BA Unit</b> object of the 
- * domain model. Could be populated from the {@link BaUnitTO} object.
+/**
+ * Contains properties and methods to manage <b>BA Unit</b> object of the domain
+ * model. Could be populated from the {@link BaUnitTO} object.
  */
 public class BaUnitBean extends BaUnitSummaryBean {
-         
-    
+
     private class RrrListListener implements ObservableListListener, Serializable {
 
         @Override
@@ -121,8 +122,8 @@ public class BaUnitBean extends BaUnitSummaryBean {
 
         private List<RrrShareBean> getShares(RrrBean rrrBean) {
             List<RrrShareBean> result = new LinkedList<RrrShareBean>();
-            if (rrrBean.getTypeCode().toLowerCase().contains("ownership") || 
-                    rrrBean.getTypeCode().toLowerCase().contains("apartment")) {
+            if (rrrBean.getTypeCode().toLowerCase().contains("ownership")
+                    || rrrBean.getTypeCode().toLowerCase().contains("apartment")) {
                 result = rrrBean.getFilteredRrrShareList();
             }
             return result;
@@ -170,7 +171,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
             return notationBean;
         }
     }
-    
+
     private static final String BAUNIT_ID_SEARCH = "system_search.cadastre_object_by_baunit_id";
     public static final String SELECTED_HISTORIC_RIGHT_PROPERTY = "selectedHistoricRight";
     public static final String SELECTED_PARCEL_PROPERTY = "selectedParcel";
@@ -182,9 +183,8 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public static final String PENDING_ACTION_CODE_PROPERTY = "pendingActionCode";
     public static final String PENDING_ACTION_PROPERTY = "pendingTypeAction";
     public static final String SELECTED_BA_UNIT_AREA_PROPERTY = "selectedBaUnitArea";
-    public static final String SELECTED_BAUNITDETAIL_PROPERTY  = "selectedBaUnitDetail";
-    
-    
+    public static final String SELECTED_BAUNITDETAIL_PROPERTY = "selectedBaUnitDetail";
+
     private SolaList<RrrBean> rrrList;
     private SolaList<BaUnitNotationBean> baUnitNotationList;
     private SolaList<CadastreObjectBean> cadastreObjectList;
@@ -195,7 +195,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
     private SolaList<RelatedBaUnitInfoBean> childBaUnits;
     private SolaList<RelatedBaUnitInfoBean> parentBaUnits;
     private SolaList<BaUnitDetailBean> baUnitDetailList;
-  
+
     private transient BaUnitDetailBean selectedBaUnitDetail;
     private transient CadastreObjectBean selectedParcel;
     private transient SolaList<RrrBean> rrrHistoricList;
@@ -204,7 +204,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
     private transient BaUnitNotationBean selectedBaUnitNotation;
     private transient RelatedBaUnitInfoBean selectedParentBaUnit;
     private transient RelatedBaUnitInfoBean selectedChildBaUnit;
-    
+
     private String estateType;
     private TypeActionBean pendingTypeAction;
     private BigDecimal calculatedAreaSize;
@@ -216,14 +216,14 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public void setCalculatedAreaSize(BigDecimal calculatedAreaSize) {
         this.calculatedAreaSize = calculatedAreaSize;
     }
-    
+
     public BaUnitBean() {
         super();
         rrrList = new SolaList();
         rrrHistoricList = new SolaList<RrrBean>();
         baUnitNotationList = new SolaList();
         baUnitDetailList = new SolaList<BaUnitDetailBean>();
-       
+
         cadastreObjectList = new SolaList();
         childBaUnits = new SolaList();
         parentBaUnits = new SolaList();
@@ -231,23 +231,22 @@ public class BaUnitBean extends BaUnitSummaryBean {
         allBaUnitNotationList = new SolaObservableList<BaUnitNotationBean>();
         rrrSharesList = new SolaObservableList<RrrShareWithStatus>();
         rrrList.getFilteredList().addObservableListListener(new RrrListListener());
-         
+
         sourceList.setExcludedStatuses(new String[]{StatusConstants.HISTORIC});
         rrrList.setExcludedStatuses(new String[]{StatusConstants.HISTORIC, StatusConstants.PREVIOUS});
         rrrHistoricList.setExcludedStatuses(new String[]{StatusConstants.CURRENT, StatusConstants.PENDING});
 
-        
         AllBaUnitNotationsListUpdater allBaUnitNotationsListener = new AllBaUnitNotationsListUpdater();
 //        rrrList.getFilteredList().addObservableListListener(allBaUnitNotationsListener);
 //        baUnitNotationList.getFilteredList().addObservableListListener(allBaUnitNotationsListener);
-        
-          rrrList.addObservableListListener(allBaUnitNotationsListener);
-          baUnitNotationList.addObservableListListener(allBaUnitNotationsListener);
-          
-          rrrList.addObservableListListener(new ObservableListListener() {
-            
+
+        rrrList.addObservableListListener(allBaUnitNotationsListener);
+        baUnitNotationList.addObservableListListener(allBaUnitNotationsListener);
+
+        rrrList.addObservableListListener(new ObservableListListener() {
+
             RrrComparatorByRegistrationDate sorter = new RrrComparatorByRegistrationDate();
-            
+
             @Override
             public void listElementsAdded(ObservableList list, int index, int length) {
                 for (int i = index; i < length + index; i++) {
@@ -264,7 +263,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
 
             @Override
             public void listElementReplaced(ObservableList list, int index, Object oldElement) {
-                rrrHistoricList.set(rrrHistoricList.indexOf(oldElement), (RrrBean)oldElement);
+                rrrHistoricList.set(rrrHistoricList.indexOf(oldElement), (RrrBean) oldElement);
                 Collections.sort(rrrHistoricList.getFilteredList(), sorter);
             }
 
@@ -272,7 +271,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
             public void listElementPropertyChanged(ObservableList list, int index) {
             }
         });
-        
+
     }
 
     public void createPaperTitle(SourceBean source) {
@@ -311,22 +310,28 @@ public class BaUnitBean extends BaUnitSummaryBean {
         }
         return false;
     }
-    
-    
-    public boolean isValid(){
+
+    public boolean isValid() {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
 //        if(!this.getName().isEmpty()&& this.getName()!= null && this.getName()!= "" ){
-        if(this.getName()!= null){
-         if ( this.getName().length()>255){
-                        MessageUtility.displayMessage(ClientMessage.CHECK_FIELD_INVALID_LENGTH_PAR, new Object[]{bundle.getString("PropertyPanel.jLabel5.text")});
-           return false;      
-         }
-      }  
-        return true;
+
+        if (this.getName() != null) {
+            if (this.getName().length() > 255) {
+                MessageUtility.displayMessage(ClientMessage.CHECK_FIELD_INVALID_LENGTH_PAR, new Object[]{bundle.getString("PropertyPanel.jLabel5.text")});
+                return false;
+            }
+        }
+        
+        if (this.getSourceList().size()> 0 && this.getSourceList().get(0).getTypeCode().contentEquals("cadastralSurvey")) {
+         return true;   
+        } else {
+             MessageUtility.displayMessage(ClientMessage.APPLICATION_SELECT_DOCUMENT_TO_ATTACH_TO);
+         return false; 
+        }
     }
-    
+
     public void removeSelectedParcel() {
-         if (selectedParcel != null && cadastreObjectList != null) {
+        if (selectedParcel != null && cadastreObjectList != null) {
             if (selectedParcel.getStatusCode().equalsIgnoreCase(CadastreObjectBean.PENDING_STATUS)) {
                 cadastreObjectList.safeRemove(selectedParcel, EntityAction.DELETE);
             } else {
@@ -343,12 +348,11 @@ public class BaUnitBean extends BaUnitSummaryBean {
 
     public boolean addBaUnitNotation(String notationText) {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
-         if (notationText.length()>1000){
-                        MessageUtility.displayMessage(ClientMessage.CHECK_FIELD_INVALID_LENGTH_PAR, new Object[]{bundle.getString("PropertyPanel.jLabel15.text")});
-                  return false;      
-         }
-        
-        
+        if (notationText.length() > 1000) {
+            MessageUtility.displayMessage(ClientMessage.CHECK_FIELD_INVALID_LENGTH_PAR, new Object[]{bundle.getString("PropertyPanel.jLabel15.text")});
+            return false;
+        }
+
         BaUnitNotationBean notation = new BaUnitNotationBean();
         notation.setBaUnitId(this.getId());
         notation.setNotationText(notationText);
@@ -412,7 +416,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
         propertySupport.firePropertyChange(SELECTED_PARCEL_PROPERTY,
                 null, selectedParcel);
     }
-    
+
     public RrrBean getSelectedRight() {
         return selectedRight;
     }
@@ -422,8 +426,8 @@ public class BaUnitBean extends BaUnitSummaryBean {
         propertySupport.firePropertyChange(SELECTED_RIGHT_PROPERTY,
                 null, selectedRight);
     }
-    
-     public RrrBean getSelectedHistoricRight() {
+
+    public RrrBean getSelectedHistoricRight() {
         return selectedHistoricRight;
     }
 
@@ -442,7 +446,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
     }
 
     public SolaList<CadastreObjectBean> getNewCadastreObjectList() {
-        if(newCadastreObjectList == null){
+        if (newCadastreObjectList == null) {
             loadNewParcels();
         }
         return newCadastreObjectList;
@@ -455,7 +459,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public SolaList<RelatedBaUnitInfoBean> getParentBaUnits() {
         return parentBaUnits;
     }
-    
+
     public ObservableList<RelatedBaUnitInfoBean> getFilteredChildBaUnits() {
         return childBaUnits.getFilteredList();
     }
@@ -492,39 +496,41 @@ public class BaUnitBean extends BaUnitSummaryBean {
         }
         this.setJointRefDataBean(this.pendingTypeAction, pendingTypeAction, PENDING_ACTION_PROPERTY);
     }
-    
+
     public ObservableList<CadastreObjectBean> getSelectedNewCadastreObjects() {
-        ObservableList<CadastreObjectBean> selectedCadastreObjects = 
-                ObservableCollections.observableList(new ArrayList<CadastreObjectBean>());
-        for(CadastreObjectBean cadastreObject : getNewCadastreObjectList()){
-            if(cadastreObject.isSelected()){
+        ObservableList<CadastreObjectBean> selectedCadastreObjects
+                = ObservableCollections.observableList(new ArrayList<CadastreObjectBean>());
+        for (CadastreObjectBean cadastreObject : getNewCadastreObjectList()) {
+            if (cadastreObject.isSelected()) {
                 selectedCadastreObjects.add(cadastreObject);
             }
         }
         return selectedCadastreObjects;
     }
-    
+
     public ObservableList<CadastreObjectBean> getSelectedCadastreObjects() {
-        ObservableList<CadastreObjectBean> selectedCadastreObjects = 
-                ObservableCollections.observableList(new ArrayList<CadastreObjectBean>());
-        for(CadastreObjectBean cadastreObject : getCadastreObjectFilteredList()){
-            if(cadastreObject.isSelected()){
+        ObservableList<CadastreObjectBean> selectedCadastreObjects
+                = ObservableCollections.observableList(new ArrayList<CadastreObjectBean>());
+        for (CadastreObjectBean cadastreObject : getCadastreObjectFilteredList()) {
+            if (cadastreObject.isSelected()) {
                 selectedCadastreObjects.add(cadastreObject);
             }
         }
         return selectedCadastreObjects;
     }
-    
-    /** 
+
+    /**
      * Returns the list of selected rights.
-     * @param regenerateIds If true, will generate new IDs for all parent and child objects.
+     *
+     * @param regenerateIds If true, will generate new IDs for all parent and
+     * child objects.
      */
     public ObservableList<RrrBean> getSelectedRrrs(boolean regenerateIds) {
-        ObservableList<RrrBean> selectedRrrs = 
-                ObservableCollections.observableList(new ArrayList<RrrBean>());
-        for(RrrBean rrr : getRrrFilteredList()){
-            if(rrr.isSelected()){
-                if(regenerateIds){
+        ObservableList<RrrBean> selectedRrrs
+                = ObservableCollections.observableList(new ArrayList<RrrBean>());
+        for (RrrBean rrr : getRrrFilteredList()) {
+            if (rrr.isSelected()) {
+                if (regenerateIds) {
                     rrr.resetIdAndVerion(true, true);
                 }
                 selectedRrrs.add(rrr);
@@ -532,11 +538,11 @@ public class BaUnitBean extends BaUnitSummaryBean {
         }
         return selectedRrrs;
     }
-    
+
     public ObservableList<CadastreObjectBean> getFilteredNewCadastreObjectList() {
         return getNewCadastreObjectList().getFilteredList();
     }
-    
+
     public SolaList<CadastreObjectBean> getCadastreObjectList() {
         return cadastreObjectList;
     }
@@ -552,13 +558,11 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public ObservableList<RrrBean> getRrrFilteredList() {
         return rrrList.getFilteredList();
     }
-    
+
     public ObservableList<RrrBean> getRrrHistoricList() {
         return rrrHistoricList.getFilteredList();
     }
-    
-    
-    
+
     /**
      * Adds conditions to the list
      *
@@ -602,7 +606,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
             return;
         }
         for (BaUnitDetailBean baUnitDetail : getBaUnitDetailList()) {
-            if (baUnitDetail.getDetailCode()!= null
+            if (baUnitDetail.getDetailCode() != null
                     && baUnitDetail.getDetailCode().equals(bud.getCode())) {
                 if (baUnitDetail.getEntityAction() == EntityAction.DELETE || baUnitDetail.getEntityAction() == EntityAction.DISASSOCIATE) {
                     baUnitDetail.setEntityAction(null);
@@ -615,8 +619,6 @@ public class BaUnitBean extends BaUnitSummaryBean {
         getBaUnitDetailList().addAsNew(newBaUnitDetail);
     }
 
-    
-    
     public void addRrr(RrrBean rrrBean) {
         if (!this.updateListItem(rrrBean, rrrList, false)) {
             int i = 0;
@@ -670,12 +672,12 @@ public class BaUnitBean extends BaUnitSummaryBean {
         return sourceList.getFilteredList();
     }
 
-    public void removeSelectedParentBaUnit(){
-        if(getSelectedParentBaUnit() != null){
+    public void removeSelectedParentBaUnit() {
+        if (getSelectedParentBaUnit() != null) {
             getParentBaUnits().safeRemove(getSelectedParentBaUnit(), EntityAction.DELETE);
         }
     }
-    
+
     public boolean createBaUnit(String serviceId) {
         BaUnitTO baUnit = TypeConverters.BeanToTrasferObject(this, BaUnitTO.class);
         baUnit = WSManager.getInstance().getAdministrative().createBaUnit(serviceId, baUnit);
@@ -689,102 +691,105 @@ public class BaUnitBean extends BaUnitSummaryBean {
         TypeConverters.TransferObjectToBean(baUnit, BaUnitBean.class, this);
         return true;
     }
-    
-    /** 
-     * Loads list of new parcels, created on the base of current BA unit parcels 
-     * (e.g. result of subdivision). 
+
+    /**
+     * Loads list of new parcels, created on the base of current BA unit parcels
+     * (e.g. result of subdivision).
      */
-    private void loadNewParcels(){
-        if(newCadastreObjectList == null){
+    private void loadNewParcels() {
+        if (newCadastreObjectList == null) {
             newCadastreObjectList = new SolaList<CadastreObjectBean>();
         }
         newCadastreObjectList.clear();
-        if(getId()!=null){
-            List<SpatialSearchResultTO> searchResults = 
-                    WSManager.getInstance().getSearchService()
+        if (getId() != null) {
+            List<SpatialSearchResultTO> searchResults
+                    = WSManager.getInstance().getSearchService()
                     .searchSpatialObjects(BAUNIT_ID_SEARCH, getId(), -1);
-            if(searchResults!=null && searchResults.size()>0){
+            if (searchResults != null && searchResults.size() > 0) {
                 List<String> ids = new ArrayList<String>();
-                for(SpatialSearchResultTO result : searchResults){
+                for (SpatialSearchResultTO result : searchResults) {
                     ids.add(result.getId());
                 }
                 TypeConverters.TransferObjectListToBeanList(WSManager.getInstance()
-                        .getCadastreService().getCadastreObjects(ids), 
-                        CadastreObjectBean.class, (List)newCadastreObjectList);
+                        .getCadastreService().getCadastreObjects(ids),
+                        CadastreObjectBean.class, (List) newCadastreObjectList);
             }
         }
     }
-    
-    /** Filters all child lists to keep only records with current status. */
-    public void filterCurrentRecords(){
+
+    /**
+     * Filters all child lists to keep only records with current status.
+     */
+    public void filterCurrentRecords() {
         sourceList.setIncludedStatuses(new String[]{StatusConstants.CURRENT});
         rrrList.setIncludedStatuses(new String[]{StatusConstants.CURRENT});
         baUnitNotationList.setIncludedStatuses(new String[]{StatusConstants.CURRENT});
         cadastreObjectList.setIncludedStatuses(new String[]{StatusConstants.CURRENT});
     }
 
-    /** 
-     * Returns BA Unit by ID. 
+    /**
+     * Returns BA Unit by ID.
+     *
      * @param baUnitId The ID of BA Unit to return.
      */
-    public static BaUnitBean getBaUnitsById(String baUnitId){
+    public static BaUnitBean getBaUnitsById(String baUnitId) {
         return TypeConverters.TransferObjectToBean(
                 WSManager.getInstance().getAdministrative().getBaUnitById(baUnitId),
                 BaUnitBean.class, null);
     }
-    
-    /** 
-     * Returns list of BA Units, created by the given service. 
+
+    /**
+     * Returns list of BA Units, created by the given service.
+     *
      * @param serviceId The ID of service, used pick up BA Units.
      */
-    public static List<BaUnitBean> getBaUnitsByServiceId(String serviceId){
+    public static List<BaUnitBean> getBaUnitsByServiceId(String serviceId) {
         return TypeConverters.TransferObjectListToBeanList(
                 WSManager.getInstance().getAdministrative().getBaUnitsByServiceId(serviceId),
                 BaUnitBean.class, null);
     }
-    
-    
-    /** 
-     * Returns o BA Unit Areas, for the Ba Unit Id. 
+
+    /**
+     * Returns o BA Unit Areas, for the Ba Unit Id.
+     *
      * @param baUnitId The ID of service, used pick up BA Units.
      */
-    public static BaUnitAreaBean getBaUnitArea(String baUnitId){
+    public static BaUnitAreaBean getBaUnitArea(String baUnitId) {
         return TypeConverters.TransferObjectToBean(
                 WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitId),
                 BaUnitAreaBean.class, null);
     }
-    
-    
-    
-    /** 
-     * Terminates/Cancel BaUnit. Creates pending record for further action. 
+
+    /**
+     * Terminates/Cancel BaUnit. Creates pending record for further action.
+     *
      * @param serviceId ID of the service, which terminates BaUnit.
      */
-    public void terminateBaUnit(String serviceId){
+    public void terminateBaUnit(String serviceId) {
         BaUnitTO baUnitTO = WSManager.getInstance().getAdministrative()
                 .terminateBaUnit(this.getId(), serviceId);
-        if(baUnitTO!=null){
-                TypeConverters.TransferObjectToBean(
-                baUnitTO, BaUnitBean.class, this);
+        if (baUnitTO != null) {
+            TypeConverters.TransferObjectToBean(
+                    baUnitTO, BaUnitBean.class, this);
         }
     }
-    
-    /** 
-     * Rolls back BaUnit termination/cancellation. 
+
+    /**
+     * Rolls back BaUnit termination/cancellation.
      */
-    public void cancelBaUnitTermination(){
+    public void cancelBaUnitTermination() {
         BaUnitTO baUnitTO = WSManager.getInstance().getAdministrative()
                 .cancelBaUnitTermination(this.getId());
-        if(baUnitTO!=null){
-                TypeConverters.TransferObjectToBean(
-                baUnitTO, BaUnitBean.class, this);
+        if (baUnitTO != null) {
+            TypeConverters.TransferObjectToBean(
+                    baUnitTO, BaUnitBean.class, this);
         }
     }
-    
-    /** 
-     * Returns collection of {@link BaUnitBean} objects. This method is 
-     * used by Jasper report designer to extract properties of BA Unit bean 
-     * to help design a report.
+
+    /**
+     * Returns collection of {@link BaUnitBean} objects. This method is used by
+     * Jasper report designer to extract properties of BA Unit bean to help
+     * design a report.
      */
     public static java.util.Collection generateCollection() {
         java.util.Vector collection = new java.util.Vector();
@@ -800,16 +805,15 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public void setSelectedBaUnitDetail(BaUnitDetailBean selectedBaUnitDetail) {
         this.selectedBaUnitDetail = selectedBaUnitDetail;
         propertySupport.firePropertyChange(SELECTED_BAUNITDETAIL_PROPERTY, null, this.selectedBaUnitDetail);
-   
+
     }
-    
-    
-     public SolaList<BaUnitDetailBean> getBaUnitDetailList() {
+
+    public SolaList<BaUnitDetailBean> getBaUnitDetailList() {
         return baUnitDetailList;
     }
 
-    @Size(min = 1, 
-//            groups = {LeaseValidationGroup.class},
+    @Size(min = 1,
+            //            groups = {LeaseValidationGroup.class},
             message = ClientMessage.CHECK_SIZE_CONDITIONS_LIST, payload = Localized.class)
     public ObservableList<BaUnitDetailBean> getBaUnitDetailFilteredList() {
         return baUnitDetailList.getFilteredList();
@@ -818,8 +822,8 @@ public class BaUnitBean extends BaUnitSummaryBean {
     public void setBaUnitDetailList(SolaList<BaUnitDetailBean> baUnitDetailList) {
         this.baUnitDetailList = baUnitDetailList;
     }
-    
-      public ArrayList<BaUnitDetailBean> getStandardBaUnitDetail() {
+
+    public ArrayList<BaUnitDetailBean> getStandardBaUnitDetail() {
         ArrayList<BaUnitDetailBean> conditions = new ArrayList<BaUnitDetailBean>();
         for (BaUnitDetailBean cond : getBaUnitDetailFilteredList()) {
             if (!cond.isCustomDetail()) {

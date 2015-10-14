@@ -55,7 +55,7 @@ public class SpatialDestinationPotentialListBean extends AbstractListBean{
     }
     
     @Override
-    protected SolaObservableList initializeBeanList() {
+    public SolaObservableList initializeBeanList() {
         SolaObservableList<SpatialDestinationBean> list =
                 new SolaObservableList<SpatialDestinationBean>();
         String namespaceToScan = SpatialDestinationBean.class.getPackage().getName();

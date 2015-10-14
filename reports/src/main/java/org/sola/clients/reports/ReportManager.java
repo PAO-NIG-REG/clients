@@ -52,6 +52,7 @@ import org.sola.clients.beans.application.*;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.system.BrReportBean;
 import org.sola.clients.beans.security.SecurityBean;
+import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.system.BrListBean;
 import org.sola.clients.beans.systematicregistration.*;
 import org.sola.common.logging.LogUtility;
@@ -140,7 +141,7 @@ public class ReportManager {
         String featureFloatBack = "images/sola/back_float.svg";
         String featureFront = "images/sola/front.svg";
         String featureBack = "images/sola/back.svg";
-        String diagramImage = "";
+        String diagramImage = null;
 
         String appNr = null;
         String title = null;
@@ -166,16 +167,24 @@ public class ReportManager {
         BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
         size = baUnitAreaBean.getSize();
 
-        diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
+        
+        for (Iterator<SourceBean> it = baUnitBean.getSourceList().iterator(); it.hasNext();) {
+          SourceBean appSource = it.next();
+          if (appSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")){
+              diagramImage = cachePath + appSource.getArchiveDocument().getFileName();
+          }
+        }
+        
+//        diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
 
         state = getSettingValue("state");
 
         for (Iterator<BaUnitDetailBean> it = baUnitBean.getBaUnitDetailList().iterator(); it.hasNext();) {
             BaUnitDetailBean appdetail = it.next();
-            if (appdetail.getDetailCode().equals("instrnum")) {
+            if (appdetail.getDetailCode().equals("instrumentRegistrationNo")) {
                 appNr = appdetail.getCustomDetailText();
             }
-            if (appdetail.getDetailCode().equals("startdate")) {
+            if (appdetail.getDetailCode().equals("dateCommenced")) {
                 commencingDate = appdetail.getCustomDetailText();
 //                DateFormat format = new SimpleDateFormat("d MMMM yyyy");
 //                Date date = new Date(System.currentTimeMillis());
@@ -294,9 +303,9 @@ public class ReportManager {
 //       
 ////        ADDED FOR NEW REPORT    
         String state = getSettingValue("state");
-        String diagramImage = "";
+        String diagramImage = null;
         String title = null;
-        diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
+//        diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
         String appNr = null;
         String landUse = null;
         String propAddress = null;
@@ -305,6 +314,14 @@ public class ReportManager {
         BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
         BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
         size = baUnitAreaBean.getSize();
+        
+         for (Iterator<SourceBean> it = baUnitBean.getSourceList().iterator(); it.hasNext();) {
+          SourceBean appSource = it.next();
+          if (appSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")){
+              diagramImage = cachePath + appSource.getArchiveDocument().getFileName();
+          }
+        }
+        
         for (Iterator<BaUnitDetailBean> it = baUnitBean.getBaUnitDetailList().iterator(); it.hasNext();) {
             BaUnitDetailBean appdetail = it.next();
             if (appdetail.getDetailCode().equals("cOfO")) {

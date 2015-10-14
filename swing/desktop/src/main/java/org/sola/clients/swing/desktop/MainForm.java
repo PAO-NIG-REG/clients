@@ -73,6 +73,7 @@ import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.clients.swing.bulkoperations.sources.LoadSourcesPanel;
 import org.sola.clients.swing.bulkoperations.spatialobjects.ImportSpatialPanel;
 import org.sola.clients.swing.bulkoperations.spatialobjects.MapPanel;
+import org.sola.clients.swing.bulkoperations.spatialobjects.*;
 import org.sola.clients.swing.bulkoperations.*;
 import org.sola.common.RolesConstants;
 import org.sola.common.WindowUtility;

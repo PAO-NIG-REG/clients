@@ -362,9 +362,11 @@ public class ImportSpatialPanel extends ContentPanel {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(listAttributes);
-        listAttributes.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ImportSpatialPanel.listAttributes.columnModel.title0")); // NOI18N
-        listAttributes.getColumnModel().getColumn(1).setMaxWidth(120);
-        listAttributes.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ImportSpatialPanel.listAttributes.columnModel.title1")); // NOI18N
+        if (listAttributes.getColumnModel().getColumnCount() > 0) {
+            listAttributes.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ImportSpatialPanel.listAttributes.columnModel.title0")); // NOI18N
+            listAttributes.getColumnModel().getColumn(1).setMaxWidth(120);
+            listAttributes.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ImportSpatialPanel.listAttributes.columnModel.title1")); // NOI18N
+        }
 
         jLabel3.setText(bundle.getString("ImportSpatialPanel.jLabel3.text")); // NOI18N
 

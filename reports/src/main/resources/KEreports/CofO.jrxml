@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty" uuid="0a3917ce-86d8-4f47-b98a-dce032263ed2">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="42"/>
+	<property name="ireport.y" value="1708"/>
 	<style name="table 1">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -675,7 +675,9 @@ Given under my hand on:
 		</band>
 		<band height="842">
 			<image>
-				<reportElement x="0" y="0" width="595" height="842" uuid="c2a93fa7-3259-4664-b562-d9474ca4826b"/>
+				<reportElement x="0" y="0" width="595" height="842" isRemoveLineWhenBlank="true" uuid="c2a93fa7-3259-4664-b562-d9474ca4826b">
+					<printWhenExpression><![CDATA[!$P{DIAGRAM_IMAGE}.equalsIgnoreCase(null)]]></printWhenExpression>
+				</reportElement>
 				<imageExpression><![CDATA[$P{DIAGRAM_IMAGE}]]></imageExpression>
 			</image>
 			<staticText>

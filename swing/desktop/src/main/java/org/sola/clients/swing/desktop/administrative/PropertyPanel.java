@@ -405,7 +405,7 @@ public class PropertyPanel extends ContentPanel {
                     textField.setMaximumSize(new java.awt.Dimension(50, 25));
                     textField.setSize(new java.awt.Dimension(50, 25));
                     textField.setHorizontalAlignment(JTextField.LEFT);
-                    if (appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cofonum")) {
+                    if (appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cOfO")) {
                         textField.setEditable(false);
                         textField.setEnabled(false);
                     } else {
@@ -457,7 +457,7 @@ public class PropertyPanel extends ContentPanel {
                         c.gridwidth = 0;
                         matrixPanel.add(btnDate, c);
 
-                    } else if (appBaUnitDetail.getDetailType().getFieldType().equalsIgnoreCase("COMBO") && appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("purpose")) {
+                    } else if (appBaUnitDetail.getDetailType().getFieldType().equalsIgnoreCase("COMBO") && appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cOfOtype")) {
                         int lutCnt = this.landUseTypeListBean1.getLandUseTypeList().size();
                         int i = 0;
                         String[] lut = new String[lutCnt];

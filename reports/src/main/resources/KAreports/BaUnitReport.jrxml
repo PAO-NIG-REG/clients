@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="20ae7338-fb08-4909-be1a-0285ed1fcfdc">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="833"/>
+	<property name="ireport.y" value="622"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -744,7 +744,9 @@ The Land herein may be subject to any existing interest whether recorded therein
 				<textFieldExpression><![CDATA[$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
 			</textField>
 			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
-				<reportElement x="0" y="91" width="555" height="511" uuid="0d9d9606-3b0b-4a72-a236-4004c6cb2604"/>
+				<reportElement x="0" y="91" width="555" height="511" isRemoveLineWhenBlank="true" uuid="0d9d9606-3b0b-4a72-a236-4004c6cb2604">
+					<printWhenExpression><![CDATA[!$P{DIAGRAM_IMAGE}.equalsIgnoreCase(null)]]></printWhenExpression>
+				</reportElement>
 				<imageExpression><![CDATA[$P{DIAGRAM_IMAGE}]]></imageExpression>
 			</image>
 		</band>
