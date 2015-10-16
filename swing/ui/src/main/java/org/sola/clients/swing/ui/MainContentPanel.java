@@ -277,6 +277,7 @@ public class MainContentPanel extends javax.swing.JPanel {
      */
     public void showPanel(String cardName) {
         if (!cards.containsKey(cardName)) {
+            System.out.println("IF NOT CARD NAME:::    "+cardName);
             return;
         }
 
@@ -292,7 +293,7 @@ public class MainContentPanel extends javax.swing.JPanel {
 
         // close autoclosable panels
         closeAutoCollapsiblePanels();
-
+   System.out.println("PRIMA DI IF CONTENT PANEL:::    "+cardName);
         if (ContentPanel.class.isAssignableFrom(cards.get(cardName).getClass())) {
             ((ContentPanel) cards.get(cardName)).panelShown();
         }

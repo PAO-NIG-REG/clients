@@ -366,6 +366,7 @@ public class MainForm extends javax.swing.JFrame {
                         ClientMessage.PROGRESS_MSG_SOURCE_LOAD_STARTING));
                 LoadSourcesPanel panel = new LoadSourcesPanel();
                 pnlContent.addPanel(panel, panel.getName(), true);
+                System.out.println("LOAD SOURCES::::   "+panel.getName());
                 return null;
             }
         };
@@ -383,6 +384,7 @@ public class MainForm extends javax.swing.JFrame {
                 setMessage(MessageUtility.getLocalizedMessageText(
                         ClientMessage.PROGRESS_MSG_SPATIAL_OBJECT_LOAD_STARTING));
                 ImportSpatialPanel panel = new ImportSpatialPanel();
+                System.out.println("IMPORT SPATIAL  ::::   "+panel.getName());
                 pnlContent.addPanel(panel, panel.getName(), true);
                 return null;
             }

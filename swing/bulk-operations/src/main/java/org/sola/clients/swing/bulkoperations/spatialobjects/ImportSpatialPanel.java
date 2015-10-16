@@ -119,6 +119,8 @@ public class ImportSpatialPanel extends ContentPanel {
        
        if (destinationBeanToSelect == null){
            destinationBeanToSelect = (SpatialDestinationBean) new SpatialDestinationCadastreObjectBean();
+           spatialDestinationPotentialList.setSelectedSpatialDestinationBean(
+                destinationBeanToSelect);
        }
        
         spatialBulkMove.addPropertyChangeListener(new PropertyChangeListener() {
@@ -139,9 +141,11 @@ public class ImportSpatialPanel extends ContentPanel {
        
         LogUtility.log("newDestination.getDisplayValue():::::"+newDestination.getDisplayValue());
         LogUtility.log("newDestination.getPanelName():::::"+ newDestination.getPanelName());
-     
+// asdfasfsadf    
        String panelName = newDestination.getPanelName();
         pnlMainPanel.showPanel(panelName);
+        
+           System.out.println("DOPO SHOW PANEL  :::    "+panelName);
         spatialBulkMove.setDestination(
                 ((ISpatialDestinationUI) pnlMainPanel.getPanel(panelName)).getBean());
         setSourceAttributesInDestinationPanel();
