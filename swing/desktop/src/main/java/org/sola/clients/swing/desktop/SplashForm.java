@@ -32,29 +32,44 @@ package org.sola.clients.swing.desktop;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import org.sola.common.logging.LogUtility;
 
 /**
  * Splash form to display product's information while loading application.
  */
 public class SplashForm extends javax.swing.JWindow {
 
-//    javax.servlet.http.HttpServletRequest request;
-//        String host = request.getServerName();
-//    public SplashForm() {
-//        initComponents();
-//    }
     private ImageIcon imageSplash;
     private String prefix = null;
-//        private static final String WEB_START_HOST_PROP = "jnlp.SOLA_WEB_START_HOST";
 
     public SplashForm() {
-//        String host = System.getProperty(WEB_START_HOST_PROP);
-
-//        System.out.println("HOST     "+host);
+//        InetAddress ip;
+//        String hostname;
+//        String port;
+//
+//        try {
+//            ip = InetAddress.getLocalHost();
+//
+//            hostname = ip.getHostName();
+//
+//            System.out.println("Your current IP address : " + ip);
+//            System.out.println("Your current Hostname : " + hostname);
+//            LogUtility.log("Your current IP address : " + ip);
+//            LogUtility.log("Your current Hostname : " + hostname);
+////             System.out.println("Your address : " + port);
+//
+//        } catch (UnknownHostException e) {
+//
+//            e.printStackTrace();
+//        }
+//
+//
 //        BufferedReader in = null;
 //        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("config/wsconfig"); // NOI18N
 //       
@@ -81,7 +96,7 @@ public class SplashForm extends javax.swing.JWindow {
         initComponents();
 
         imageSplash = new ImageIcon(SplashForm.class.getResource(
-                //                "/images/sola/" + prefix + "sola_icon.jpg"));
+//                                "/images/sola/" + prefix + "sola_icon.jpg"));
                 "/images/sola/sola_icon.jpg"));
 
         lblSplash.setIcon(imageSplash);

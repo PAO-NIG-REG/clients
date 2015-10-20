@@ -32,8 +32,6 @@ package org.sola.clients.swing.desktop;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.sola.clients.swing.common.laf.LafManager;
@@ -56,29 +54,7 @@ public class DesktopApplication {
      */
     public static void main(String[] args) {
 
-        InetAddress ip;
-        String hostname;
-        String port;
-
-//        BasicService bs = (BasicService) ServiceManager.lookup("javax.jnlp.BasicService");
-//        BasicService bs = (BasicService) ServiceManager;
-//        URL codebase = 
-        try {
-            ip = InetAddress.getLocalHost();
-
-            hostname = ip.getHostName();
-
-            System.out.println("Your current IP address : " + ip);
-            System.out.println("Your current Hostname : " + hostname);
-            LogUtility.log("Your current IP address : " + ip);
-            LogUtility.log("Your current Hostname : " + hostname);
-//             System.out.println("Your address : " + port);
-
-        } catch (UnknownHostException e) {
-
-            e.printStackTrace();
-        }
-
+      
         // #321 Set class to record user preferences for
         WindowUtility.setMainAppClass(DesktopApplication.class);
         // Show splash screen
