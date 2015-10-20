@@ -66,6 +66,7 @@ public class RequestTypeBean extends AbstractCodeBean {
     public static final String CODE_LODGE_OBJECTION = "lodgeObjection";
     public static final String CODE_REG_MORTGAGE = "mortgage";
     public static final String CODE_VARY_MORTGAGE = "varyMortgage";
+    public static final String CODE_REGISTRATION_ONTITLE = "regnOnTitle";
 
     public static final String NR_DAYS_TO_COMPLETE_PROPERTY = "nrDaysToComplete";
     public static final String NR_PROPERTIES_REQUIRED_PROPERTY = "nrPropertiesRequired";

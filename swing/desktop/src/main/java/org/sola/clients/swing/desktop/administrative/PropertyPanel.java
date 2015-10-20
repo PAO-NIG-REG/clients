@@ -331,6 +331,7 @@ public class PropertyPanel extends ContentPanel {
     private void customizeTitleTab() {
 
         if (applicationService != null && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD))
+                && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REGISTRATION_ONTITLE))
                 && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_MORTGAGE))
                 && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_VARY_MORTGAGE))) {
             this.tabTitle.setVisible(false);
@@ -344,35 +345,7 @@ public class PropertyPanel extends ContentPanel {
             this.btnLinkPaperTitle.setText(bundle.getString("PropertyPanel.btnLinkDiagram.text"));
             this.btnViewPaperTitle.setText(bundle.getString("PropertyPanel.btnViewDiagram.text"));
             this.btnPrintBaUnit1.setVisible(false);
-//            int rrrCnt = 0;
-//            for (RrrBean rrrit : this.baUnitBean1.getRrrFilteredList()) {
-//                System.out.println("RRR   " + rrrit.getNr());
-//                if (rrrit.isPrimary()) {
-//                    System.out.println("RRRPRIMARY   " + rrrit.getNr());
-//////                ObservableList<ConditionForRrrBean> appRrr = rrrit.getConditionsFilteredList();
-////                    int rrrCnt = rrrit.getConditionsFilteredList().size();
-//                    ConditionTypeListBean ctb = new ConditionTypeListBean();
-//                    rrrCnt = ctb.getLeaseConditionList().size();
-//
-//                    System.out.println("RRRCNT   " + rrrCnt);
-////                    ConditionForRrrBean[] ordConRRR = new ConditionForRrrBean[rrrCnt];
-////                    for (ConditionForRrrBean appRrr : rrrit.getConditionsFilteredList()) {
-////                        System.out.println("APPRRR   "+appRrr.getConditionType().getDisplayValue());
-////                    }
-//                    String[] ordConRRR = new String[rrrCnt];
-//                    int j = 0;
-//                    for (ConditionTypeBean appRrr : ctb.getLeaseConditionList()) {
-//                        if (appRrr.getDescription().contains("cofo")) {
-//                        System.out.println("APPRRR   " + appRrr.getDisplayValue());
-//                        ordConRRR[j] = appRrr.getDisplayValue();
-//                            j = j + 1;
-//                        }    
-//                    }
-//                    System.out.println("JJJJJ   " + j);
-//                }
-//            }
 
-            // ...
             int rowCnt = this.baUnitBean1.getBaUnitDetailFilteredList().size();
 
             GridBagLayout gridbag = new GridBagLayout();
@@ -405,7 +378,7 @@ public class PropertyPanel extends ContentPanel {
                     textField.setMaximumSize(new java.awt.Dimension(50, 25));
                     textField.setSize(new java.awt.Dimension(50, 25));
                     textField.setHorizontalAlignment(JTextField.LEFT);
-                    if (appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cOfO")) {
+                    if (appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cOfO")&& applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)) {
                         textField.setEditable(false);
                         textField.setEnabled(false);
                     } else {

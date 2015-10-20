@@ -330,11 +330,11 @@ public class ParcelPlanTool extends ExtendedTool {
 
                 cadastreObject = this.getCadastre(appBaunit.getNameFirstpart());
                 baUnitId = appBaunit.getBaUnitId();
-                
+
                 this.reportTogenerate = appBaunit.getNameFirstpart() + appBaunit.getNameLastpart() + "_" + this.reportdate + ".pdf";
                 this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
                 this.reportTogenerate = this.reportTogenerate.replace("/", "_");
-                
+
                 final BaUnitBean baUnit = getBaUnit(baUnitId);
 //                final ApplicationBean applicationBean = getApplication(appId);
                 String parcelLabel = appBaunit.getNameFirstpart() + '/' + appBaunit.getNameLastpart();
@@ -349,7 +349,7 @@ public class ParcelPlanTool extends ExtendedTool {
                 final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
                 ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, null, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
 
-                showReport(ParcelPlan, parcelLabel,  "parcelPlan"); 
+                showReport(ParcelPlan, parcelLabel, "parcelPlan");
 
                 jprintlist.add(ParcelPlan);
                 i = i + 1;
@@ -371,18 +371,21 @@ public class ParcelPlanTool extends ExtendedTool {
                     output.close();
                 } catch (JRException ex) {
                     Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                    output.close();
                 }
 
                 try {
                     FileUtility.saveFileFromStream(null, cachePath + whichFile + ".pdf");
-                    saveDocument(whichFile + ".pdf", this.currentDate, this.reportdate, whichFile,  "parcelPlan");
+                    saveDocument(whichFile + ".pdf", this.currentDate, this.reportdate, whichFile, "parcelPlan");
                     FileUtility.deleteFileFromCache(cachePath + whichFile + ".pdf");
                 } catch (Exception ex) {
                     Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                    output.close();
                 }
             }
         } catch (InitializeMapException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+
         } catch (SchemaException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -397,20 +400,22 @@ public class ParcelPlanTool extends ExtendedTool {
 
         if (i == 0) {
             MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
+
         } else {
             showDocMessage(this.tmpLocation, prevCofO.toString());
 
-        }
-        if (Desktop.isDesktopSupported() && (this.nr == "" || this.nr == null)) {
-            try {
-                File myFile = new File(cachePath + whichFile + ".pdf");
-                Desktop.getDesktop().open(myFile);
-            } catch (IOException ex) {
-                // no application registered for PDFs
+//        }
+            if (Desktop.isDesktopSupported() && (this.nr == "" || this.nr == null)) {
+                try {
+                    File myFile = new File(cachePath + whichFile + ".pdf");
+                    Desktop.getDesktop().open(myFile);
+                } catch (IOException ex) {
+                    // no application registered for PDFs
+                }
+            } else {
+                this.form.setVisible(true);
+                this.form.setAlwaysOnTop(true);
             }
-        } else {
-            this.form.setVisible(true);
-            this.form.setAlwaysOnTop(true);
         }
     }
 
