@@ -112,16 +112,16 @@ public class ImportSpatialPanel extends ContentPanel {
                 && spatialDestinationPotentialList.getBeanList().size() > 0) {
             destinationBeanToSelect = (SpatialDestinationBean) spatialDestinationPotentialList.getBeanList().get(0);
         }
-       if (destinationBeanToSelect != null) {
+//       if (destinationBeanToSelect != null) {
         spatialDestinationPotentialList.setSelectedSpatialDestinationBean(
                 destinationBeanToSelect);
-       }
+//       }
        
-       if (destinationBeanToSelect == null){
-           destinationBeanToSelect = (SpatialDestinationBean) new SpatialDestinationCadastreObjectBean();
-           spatialDestinationPotentialList.setSelectedSpatialDestinationBean(
-                destinationBeanToSelect);
-       }
+//       if (destinationBeanToSelect == null){
+//           destinationBeanToSelect = (SpatialDestinationBean) new SpatialDestinationCadastreObjectBean();
+//           spatialDestinationPotentialList.setSelectedSpatialDestinationBean(
+//                destinationBeanToSelect);
+//       }
        
         spatialBulkMove.addPropertyChangeListener(new PropertyChangeListener() {
 
