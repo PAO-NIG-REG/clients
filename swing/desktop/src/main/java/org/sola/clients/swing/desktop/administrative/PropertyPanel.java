@@ -135,6 +135,7 @@ public class PropertyPanel extends ContentPanel {
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
     private JComboBox cbxGen = new javax.swing.JComboBox();
+    private boolean cofOenabled = false;
 
     /**
      * Creates {@link BaUnitBean} used to bind form components.
@@ -338,13 +339,15 @@ public class PropertyPanel extends ContentPanel {
             this.tabTitle.setEnabled(false);
             tabsMain.removeTabAt(tabsMain.indexOfComponent(tabTitle));
             this.btnPrintBaUnit1.setVisible(false);
-
         } else {
             java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
             this.groupPanel1.setTitleText(bundle.getString("PropertyPanel.TitlePaperTitle.text"));
             this.btnLinkPaperTitle.setText(bundle.getString("PropertyPanel.btnLinkDiagram.text"));
             this.btnViewPaperTitle.setText(bundle.getString("PropertyPanel.btnViewDiagram.text"));
             this.btnPrintBaUnit1.setVisible(false);
+            if (applicationService != null && (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REGISTRATION_ONTITLE))) {
+                cofOenabled = true;
+            }
 
             int rowCnt = this.baUnitBean1.getBaUnitDetailFilteredList().size();
 
@@ -357,7 +360,9 @@ public class PropertyPanel extends ContentPanel {
             BaUnitDetailBean[] orderedDetail = new BaUnitDetailBean[rowCnt];
 
             for (BaUnitDetailBean it : this.baUnitBean1.getBaUnitDetailFilteredList()) {
+               if (it.getDetailType().getStatus().equalsIgnoreCase("c")) { 
                 orderedDetail[(it.getDetailType().getOrderView()) - 1] = it;
+               } 
             }
 
             for (final BaUnitDetailBean appBaUnitDetail : orderedDetail) {
@@ -378,7 +383,8 @@ public class PropertyPanel extends ContentPanel {
                     textField.setMaximumSize(new java.awt.Dimension(50, 25));
                     textField.setSize(new java.awt.Dimension(50, 25));
                     textField.setHorizontalAlignment(JTextField.LEFT);
-                    if (appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cOfO")&& applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)) {
+                    if (appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cOfO") && this.cofOenabled == false
+                            ) {
                         textField.setEditable(false);
                         textField.setEnabled(false);
                     } else {
