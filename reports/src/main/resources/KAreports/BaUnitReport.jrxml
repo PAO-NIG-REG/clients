@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="20ae7338-fb08-4909-be1a-0285ed1fcfdc">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="20ae7338-fb08-4909-be1a-0285ed1fcfdc">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="1"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="237"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#FFFFFF"/>
@@ -274,7 +274,7 @@
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="374" y="47" width="181" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="0119ec16-1152-4587-b45d-bab22f38e9ff"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Nyala" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Tahoma" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
@@ -290,16 +290,16 @@
 	<detail>
 		<band height="585">
 			<staticText>
-				<reportElement x="0" y="16" width="555" height="37" uuid="18c84b91-e41f-44a8-ad93-b52d4c425c64"/>
+				<reportElement x="0" y="13" width="555" height="43" uuid="18c84b91-e41f-44a8-ad93-b52d4c425c64"/>
 				<textElement textAlignment="Justified" verticalAlignment="Top" markup="none">
-					<font fontName="Tahoma" isItalic="true"/>
+					<font fontName="Tahoma" size="11" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[I certify that the person described in the OWNERS is the registered proprietor of land in fee simple (or such other estate or interest as is set forth in that schedule in the land within described) subject to such exceptions, encumbrances, interests and entries as appear in the INTERESTS and to any additional entries in the Folio of the Register. ]]></text>
+				<text><![CDATA[This is an extract from the Certificate of Occupancy shared on the Katsina State Deeds Registry database; It has no legal standing, should need be, should sigth the original Certificate of Occupancy.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="76" width="133" height="18" uuid="3f7fc594-8b99-49b8-8ed6-ab61e8dd7391"/>
+				<reportElement x="0" y="71" width="175" height="23" uuid="3f7fc594-8b99-49b8-8ed6-ab61e8dd7391"/>
 				<textElement markup="none">
-					<font fontName="Tahoma" size="12" isBold="true"/>
+					<font fontName="Tahoma" size="15" isBold="true"/>
 				</textElement>
 				<text><![CDATA[LAND DESCRIPTION:]]></text>
 			</staticText>
@@ -320,11 +320,11 @@
 							</box>
 							<staticText>
 								<reportElement mode="Transparent" x="0" y="0" width="272" height="22" backcolor="#FFFFFF" uuid="9e10f40d-2fd0-437a-b2e7-bcea10fca766"/>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
-								<text><![CDATA[Code]]></text>
+								<text><![CDATA[Certificate of Occupancy]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table_TD" height="30" rowSpan="1">
@@ -342,7 +342,7 @@
 						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="280" height="22" uuid="9d2aad95-24c4-46d5-b65d-ba9194478415"/>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
@@ -403,12 +403,12 @@
 				<textElement markup="none">
 					<font fontName="Tahoma" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{SIZE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{SIZE}+ "(m2)"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="0" y="290" width="100" height="19" uuid="130d65f9-5b2b-4c05-bc84-9e68b50d11b2"/>
 				<textElement markup="none">
-					<font fontName="Tahoma" size="12" isBold="true"/>
+					<font fontName="Tahoma" size="15" isBold="true"/>
 				</textElement>
 				<text><![CDATA[OWNERS:]]></text>
 			</staticText>
@@ -422,7 +422,7 @@
 						<jr:columnHeader style="table 3_CH" height="24" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="301" height="24" uuid="b384a885-80b3-49a9-a2cf-953c57880c3a"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
@@ -444,7 +444,7 @@
 						<jr:columnHeader style="table 3_CH" height="24" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="252" height="24" uuid="e9d20457-19d3-4d60-abee-5a2ac234599f"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
@@ -465,9 +465,9 @@
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="435" width="100" height="18" uuid="6282103a-faa7-4efd-a9da-514570de7c70"/>
+				<reportElement positionType="Float" x="0" y="432" width="100" height="21" uuid="6282103a-faa7-4efd-a9da-514570de7c70"/>
 				<textElement markup="none">
-					<font fontName="Tahoma" size="12" isBold="true"/>
+					<font fontName="Tahoma" size="15" isBold="true"/>
 				</textElement>
 				<text><![CDATA[INTERESTS:]]></text>
 			</staticText>
@@ -481,7 +481,7 @@
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="280" height="24" uuid="68946c69-071e-4415-9c64-ee061ea9a52b"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
@@ -503,11 +503,11 @@
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="274" height="24" uuid="46d33e26-1f77-4f8a-8aa0-2cd195a33298"/>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Tahoma" size="12" isBold="true"/>
 									<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
 								</textElement>
-								<text><![CDATA[Registration Date]]></text>
+								<text><![CDATA[Registration On]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
@@ -524,11 +524,11 @@
 				</jr:table>
 			</componentElement>
 		</band>
-		<band height="704">
+		<band height="682">
 			<staticText>
 				<reportElement mode="Transparent" x="22" y="21" width="175" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="eeccfa5e-7176-4658-b64f-cad174f6e8e5"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Tahoma" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Tahoma" size="15" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[DIAGRAM IMAGE]]></text>
@@ -536,7 +536,7 @@
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="220" y="21" width="306" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="c5c12bd4-f009-41c3-baf1-10d21668de09"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Nyala" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Tahoma" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
@@ -550,30 +550,41 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="61">
-			<componentElement>
-				<reportElement x="334" y="20" width="221" height="36" uuid="f1338f45-c56c-42ab-8094-ccd69ac1a902"/>
-				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
-					<jr:codeExpression><![CDATA[$F{nameFirstpart} + "/" + $F{nameLastpart}]]></jr:codeExpression>
-				</jr:barbecue>
-			</componentElement>
-			<staticText>
-				<reportElement x="7" y="18" width="56" height="20" uuid="2d782696-78da-4b05-b41b-3f91ab0a5b4d"/>
-				<textElement>
-					<font fontName="Tahoma" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
+		<band height="65">
 			<line>
-				<reportElement x="74" y="38" width="237" height="1" isRemoveLineWhenBlank="true" uuid="c9d15b98-023a-4af2-ad3b-d63ed1b3d2d8"/>
+				<reportElement x="347" y="28" width="201" height="1" isRemoveLineWhenBlank="true" uuid="c9d15b98-023a-4af2-ad3b-d63ed1b3d2d8"/>
 			</line>
 			<textField isBlankWhenNull="true">
-				<reportElement x="63" y="36" width="255" height="20" uuid="c915a5f8-ea98-4cf0-85b9-c114f99ba1c1"/>
+				<reportElement x="347" y="8" width="201" height="20" uuid="c915a5f8-ea98-4cf0-85b9-c114f99ba1c1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Tahoma"/>
 				</textElement>
 				<textFieldExpression><![CDATA["(" + $P{USER} + ")"]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="379" y="39" width="147" height="21" uuid="c6c2a01a-42af-4b61-98af-9f1054e7e74b"/>
+				<textElement markup="none">
+					<font fontName="Tahoma" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Generated by]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="32" y="39" width="157" height="21" uuid="70483054-1d88-4a8e-bb7c-0343e26219eb"/>
+				<textElement markup="none">
+					<font fontName="Tahoma" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date/Time of Extract]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="9" width="200" height="20" uuid="b41c3f5c-8476-44c5-8ac3-979bedb971a6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="29" width="200" height="1" isRemoveLineWhenBlank="true" uuid="b64509a8-4713-4a88-a8f6-23748e894050"/>
+			</line>
 		</band>
 	</columnFooter>
 	<pageFooter>
