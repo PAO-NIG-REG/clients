@@ -357,11 +357,15 @@ public class PropertyPanel extends ContentPanel {
             GridBagConstraints c = new GridBagConstraints();
             c = new GridBagConstraints();
 
-            BaUnitDetailBean[] orderedDetail = new BaUnitDetailBean[rowCnt];
+//            BaUnitDetailBean[] orderedDetail = new BaUnitDetailBean[rowCnt];
+            
+            List <BaUnitDetailBean> orderedDetail = new ArrayList <BaUnitDetailBean>(); 
 
             for (BaUnitDetailBean it : this.baUnitBean1.getBaUnitDetailFilteredList()) {
                if (it.getDetailType().getStatus().equalsIgnoreCase("c")) { 
-                orderedDetail[(it.getDetailType().getOrderView()) - 1] = it;
+//                orderedDetail[(it.getDetailType().getOrderView()) - 1] = it;
+                  orderedDetail.add(it);
+                
                } 
             }
 
