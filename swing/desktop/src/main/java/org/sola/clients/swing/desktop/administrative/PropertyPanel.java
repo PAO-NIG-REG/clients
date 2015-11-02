@@ -1214,7 +1214,22 @@ public class PropertyPanel extends ContentPanel {
         if (applicationService.getRequestTypeCode().contains("systematicRegn")) {
             calculateAreaSysreg();
         }
-
+        
+        
+        
+     if (applicationService != null && (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD))
+                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REGISTRATION_ONTITLE))
+                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_MORTGAGE))
+                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_VARY_MORTGAGE))
+         ) 
+     {
+        if (baUnitBean1.getFilteredSourceList().size()<= 0 || !baUnitBean1.getFilteredSourceList().get(0).getTypeCode().contentEquals("cadastralSurvey")) {
+             MessageUtility.displayMessage(ClientMessage.APPLICATION_SELECT_DIAGRAM_TO_ATTACH_TO);
+         return; 
+        }
+     }  
+        
+        
         if (txtArea.isEditable() || isBtnNext) {
 
             if (baUnitAreaBean1 == null) {
@@ -1468,10 +1483,6 @@ public class PropertyPanel extends ContentPanel {
         areaPanel = new javax.swing.JPanel();
         labArea = new javax.swing.JLabel();
         txtArea = new javax.swing.JFormattedTextField();
-        tabTitle = new javax.swing.JPanel();
-        groupPanel2 = new org.sola.clients.swing.ui.GroupPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        matrixPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableParcels = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
@@ -1537,6 +1548,10 @@ public class PropertyPanel extends ContentPanel {
         pnlNextButton = new javax.swing.JPanel();
         btnNext = new javax.swing.JButton();
         mapPanel = new javax.swing.JPanel();
+        tabTitle = new javax.swing.JPanel();
+        groupPanel2 = new org.sola.clients.swing.ui.GroupPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        matrixPanel = new javax.swing.JPanel();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
 
         popupParcels.setName("popupParcels"); // NOI18N
@@ -1999,52 +2014,6 @@ public class PropertyPanel extends ContentPanel {
         );
 
         tabsMain.addTab(bundle.getString("PropertyPanel.jPanel7.TabConstraints.tabTitle"), jPanel7); // NOI18N
-
-        tabTitle.setName("tabTitle"); // NOI18N
-
-        groupPanel2.setName("groupPanel2"); // NOI18N
-        groupPanel2.setTitleText(bundle.getString("PropertyPanel.groupPanel2.titleText")); // NOI18N
-
-        jScrollPane6.setName("jScrollPane6"); // NOI18N
-
-        matrixPanel.setAutoscrolls(true);
-        matrixPanel.setName("matrixPanel"); // NOI18N
-        matrixPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                matrixPanelMouseClicked(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout matrixPanelLayout = new org.jdesktop.layout.GroupLayout(matrixPanel);
-        matrixPanel.setLayout(matrixPanelLayout);
-        matrixPanelLayout.setHorizontalGroup(
-            matrixPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 0, Short.MAX_VALUE)
-        );
-        matrixPanelLayout.setVerticalGroup(
-            matrixPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 480, Short.MAX_VALUE)
-        );
-
-        jScrollPane6.setViewportView(matrixPanel);
-
-        org.jdesktop.layout.GroupLayout tabTitleLayout = new org.jdesktop.layout.GroupLayout(tabTitle);
-        tabTitle.setLayout(tabTitleLayout);
-        tabTitleLayout.setHorizontalGroup(
-            tabTitleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(groupPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 804, Short.MAX_VALUE)
-            .add(jScrollPane6)
-        );
-        tabTitleLayout.setVerticalGroup(
-            tabTitleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(tabTitleLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(groupPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
-        );
-
-        tabsMain.addTab(bundle.getString("PropertyPanel.tabTitle.TabConstraints.tabTitle"), tabTitle); // NOI18N
 
         jPanel1.setName("jPanel1"); // NOI18N
 
@@ -2902,6 +2871,52 @@ public class PropertyPanel extends ContentPanel {
         );
 
         tabsMain.addTab(bundle.getString("PropertyPanel.mapPanel.TabConstraints.tabTitle"), mapPanel); // NOI18N
+
+        tabTitle.setName("tabTitle"); // NOI18N
+
+        groupPanel2.setName("groupPanel2"); // NOI18N
+        groupPanel2.setTitleText(bundle.getString("PropertyPanel.groupPanel2.titleText")); // NOI18N
+
+        jScrollPane6.setName("jScrollPane6"); // NOI18N
+
+        matrixPanel.setAutoscrolls(true);
+        matrixPanel.setName("matrixPanel"); // NOI18N
+        matrixPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                matrixPanelMouseClicked(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout matrixPanelLayout = new org.jdesktop.layout.GroupLayout(matrixPanel);
+        matrixPanel.setLayout(matrixPanelLayout);
+        matrixPanelLayout.setHorizontalGroup(
+            matrixPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 0, Short.MAX_VALUE)
+        );
+        matrixPanelLayout.setVerticalGroup(
+            matrixPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 480, Short.MAX_VALUE)
+        );
+
+        jScrollPane6.setViewportView(matrixPanel);
+
+        org.jdesktop.layout.GroupLayout tabTitleLayout = new org.jdesktop.layout.GroupLayout(tabTitle);
+        tabTitle.setLayout(tabTitleLayout);
+        tabTitleLayout.setHorizontalGroup(
+            tabTitleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(groupPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 804, Short.MAX_VALUE)
+            .add(jScrollPane6)
+        );
+        tabTitleLayout.setVerticalGroup(
+            tabTitleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(tabTitleLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(groupPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
+        );
+
+        tabsMain.addTab(bundle.getString("PropertyPanel.tabTitle.TabConstraints.tabTitle"), tabTitle); // NOI18N
 
         headerPanel.setName("headerPanel"); // NOI18N
         headerPanel.setTitleText(bundle.getString("PropertyPanel.headerPanel.titleText")); // NOI18N
