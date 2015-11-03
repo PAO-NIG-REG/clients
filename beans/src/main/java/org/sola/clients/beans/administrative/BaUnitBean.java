@@ -321,14 +321,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
                 return false;
             }
         }
-        
-//        if (this.getSourceList().size()> 0 && this.getSourceList().get(0).getTypeCode().contentEquals("cadastralSurvey")) {
-        if (this.getFilteredSourceList().size()> 0 && this.getFilteredSourceList().get(0).getTypeCode().contentEquals("cadastralSurvey")) {
-            return true;   
-        } else {
-             MessageUtility.displayMessage(ClientMessage.APPLICATION_SELECT_DOCUMENT_TO_ATTACH_TO);
-         return false; 
-        }
+        return true; 
     }
 
     public void removeSelectedParcel() {
