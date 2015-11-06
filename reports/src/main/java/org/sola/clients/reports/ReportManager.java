@@ -309,6 +309,7 @@ public class ReportManager {
         String appNr = null;
         String landUse = null;
         String propAddress = null;
+        String commencingDate = null;
         BigDecimal size = null;
 
         BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
@@ -333,6 +334,9 @@ public class ReportManager {
             if (appdetail.getDetailCode().equals("location")) {
                 propAddress = appdetail.getCustomDetailText();
             }
+              if (appdetail.getDetailCode().equals("dateCommenced")) {
+                commencingDate = appdetail.getCustomDetailText();
+            }
 
         }
         inputParameters.put("REFNR", title);
@@ -341,6 +345,7 @@ public class ReportManager {
         inputParameters.put("SIZE", size);
         inputParameters.put("PROP_LOCATION", propAddress);
         inputParameters.put("LAND_USE", landUse);
+        inputParameters.put("COMMENCING_DATE", commencingDate);
 
 ////   END ADDED FOR NEW REPORT  
 //        

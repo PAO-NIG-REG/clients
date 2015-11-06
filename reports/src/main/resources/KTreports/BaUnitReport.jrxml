@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="475" leftMargin="60" rightMargin="60" topMargin="35" bottomMargin="35" uuid="20ae7338-fb08-4909-be1a-0285ed1fcfdc">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="357"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#FFFFFF"/>
@@ -285,7 +285,7 @@
 				<textElement markup="none">
 					<font fontName="Tahoma" size="11" pdfFontName="Times-Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{LAND_USE} + " Land Use " ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{LAND_USE} + " Land Use "]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="210" width="280" height="20" uuid="d81e4d28-ec6d-46a1-9c9c-6e12dd26a9ed"/>
@@ -310,11 +310,11 @@
 					<jr:column width="494" uuid="13920314-56c0-4e1d-8196-b9ca7e127bec">
 						<jr:detailCell style="table 3_TD" height="35" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="242" height="22" uuid="9c1b7fa7-6d10-4319-8b06-6406f8336e41"/>
+								<reportElement positionType="Float" x="0" y="0" width="494" height="20" uuid="eac43c25-3034-4b81-a98d-28261cfcd5fe"/>
 								<textElement>
-									<font fontName="Tahoma" size="11" pdfFontName="Times-Roman"/>
+									<font fontName="Tahoma" pdfFontName="Times-Roman"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{Name}.replace( "-", "" )]]></textFieldExpression>
+								<textFieldExpression><![CDATA[($F{Name}.replace( "-", " " )).replace( ";", " " ) +" Owns " + $F{Share}+ " Share"]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

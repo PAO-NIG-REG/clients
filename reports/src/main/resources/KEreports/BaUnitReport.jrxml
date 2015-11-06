@@ -310,20 +310,11 @@
 					<jr:column width="494" uuid="7fa5c45e-cff7-4cce-9ff6-04e833cc7904">
 						<jr:detailCell style="table 3_TD" height="35" rowSpan="1">
 							<textField>
-								<reportElement positionType="Float" x="0" y="0" width="128" height="17" uuid="74b5f361-6e98-418b-bec2-a1f141e8e5fe"/>
+								<reportElement positionType="Float" x="0" y="0" width="494" height="35" uuid="2983e405-3e69-4616-9c0f-9816062763c5"/>
 								<textElement>
-									<font fontName="Tahoma" size="11" pdfFontName="Times-Roman"/>
+									<font fontName="Tahoma" pdfFontName="Times-Roman"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
-							</textField>
-							<textField>
-								<reportElement x="128" y="0" width="213" height="17" uuid="f7fa20a8-49ac-44b5-9253-7337eafb14e1">
-									<printWhenExpression><![CDATA[!$F{Share}.equalsIgnoreCase( "1/1" )]]></printWhenExpression>
-								</reportElement>
-								<textElement>
-									<font fontName="Tahoma" size="11" pdfFontName="Times-Roman"/>
-								</textElement>
-								<textFieldExpression><![CDATA["Owns " + $F{Share}+ " Share"]]></textFieldExpression>
+								<textFieldExpression><![CDATA[($F{Name}.replace( "-", " " )).replace( ";", " " ) +" Owns " + $F{Share}+ " Share"]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
