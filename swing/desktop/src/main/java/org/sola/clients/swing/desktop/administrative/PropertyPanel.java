@@ -332,9 +332,10 @@ public class PropertyPanel extends ContentPanel {
     private void customizeTitleTab() {
 
         if (applicationService != null && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD))
-                && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REGISTRATION_ONTITLE))
-                && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_MORTGAGE))
-                && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_VARY_MORTGAGE))) {
+                && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE))
+//                && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_MORTGAGE))
+//                && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_VARY_MORTGAGE))
+                ) {
             this.tabTitle.setVisible(false);
             this.tabTitle.setEnabled(false);
             tabsMain.removeTabAt(tabsMain.indexOfComponent(tabTitle));
@@ -345,7 +346,7 @@ public class PropertyPanel extends ContentPanel {
             this.btnLinkPaperTitle.setText(bundle.getString("PropertyPanel.btnLinkDiagram.text"));
             this.btnViewPaperTitle.setText(bundle.getString("PropertyPanel.btnViewDiagram.text"));
             this.btnPrintBaUnit1.setVisible(false);
-            if (applicationService != null && (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REGISTRATION_ONTITLE))) {
+            if (applicationService != null && (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE))) {
                 cofOenabled = true;
             }
 
@@ -1218,9 +1219,9 @@ public class PropertyPanel extends ContentPanel {
         
         
      if (applicationService != null && (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD))
-                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REGISTRATION_ONTITLE))
-                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_MORTGAGE))
-                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_VARY_MORTGAGE))
+                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE))
+//                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_MORTGAGE))
+//                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_VARY_MORTGAGE))
          ) 
      {
         if (baUnitBean1.getFilteredSourceList().size()<= 0 || !baUnitBean1.getFilteredSourceList().get(0).getTypeCode().contentEquals("cadastralSurvey")) {
