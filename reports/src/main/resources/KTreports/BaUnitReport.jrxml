@@ -280,14 +280,14 @@
 				</textElement>
 				<textFieldExpression><![CDATA["At " + $P{PROP_LOCATION}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="250" width="241" height="20" uuid="0a4c465c-b0c7-457b-9367-5ee4d7313ec3"/>
 				<textElement markup="none">
 					<font fontName="Tahoma" size="11" pdfFontName="Times-Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{LAND_USE} + " Land Use "]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="210" width="280" height="20" uuid="d81e4d28-ec6d-46a1-9c9c-6e12dd26a9ed"/>
 				<textElement markup="none">
 					<font fontName="Tahoma" size="11" pdfFontName="Times-Roman"/>
@@ -348,7 +348,7 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="270" width="263" height="20" uuid="559f785a-2685-44ca-a797-b7ad7170ff8d"/>
 				<textElement markup="none">
 					<font fontName="Tahoma" size="11" pdfFontName="Times-Roman"/>
