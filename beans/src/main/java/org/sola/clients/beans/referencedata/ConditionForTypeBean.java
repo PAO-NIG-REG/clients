@@ -31,21 +31,11 @@ import org.sola.clients.beans.AbstractCodeBean;
 
 /**
  * Represents reference data object of the <b>condition_type</b> table.
- * Could be populated from the {@link ConditionTypeTO} object.<br /> For more
+ * Could be populated from the {@link ConditionForTypeTO} object.<br /> For more
  * information see data dictionary <b>Administrative</b> schema.
  */
-public class ConditionTypeBean extends AbstractCodeBean {
-    private String isFor;
-    
-    
-    public ConditionTypeBean(){
+public class ConditionForTypeBean extends AbstractCodeBean {
+    public ConditionForTypeBean(){
         super();
-    }
-     public String getIsFor() {
-        return isFor;
-    }
-
-    public void setIsFor(String isFor) {
-        this.isFor = isFor;
     }
 }

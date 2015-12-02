@@ -136,16 +136,12 @@ public class ImportSpatialPanel extends ContentPanel {
 
     private void destinationChanged(SpatialDestinationBean newDestination) {
         setPostLoadEnabled(false);
-       System.out.println("newDestination.getDisplayValue():::::"+newDestination.getDisplayValue());
-       System.out.println("newDestination.getPanelName():::::"+newDestination.getPanelName());
-       
         LogUtility.log("newDestination.getDisplayValue():::::"+newDestination.getDisplayValue());
         LogUtility.log("newDestination.getPanelName():::::"+ newDestination.getPanelName());
 // asdfasfsadf    
        String panelName = newDestination.getPanelName();
         pnlMainPanel.showPanel(panelName);
         
-           System.out.println("DOPO SHOW PANEL  :::    "+panelName);
         spatialBulkMove.setDestination(
                 ((ISpatialDestinationUI) pnlMainPanel.getPanel(panelName)).getBean());
         setSourceAttributesInDestinationPanel();

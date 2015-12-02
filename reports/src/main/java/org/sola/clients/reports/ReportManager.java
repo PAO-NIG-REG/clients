@@ -47,8 +47,11 @@ import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import org.sola.clients.beans.administrative.BaUnitAreaBean;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.BaUnitDetailBean;
+import org.sola.clients.beans.administrative.ConditionForRrrBean;
+import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.application.*;
+import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.system.BrReportBean;
 import org.sola.clients.beans.security.SecurityBean;
@@ -167,76 +170,58 @@ public class ReportManager {
         BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
         size = baUnitAreaBean.getSize();
 
-        
-        for (Iterator<SourceBean> it = baUnitBean.getSourceList().iterator(); it.hasNext();) {
-          SourceBean appSource = it.next();
-          if (appSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")){
-              diagramImage = cachePath + appSource.getArchiveDocument().getFileName();
-          }
-        }
-        
-//        diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
+//  COFO UPDATES  QUI CAMBIARE DIAGRAM...        
+//        for (Iterator<SourceBean> it = baUnitBean.getSourceList().iterator(); it.hasNext();) {
+//            SourceBean appSource = it.next();
+//            if (appSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
+//                diagramImage = cachePath + appSource.getArchiveDocument().getFileName();
+//            }
+//        }
 
+//        diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
         state = getSettingValue("state");
 
-        for (Iterator<BaUnitDetailBean> it = baUnitBean.getBaUnitDetailList().iterator(); it.hasNext();) {
-            BaUnitDetailBean appdetail = it.next();
-            if (appdetail.getDetailCode().equals("instrumentRegistrationNo")) {
-                appNr = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("dateCommenced")) {
-                commencingDate = appdetail.getCustomDetailText();
-//                DateFormat format = new SimpleDateFormat("d MMMM yyyy");
-//                Date date = new Date(System.currentTimeMillis());
-//                try {
-//                    date = format.parse(commencingDate);
-//                } catch (ParseException ex) {
-//                    Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                System.out.println(date); // Sat Jan 02 00:00:00 GMT 2010
+        for (Iterator<RrrBean> it = baUnitBean.getRrrList().iterator(); it.hasNext();) {
+            RrrBean appdetail = it.next();
+            
+            if (appdetail.isPrimary() && !appdetail.getCOfO().equalsIgnoreCase(null) && !appdetail.getCOfO().equalsIgnoreCase("")) {
+                commencingDate = appdetail.getDateCommenced().toString();
+                zone = appdetail.getZoneCode();
+                term = appdetail.getTerm().toString();
+                groundRent = appdetail.getYearlyRent().toString();
+                title = appdetail.getCOfO();
+                advpayment = appdetail.getAdvancePayment().toString();
+                revperiod = appdetail.getReviewPeriod().toString();
+                estate = appdetail.getRotCode();
+                appNr = appdetail.getInstrRegNum();
+                
+                for (Iterator<SourceBean> itsor =  appdetail.getSourceList().iterator(); itsor.hasNext();) {
+                    SourceBean appSource = itsor.next();
+                    if (appSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
+                        diagramImage = cachePath + appSource.getArchiveDocument().getFileName();
+                    }
+                }
+                
+                for (Iterator<ConditionForRrrBean> itcfr =  appdetail.getConditionsList().iterator(); itcfr.hasNext();) {
+                    ConditionForRrrBean appCfr = itcfr.next();
+                    if (appCfr.getConditionCode().equalsIgnoreCase("yearsTodevelope")) {
+                        timeToDevelop = appCfr.getCustomConditionText();
+                    }
+                    if (appCfr.getConditionCode().equalsIgnoreCase("valueTodevelope")) {
+                        valueForImprov = appCfr.getCustomConditionText();
+                    }
+                }
+                
             }
 
-            if (appdetail.getDetailCode().equals("LGA")) {
-                lga = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("zone")) {
-                zone = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("term")) {
-                term = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("cOfOtype")) {
-                landUse = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("yearlyRent")) {
-                groundRent = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("valueTodevelope")) {
-                valueForImprov = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("yearsTodevelope")) {
-                timeToDevelop = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("location")) {
-                propAddress = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("layoutPlan")) {
-                plan = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("cOfO")) {
-//                if (!appdetail.getCustomDetailText().equals(null)&&!appdetail.getCustomDetailText().equals("") ) {
-                title = appdetail.getCustomDetailText();
-//                }
-            }
-            if (appdetail.getDetailCode().equals("advancePayment")) {
-                advpayment = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("reviewPeriod")) {
-                revperiod = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("estate")) {
-                estate = appdetail.getCustomDetailText();
-            }
+        }
+        for (Iterator<CadastreObjectBean> it = baUnitBean.getCadastreObjectList().iterator(); it.hasNext();) {
+            CadastreObjectBean appco = it.next();
+
+            lga = appco.getLgaCode();
+            landUse = appco.getLandUseCode();
+            propAddress = appco.getAddressString();
+            plan = appco.getSourceReference();
         }
 
         HashMap inputParameters = new HashMap();
@@ -315,30 +300,50 @@ public class ReportManager {
         BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
         BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
         size = baUnitAreaBean.getSize();
-        
-         for (Iterator<SourceBean> it = baUnitBean.getSourceList().iterator(); it.hasNext();) {
-          SourceBean appSource = it.next();
-          if (appSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")){
-              diagramImage = cachePath + appSource.getArchiveDocument().getFileName();
-          }
-        }
-        
-        for (Iterator<BaUnitDetailBean> it = baUnitBean.getBaUnitDetailList().iterator(); it.hasNext();) {
-            BaUnitDetailBean appdetail = it.next();
-            if (appdetail.getDetailCode().equals("cOfO")) {
-                title = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("cOfOtype")) {
-                landUse = appdetail.getCustomDetailText();
-            }
-            if (appdetail.getDetailCode().equals("location")) {
-                propAddress = appdetail.getCustomDetailText();
-            }
-              if (appdetail.getDetailCode().equals("dateCommenced")) {
-                commencingDate = appdetail.getCustomDetailText();
+    for (Iterator<RrrBean> it = baUnitBean.getRrrList().iterator(); it.hasNext();) {
+            RrrBean appdetail = it.next();
+            
+            if (appdetail.isPrimary() && !appdetail.getCOfO().equalsIgnoreCase(null) && !appdetail.getCOfO().equalsIgnoreCase("")) {
+                commencingDate = appdetail.getDateCommenced().toString();
+//                zone = appdetail.getZoneCode();
+//                term = appdetail.getTerm().toString();
+//                groundRent = appdetail.getYearlyRent().toString();
+                title = appdetail.getCOfO();
+//                advpayment = appdetail.getAdvancePayment().toString();
+//                revperiod = appdetail.getReviewPeriod().toString();
+//                estate = appdetail.getRotCode();
+                appNr = appdetail.getInstrRegNum();
+                
+                for (Iterator<SourceBean> itsor =  appdetail.getSourceList().iterator(); itsor.hasNext();) {
+                    SourceBean appSource = itsor.next();
+                    if (appSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
+                        diagramImage = cachePath + appSource.getArchiveDocument().getFileName();
+                    }
+                }
+                
+//                for (Iterator<ConditionForRrrBean> itcfr =  appdetail.getConditionsList().iterator(); itcfr.hasNext();) {
+//                    ConditionForRrrBean appCfr = itcfr.next();
+//                    if (appCfr.getConditionCode().equalsIgnoreCase("yearsTodevelope")) {
+//                        timeToDevelop = appCfr.getCustomConditionText();
+//                    }
+//                    if (appCfr.getConditionCode().equalsIgnoreCase("valueTodevelope")) {
+//                        valueForImprov = appCfr.getCustomConditionText();
+//                    }
+//                }
+                
             }
 
         }
+        for (Iterator<CadastreObjectBean> it = baUnitBean.getCadastreObjectList().iterator(); it.hasNext();) {
+            CadastreObjectBean appco = it.next();
+
+//            lga = appco.getLgaCode();
+            landUse = appco.getLandUseCode();
+            propAddress = appco.getAddressString();
+//            plan = appco.getSourceReference();
+        }
+
+    
         inputParameters.put("REFNR", title);
         inputParameters.put("STATE", state);
         inputParameters.put("DIAGRAM_IMAGE", diagramImage);

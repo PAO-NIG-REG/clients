@@ -194,9 +194,6 @@ public class BaUnitBean extends BaUnitSummaryBean {
     private SolaObservableList<RrrShareWithStatus> rrrSharesList;
     private SolaList<RelatedBaUnitInfoBean> childBaUnits;
     private SolaList<RelatedBaUnitInfoBean> parentBaUnits;
-    private SolaList<BaUnitDetailBean> baUnitDetailList;
-
-    private transient BaUnitDetailBean selectedBaUnitDetail;
     private transient CadastreObjectBean selectedParcel;
     private transient SolaList<RrrBean> rrrHistoricList;
     private transient RrrBean selectedRight;
@@ -222,8 +219,6 @@ public class BaUnitBean extends BaUnitSummaryBean {
         rrrList = new SolaList();
         rrrHistoricList = new SolaList<RrrBean>();
         baUnitNotationList = new SolaList();
-        baUnitDetailList = new SolaList<BaUnitDetailBean>();
-
         cadastreObjectList = new SolaList();
         childBaUnits = new SolaList();
         parentBaUnits = new SolaList();
@@ -237,8 +232,6 @@ public class BaUnitBean extends BaUnitSummaryBean {
         rrrHistoricList.setExcludedStatuses(new String[]{StatusConstants.CURRENT, StatusConstants.PENDING});
 
         AllBaUnitNotationsListUpdater allBaUnitNotationsListener = new AllBaUnitNotationsListUpdater();
-//        rrrList.getFilteredList().addObservableListListener(allBaUnitNotationsListener);
-//        baUnitNotationList.getFilteredList().addObservableListListener(allBaUnitNotationsListener);
 
         rrrList.addObservableListListener(allBaUnitNotationsListener);
         baUnitNotationList.addObservableListListener(allBaUnitNotationsListener);
@@ -557,62 +550,6 @@ public class BaUnitBean extends BaUnitSummaryBean {
         return rrrHistoricList.getFilteredList();
     }
 
-    /**
-     * Adds conditions to the list
-     *
-     * @param baUnitDetail List of {@link ConditionTypeBean} that needs to be
-     * added in the list
-     */
-    public void addBaUnitDetail(List<BaUnitDetailTypeBean> baUnitDetail) {
-        if (baUnitDetail == null || getBaUnitDetailList() == null) {
-            return;
-        }
-        for (BaUnitDetailTypeBean bud : baUnitDetail) {
-            addBaUnitDetail(bud);
-        }
-    }
-
-    /**
-     * Adds condition to the list
-     *
-     * @param condition {@link LeaseConditionForRrrBean} that needs to be added
-     * in the list
-     */
-    public void addBaUnitDetail(BaUnitDetailBean bud) {
-        if (bud == null || getBaUnitDetailList() == null) {
-            return;
-        }
-        if (bud.isCustomDetail()) {
-            bud.setDetailCode(null);
-        }
-        getBaUnitDetailList().addAsNew(bud);
-    }
-
-    /**
-     * Adds lease condition in the list
-     *
-     * @param condition {@link ConditionTypeBean} that needs to be added in the
-     * list. New {@link ConditionForRrrBean} will be created and added in the
-     * list.
-     */
-    public void addBaUnitDetail(BaUnitDetailTypeBean bud) {
-        if (bud == null || getBaUnitDetailList() == null) {
-            return;
-        }
-        for (BaUnitDetailBean baUnitDetail : getBaUnitDetailList()) {
-            if (baUnitDetail.getDetailCode() != null
-                    && baUnitDetail.getDetailCode().equals(bud.getCode())) {
-                if (baUnitDetail.getEntityAction() == EntityAction.DELETE || baUnitDetail.getEntityAction() == EntityAction.DISASSOCIATE) {
-                    baUnitDetail.setEntityAction(null);
-                }
-                return;
-            }
-        }
-        BaUnitDetailBean newBaUnitDetail = new BaUnitDetailBean();
-        newBaUnitDetail.setDetailType(bud);
-        getBaUnitDetailList().addAsNew(newBaUnitDetail);
-    }
-
     public void addRrr(RrrBean rrrBean) {
         if (!this.updateListItem(rrrBean, rrrList, false)) {
             int i = 0;
@@ -790,40 +727,5 @@ public class BaUnitBean extends BaUnitSummaryBean {
         BaUnitBean bean = new BaUnitBean();
         collection.add(bean);
         return collection;
-    }
-
-    public BaUnitDetailBean getSelectedBaUnitDetail() {
-        return selectedBaUnitDetail;
-    }
-
-    public void setSelectedBaUnitDetail(BaUnitDetailBean selectedBaUnitDetail) {
-        this.selectedBaUnitDetail = selectedBaUnitDetail;
-        propertySupport.firePropertyChange(SELECTED_BAUNITDETAIL_PROPERTY, null, this.selectedBaUnitDetail);
-
-    }
-
-    public SolaList<BaUnitDetailBean> getBaUnitDetailList() {
-        return baUnitDetailList;
-    }
-
-    @Size(min = 1,
-            //            groups = {LeaseValidationGroup.class},
-            message = ClientMessage.CHECK_SIZE_CONDITIONS_LIST, payload = Localized.class)
-    public ObservableList<BaUnitDetailBean> getBaUnitDetailFilteredList() {
-        return baUnitDetailList.getFilteredList();
-    }
-
-    public void setBaUnitDetailList(SolaList<BaUnitDetailBean> baUnitDetailList) {
-        this.baUnitDetailList = baUnitDetailList;
-    }
-
-    public ArrayList<BaUnitDetailBean> getStandardBaUnitDetail() {
-        ArrayList<BaUnitDetailBean> conditions = new ArrayList<BaUnitDetailBean>();
-        for (BaUnitDetailBean cond : getBaUnitDetailFilteredList()) {
-            if (!cond.isCustomDetail()) {
-                conditions.add(cond);
-            }
-        }
-        return conditions;
     }
 }

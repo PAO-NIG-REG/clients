@@ -49,54 +49,10 @@ public class SplashForm extends javax.swing.JWindow {
     private String prefix = null;
 
     public SplashForm() {
-//        InetAddress ip;
-//        String hostname;
-//        String port;
-//
-//        try {
-//            ip = InetAddress.getLocalHost();
-//
-//            hostname = ip.getHostName();
-//
-//            System.out.println("Your current IP address : " + ip);
-//            System.out.println("Your current Hostname : " + hostname);
-//            LogUtility.log("Your current IP address : " + ip);
-//            LogUtility.log("Your current Hostname : " + hostname);
-////             System.out.println("Your address : " + port);
-//
-//        } catch (UnknownHostException e) {
-//
-//            e.printStackTrace();
-//        }
-//
-//
-//        BufferedReader in = null;
-//        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("config/wsconfig"); // NOI18N
-//       
-//        
-//        String url = bundle.getString("SOLA_STATE_SERVLET_SERVICE_URL.text");
-//        try {
-//            URL oracle = new URL(url);
-//            in = new BufferedReader(
-//                    new InputStreamReader(oracle.openStream()));
-//
-//            prefix = in.readLine();
-//            System.out.println(prefix);
-//
-//            in.close();
-//        } catch (IOException ex) {
-//            Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            try {
-//                in.close();
-//            } catch (IOException ex) {
-//                Logger.getLogger(SplashForm.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+
         initComponents();
 
         imageSplash = new ImageIcon(SplashForm.class.getResource(
-//                                "/images/sola/" + prefix + "sola_icon.jpg"));
                 "/images/sola/sola_icon.jpg"));
 
         lblSplash.setIcon(imageSplash);

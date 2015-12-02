@@ -28,24 +28,15 @@
 package org.sola.clients.beans.referencedata;
 
 import org.sola.clients.beans.AbstractCodeBean;
+import org.sola.webservices.transferobjects.referencedata.ZoneTypeTO;
 
 /**
- * Represents reference data object of the <b>condition_type</b> table.
- * Could be populated from the {@link ConditionTypeTO} object.<br /> For more
- * information see data dictionary <b>Administrative</b> schema.
+ * Represents reference data object of the <b>cadastre_object_type</b> table.
+ * Could be populated from the {@link LandUseTypeTO} object.<br /> For more
+ * information see data dictionary <b>Cadastre</b> schema.
  */
-public class ConditionTypeBean extends AbstractCodeBean {
-    private String isFor;
-    
-    
-    public ConditionTypeBean(){
+public class ZoneTypeBean extends AbstractCodeBean {
+    public ZoneTypeBean() {
         super();
-    }
-     public String getIsFor() {
-        return isFor;
-    }
-
-    public void setIsFor(String isFor) {
-        this.isFor = isFor;
     }
 }

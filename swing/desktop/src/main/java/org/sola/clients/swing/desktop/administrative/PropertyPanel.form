@@ -247,10 +247,6 @@
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="createBaUnitAreaBean();"/>
       </AuxValues>
     </Component>
-    <Component class="org.sola.clients.beans.referencedata.BaUnitDetailTypeListBean" name="baUnitDetailTypeListBean1">
-    </Component>
-    <Component class="org.sola.clients.beans.administrative.BaUnitDetailBean" name="baUnitDetailBean1">
-    </Component>
     <Component class="org.sola.clients.beans.referencedata.LandUseTypeListBean" name="landUseTypeListBean1">
     </Component>
   </NonVisualComponents>
@@ -385,21 +381,21 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrintBaUnitActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnPrintBaUnit1">
+        <Component class="javax.swing.JButton" name="btnCertificate">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/common/approve1.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="PropertyPanel.btnPrintBaUnit1.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="PropertyPanel.btnCertificate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="name" type="java.lang.String" value="btnPrintBaUnit1" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="btnCertificate" noResource="true"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrintBaUnit1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCertificateActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -709,7 +705,6 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtEstateType">
                       <Properties>
-                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="name" type="java.lang.String" value="txtEstateType" noResource="true"/>
                       </Properties>
                       <BindingProperties>
@@ -962,8 +957,7 @@
                   </Properties>
                   <BindingProperties>
                     <BindingProperty name="elements" source="baUnitBean1" sourcePath="${cadastreObjectFilteredList}" target="tableParcels" targetPath="elements" updateStrategy="0" immediately="true">
-                      <Subbinding sourcePath="${nameFirstpart}">
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+                      <Subbinding sourcePath="Plot  ${nameFirstpart}">
                         <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
                       <Subbinding sourcePath="${nameLastpart}">
@@ -2366,80 +2360,6 @@
               </Group>
             </DimensionLayout>
           </Layout>
-        </Container>
-        <Container class="javax.swing.JPanel" name="tabTitle">
-          <Properties>
-            <Property name="name" type="java.lang.String" value="tabTitle" noResource="true"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="CofO Details">
-                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="PropertyPanel.tabTitle.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                </Property>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="groupPanel2" pref="804" max="32767" attributes="0"/>
-                  <Component id="jScrollPane6" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="groupPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane6" pref="480" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="org.sola.clients.swing.ui.GroupPanel" name="groupPanel2">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="groupPanel2" noResource="true"/>
-                <Property name="titleText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/sola/clients/swing/desktop/administrative/Bundle.properties" key="PropertyPanel.groupPanel2.titleText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane6">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="jScrollPane6" noResource="true"/>
-              </Properties>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Container class="javax.swing.JPanel" name="matrixPanel">
-                  <Properties>
-                    <Property name="autoscrolls" type="boolean" value="true"/>
-                    <Property name="name" type="java.lang.String" value="matrixPanel" noResource="true"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="matrixPanelMouseClicked"/>
-                  </Events>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="480" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                </Container>
-              </SubComponents>
-            </Container>
-          </SubComponents>
         </Container>
       </SubComponents>
     </Container>

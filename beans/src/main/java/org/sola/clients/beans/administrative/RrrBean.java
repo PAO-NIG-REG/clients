@@ -48,8 +48,10 @@ import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.party.PartySummaryBean;
 import org.sola.clients.beans.referencedata.ConditionTypeBean;
 import org.sola.clients.beans.referencedata.MortgageTypeBean;
+import org.sola.clients.beans.referencedata.RotTypeBean;
 import org.sola.clients.beans.referencedata.RrrTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
+import org.sola.clients.beans.referencedata.ZoneTypeBean;
 import org.sola.clients.beans.source.SourceBean;
 import org.sola.clients.beans.validation.Localized;
 import org.sola.clients.beans.validation.NoDuplicates;
@@ -91,6 +93,10 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String BA_UNIT_ID_PROPERTY = "baUnitId";
     public static final String TYPE_CODE_PROPERTY = "typeCode";
     public static final String RRR_TYPE_PROPERTY = "rrrType";
+    public static final String ZONE_TYPE_PROPERTY = "zoneType";
+    public static final String ZONE_CODE_PROPERTY = "zoneCode";
+    public static final String ROT_TYPE_PROPERTY = "rotType";
+    public static final String ROT_CODE_PROPERTY = "rotCode";
     public static final String EXPIRATION_DATE_PROPERTY = "expirationDate";
     public static final String SHARE_PROPERTY = "share";
     public static final String AMOUNT_PROPERTY = "amount";
@@ -140,10 +146,85 @@ public class RrrBean extends AbstractTransactionedBean {
     private transient boolean selected;
     private transient PartySummaryBean selectedRightholder;
     private transient ConditionForRrrBean selectedCondition;
+    private ZoneTypeBean zoneTypeBean;
+    private RotTypeBean rotBean;
+    private String instrRegNum;
     private String concatenatedName;
-    private SolaList<RrrDetailBean> rrrDetailList;
-    private transient RrrDetailBean selectedRrrDetail;
-   
+    private Date dateCommenced;
+    private Date dateSigned;
+    private String cOfO;
+    private Integer term;
+    private BigDecimal advancePayment;
+    private BigDecimal yearlyRent;
+    private Integer reviewPeriod;
+
+    public String getInstrRegNum() {
+        return instrRegNum;
+    }
+
+    public void setInstrRegNum(String instrRegNum) {
+        this.instrRegNum = instrRegNum;
+    }
+    
+    
+       
+    public Date getDateCommenced() {
+        return dateCommenced;
+    }
+
+    public void setDateCommenced(Date dateCommenced) {
+        this.dateCommenced = dateCommenced;
+    }
+
+    public Date getDateSigned() {
+        return dateSigned;
+    }
+
+    public void setDateSigned(Date dateSigned) {
+        this.dateSigned = dateSigned;
+    }
+
+    public String getCOfO() {
+        return cOfO;
+    }
+
+    public void setCOfO(String cOfO) {
+        this.cOfO = cOfO;
+    }
+
+    public Integer getTerm() {
+        return term;
+    }
+
+    public void setTerm(Integer term) {
+        this.term = term;
+    }
+
+    public BigDecimal getAdvancePayment() {
+        return advancePayment;
+    }
+
+    public void setAdvancePayment(BigDecimal advancePayment) {
+        this.advancePayment = advancePayment;
+    }
+
+    public BigDecimal getYearlyRent() {
+        return yearlyRent;
+    }
+
+    public void setYearlyRent(BigDecimal yearlyRent) {
+        this.yearlyRent = yearlyRent;
+    }
+
+    public Integer getReviewPeriod() {
+        return reviewPeriod;
+    }
+
+    public void setReviewPeriod(Integer reviewPeriod) {
+        this.reviewPeriod = reviewPeriod;
+    }
+    
+    
 
     public String getConcatenatedName() {
         return concatenatedName;
@@ -160,7 +241,6 @@ public class RrrBean extends AbstractTransactionedBean {
         rrrShareList = new SolaList();
         rightHolderList = new SolaList();
         conditionsList = new SolaList<ConditionForRrrBean>();
-        rrrDetailList = new SolaList<RrrDetailBean>();
         notation = new BaUnitNotationBean();
     }
 
@@ -229,7 +309,70 @@ public class RrrBean extends AbstractTransactionedBean {
         }
         this.setJointRefDataBean(this.mortgageType, mortgageType, MORTGAGE_TYPE_PROPERTY);
     }
+        
+    public String getZoneCode() {
+         if (zoneTypeBean != null) {
+            return zoneTypeBean.getCode();
+        } else {
+            return null;
+        }
+    }
 
+    public void setZoneCode(String value) {
+        String oldValue = null;
+        if (zoneTypeBean != null) {
+            oldValue = zoneTypeBean.getCode();
+        }
+        setZoneType(CacheManager.getBeanByCode(
+                CacheManager.getZoneTypes(), value));
+        propertySupport.firePropertyChange(ZONE_CODE_PROPERTY,
+                oldValue, value);
+    }
+
+    public ZoneTypeBean getZoneType() {
+        return zoneTypeBean;
+    }
+
+    public void setZoneType(ZoneTypeBean zoneTypeBean) {
+        if (this.zoneTypeBean == null) {
+            this.zoneTypeBean = new ZoneTypeBean();
+        }
+        this.setJointRefDataBean(this.zoneTypeBean, zoneTypeBean, ZONE_TYPE_PROPERTY);
+    }
+    
+    
+    
+     public String getRotCode() {
+         if (rotBean != null) {
+            return rotBean.getCode();
+        } else {
+            return null;
+        }
+    }
+
+    public void setRotCode(String value) {
+        String oldValue = null;
+        if (rotBean != null) {
+            oldValue = rotBean.getCode();
+        }
+        setRotType(CacheManager.getBeanByCode(
+                CacheManager.getRotTypes(), value));
+        propertySupport.firePropertyChange(ROT_CODE_PROPERTY,
+                oldValue, value);
+    }
+
+    public RotTypeBean getRotType() {
+        return rotBean;
+    }
+
+    public void setRotType(RotTypeBean rotBean) {
+        if (this.rotBean == null) {
+            this.rotBean = new RotTypeBean();
+        }
+        this.setJointRefDataBean(this.rotBean, rotBean, ROT_TYPE_PROPERTY);
+    }
+    
+    
     public String getBaUnitId() {
         return baUnitId;
     }
@@ -268,7 +411,7 @@ public class RrrBean extends AbstractTransactionedBean {
         }
         this.setJointRefDataBean(this.rrrType, rrrType, RRR_TYPE_PROPERTY);
     }
-
+  
     public Date getExpirationDate() {
         return expirationDate;
     }
@@ -394,14 +537,14 @@ public class RrrBean extends AbstractTransactionedBean {
         propertySupport.firePropertyChange(SELECTED_RIGHTHOLDER_PROPERTY, null, this.selectedRightholder);
     }
 
-    public RrrDetailBean getSelectedRrrDetail() {
-        return selectedRrrDetail;
-    }
-
-    public void setSelectedRrrDetail(RrrDetailBean selectedRrrDetail) {
-        this.selectedRrrDetail = selectedRrrDetail;
-         propertySupport.firePropertyChange(SELECTED_RRRDETAIL_PROPERTY, null, this.selectedRrrDetail);
-    }
+//    public RrrDetailBean getSelectedRrrDetail() {
+//        return selectedRrrDetail;
+//    }
+//
+//    public void setSelectedRrrDetail(RrrDetailBean selectedRrrDetail) {
+//        this.selectedRrrDetail = selectedRrrDetail;
+//         propertySupport.firePropertyChange(SELECTED_RRRDETAIL_PROPERTY, null, this.selectedRrrDetail);
+//    }
     
     
     
@@ -464,19 +607,19 @@ public class RrrBean extends AbstractTransactionedBean {
     }
     
     
-    public SolaList<RrrDetailBean> getRrrDetailList() {
-        return rrrDetailList;
-    }
-
-//    @Size(min = 1, groups = {LeaseValidationGroup.class},
-//            message = ClientMessage.CHECK_SIZE_CONDITIONS_LIST, payload = Localized.class)
-    public ObservableList<RrrDetailBean> getRrrDetailFilteredList() {
-        return rrrDetailList.getFilteredList();
-    }
-
-    public void setRrrDetailList(SolaList<RrrDetailBean> rrrDetailList) {
-        this.rrrDetailList = rrrDetailList;
-    }
+//    public SolaList<RrrDetailBean> getRrrDetailList() {
+//        return rrrDetailList;
+//    }
+//
+////    @Size(min = 1, groups = {LeaseValidationGroup.class},
+////            message = ClientMessage.CHECK_SIZE_CONDITIONS_LIST, payload = Localized.class)
+//    public ObservableList<RrrDetailBean> getRrrDetailFilteredList() {
+//        return rrrDetailList.getFilteredList();
+//    }
+//
+//    public void setRrrDetailList(SolaList<RrrDetailBean> rrrDetailList) {
+//        this.rrrDetailList = rrrDetailList;
+//    }
     
     public void setRightHolderList(SolaList<PartySummaryBean> rightHolderList) {
         this.rightHolderList = rightHolderList;
@@ -531,6 +674,7 @@ public class RrrBean extends AbstractTransactionedBean {
             addCondition(cond);
         }
     }
+    
 
     /**
      * Adds condition to the list

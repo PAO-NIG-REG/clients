@@ -293,7 +293,6 @@ public class MainContentPanel extends javax.swing.JPanel {
 
         // close autoclosable panels
         closeAutoCollapsiblePanels();
-   System.out.println("PRIMA DI IF CONTENT PANEL:::    "+cardName);
         if (ContentPanel.class.isAssignableFrom(cards.get(cardName).getClass())) {
             ((ContentPanel) cards.get(cardName)).panelShown();
         }

@@ -27,25 +27,40 @@
  */
 package org.sola.clients.beans.referencedata;
 
-import org.sola.clients.beans.AbstractCodeBean;
+import org.jdesktop.observablecollections.ObservableList;
+import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.controls.SolaCodeList;
 
 /**
- * Represents reference data object of the <b>condition_type</b> table.
- * Could be populated from the {@link ConditionTypeTO} object.<br /> For more
- * information see data dictionary <b>Administrative</b> schema.
+ * Holds the list of {@link RrrTypeBean} objects.
  */
-public class ConditionTypeBean extends AbstractCodeBean {
-    private String isFor;
-    
-    
-    public ConditionTypeBean(){
-        super();
-    }
-     public String getIsFor() {
-        return isFor;
+public class ZoneTypeListBean extends AbstractBindingBean {
+
+    public static final String SELECTED_ZONE_TYPE_PROPERTY = "selectedZoneType";
+    private SolaCodeList<ZoneTypeBean> zoneTypeList;
+    private ZoneTypeBean selectedZoneType;
+
+    /**
+     * Initializes object's instance and populates {@link ObservableList}&lt;
+     * {@link LandUseTypeBean} &gt; with values from the cache.
+     */
+    public ZoneTypeListBean() {
+        // Load from cache by default
+        zoneTypeList = new SolaCodeList<ZoneTypeBean>(CacheManager.getZoneTypes());
     }
 
-    public void setIsFor(String isFor) {
-        this.isFor = isFor;
+    public ObservableList<ZoneTypeBean> getZoneTypeList() {
+        return zoneTypeList.getFilteredList();
+    }
+
+    public ZoneTypeBean getSelectedZoneType() {
+        return selectedZoneType;
+    }
+
+    public void setSelectedZoneType(ZoneTypeBean selectedZoneType) {
+        this.selectedZoneType = selectedZoneType;
+        propertySupport.firePropertyChange(SELECTED_ZONE_TYPE_PROPERTY,
+                null, selectedZoneType);
     }
 }

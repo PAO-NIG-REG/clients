@@ -28,24 +28,21 @@
 package org.sola.clients.beans.referencedata;
 
 import org.sola.clients.beans.AbstractCodeBean;
+import org.sola.webservices.transferobjects.referencedata.BaUnitTypeTO;
 
 /**
- * Represents reference data object of the <b>condition_type</b> table.
- * Could be populated from the {@link ConditionTypeTO} object.<br /> For more
- * information see data dictionary <b>Administrative</b> schema.
+ * Represents reference data object of the <b>cadastre_object_type</b> table.
+ * Could be populated from the {@link LandUseTypeTO} object.<br /> For more
+ * information see data dictionary <b>Cadastre</b> schema.
  */
-public class ConditionTypeBean extends AbstractCodeBean {
-    private String isFor;
-    
-    
-    public ConditionTypeBean(){
-        super();
-    }
-     public String getIsFor() {
-        return isFor;
-    }
+public class LgaTypeBean extends AbstractCodeBean {
 
-    public void setIsFor(String isFor) {
-        this.isFor = isFor;
+//    public static final String CODE_RESIDENTIAL = "residential";
+//    public static final String CODE_COMMERCIAL = "commercial";
+//    public static final String CODE_INDUSTRIAL = "industrial";
+//    public static final String CODE_AGRICULTURAL = "agricultural";
+
+    public LgaTypeBean() {
+        super();
     }
 }

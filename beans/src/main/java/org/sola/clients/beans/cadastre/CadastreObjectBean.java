@@ -85,6 +85,52 @@ public class CadastreObjectBean extends AbstractTransactionedBean {
     private SolaList<SpatialValueAreaBean> spatialValueAreaList;
     private SolaList<AddressBean> addressList;
     private transient AddressBean selectedAddress;
+    private String block;
+    private String plotNum;
+    private String lgaCode;
+    private String zoneCode;
+    private String intellMapSheet;
+
+    public String getBlock() {
+        return block;
+    }
+
+    public void setBlock(String block) {
+        this.block = block;
+    }
+
+    public String getPlotNum() {
+        return plotNum;
+    }
+
+    public void setPlotNum(String plotNum) {
+        this.plotNum = plotNum;
+    }
+
+    public String getLgaCode() {
+        return lgaCode;
+    }
+
+    public void setLgaCode(String lgaCode) {
+        this.lgaCode = lgaCode;
+    }
+
+    public String getZoneCode() {
+        return zoneCode;
+    }
+
+    public void setZoneCode(String zoneCode) {
+        this.zoneCode = zoneCode;
+    }
+
+    public String getIntellMapSheet() {
+        return intellMapSheet;
+    }
+
+    public void setIntellMapSheet(String intellMapSheet) {
+        this.intellMapSheet = intellMapSheet;
+    }
+    
     
     public CadastreObjectBean() {
         super();

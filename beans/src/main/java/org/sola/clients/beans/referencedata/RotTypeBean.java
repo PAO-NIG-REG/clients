@@ -28,24 +28,17 @@
 package org.sola.clients.beans.referencedata;
 
 import org.sola.clients.beans.AbstractCodeBean;
+import org.sola.webservices.transferobjects.referencedata.RotTypeTO;
 
-/**
- * Represents reference data object of the <b>condition_type</b> table.
- * Could be populated from the {@link ConditionTypeTO} object.<br /> For more
- * information see data dictionary <b>Administrative</b> schema.
+/** 
+ * Represents reference data object of the <b>mortgage_type</b> table. 
+ * Could be populated from the {@link MortgageTypeTO} object.<br />
+ * For more information see data dictionary <b>Administrative</b> schema.
  */
-public class ConditionTypeBean extends AbstractCodeBean {
-    private String isFor;
-    
-    
-    public ConditionTypeBean(){
+public class RotTypeBean extends AbstractCodeBean {
+
+    public RotTypeBean() {
         super();
     }
-     public String getIsFor() {
-        return isFor;
-    }
-
-    public void setIsFor(String isFor) {
-        this.isFor = isFor;
-    }
 }
+

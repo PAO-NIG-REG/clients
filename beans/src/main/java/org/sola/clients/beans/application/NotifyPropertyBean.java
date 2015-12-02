@@ -111,25 +111,14 @@ public class NotifyPropertyBean extends AbstractIdBean {
      * @throws Exception
      */
     public boolean cancelNotifyProperty(String notifyId, String baUnitId, NotifyPropertyBean notifiable) {
-        System.out.println("BEAN NOTIFIABLE NOTIFY ID   "+notifiable.notifyId);
-        System.out.println("BEAN NOTIFY ID   "+notifyId);
-        System.out.println("BEAN BA UNIT ID   "+baUnitId);
-        System.out.println("BEAN NOTIFY ID   "+notifiable.notifyId);
         NotifyPropertyTO notifyProperty = WSManager.getInstance().getCaseManagementService().getNotifyProperty(notifyId, baUnitId);
         notifyProperty.setCancelServiceId(notifiable.getCancelServiceId());
         notifyProperty.setStatus(notifiable.getStatus());
         notifyProperty.setEntityAction(EntityAction.UPDATE);
-        System.out.println("BEAN NOTIFY ID   "+notifyProperty.getNotifyId());
-        System.out.println("BEAN BA UNIT ID   "+notifyProperty.getBaUnitId());
-        System.out.println("BEAN STATUS   "+notifyProperty.getStatus());
-      
+        
         notifyProperty = WSManager.getInstance().getCaseManagementService().saveNotifyProperty(notifyProperty, notifyId, baUnitId);
         
-        System.out.println("DOPO BEAN NOTIFY ID   "+notifyProperty.getNotifyId());
-        System.out.println("DOPO BA UNIT ID   "+notifyProperty.getBaUnitId());
-        System.out.println("DOPO STATUS   "+notifyProperty.getStatus());
-        System.out.println("DOPO STATUS   "+notifyProperty.getCancelServiceId());
-      
+        
         TypeConverters.TransferObjectToBean(notifyProperty, NotifyPropertyBean.class, this);
         return true;
     }

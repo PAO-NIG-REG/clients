@@ -400,39 +400,14 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 
     private void generateReport() throws InitializeLayerException {
 
-//       if (this.location==null) { 
-//        if (  cadastreObjectSearch.getSelectedElement() != null) {
-//            this.location = cadastreObjectSearch.getSelectedElement().toString();
-//            tmpLocation = (this.location);
-//        } else {
-//            MessageUtility.displayMessage(ClientMessage.CHECK_SELECT_LOCATION);
-//            return;
-//        }
-//       } else {
-//           tmpLocation = (this.location);
-//       } 
         Date currentdate = new Date(System.currentTimeMillis());
         this.currentDate = currentdate;
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy");
         this.reportdate = formatter.format(currentdate);
-//        if (nr != null) {
-//            sysRegCertificatesListBean.passParameterApp(tmpLocation, nr);
-//        } 
-//        else {
-//             if (whichReport == "coParcelPlan") {
-//                 sysRegCertificatesListBean.passParameterCo(tmpLocation);
-//             }
-//             else {
-//              sysRegCertificatesListBean.passParameter(tmpLocation);
-//             } 
-//        }
-
         String prefix = getPrefix();
         String baUnitId = null;
-//        String nrTmp = null;
         String appId = null;
         Integer prevCofO = 0;
-//        String sourceRef = "";
         int i = 0;
 
         final ApplicationBean applicationBean = getApplication(nr);
@@ -449,142 +424,19 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 
         final BaUnitBean baUnit = getBaUnit(baUnitId);
 
-//                int imageWidth   = 520;
-//                int imageHeight  = 300;
-//                int sketchWidth  = 200;
-//                int sketchHeight = 200;
-//        try {
-//            MapImageGeneratorForSelectedParcel mapImage = new MapImageGeneratorForSelectedParcel(imageWidth, imageHeight,sketchWidth,sketchHeight,false, 0, 0);
-//            
+            
         List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
         JasperPrint CofO = null;
-//        JasperPrint ParcelPlan = null;
-//            for (Iterator<SysRegCertificatesBean> it = sysRegCertificatesListBean.getSysRegCertificates().iterator(); it.hasNext();) {
-//                final SysRegCertificatesBean appBaunit = it.next();
-//                
-//                if (whichReport != "coParcelPlan" || whichReport == null) {
-//                    baUnitId = appBaunit.getBaUnitId();
-////                    appId = appBaunit.getAppId();
-////                    prevCofO = appBaunit.getCofO(); 
-//                    cadastreObject=this.getCadastre(appBaunit.getNameFirstpart());
-//                }
-//                if (whichReport == "coParcelPlan") {
-//                    cadastreObject=this.getCadastre(appBaunit.getNameFirstpart());
-//                }
-//                if(cadastreObject!=null)
-//                {
-//                    System.out.println(cadastreObject.getSourceReference());
-//                    sourceRef=cadastreObject.getSourceReference();
-//                }
-//                else sourceRef="";
-////                TODO VERIFICARE QUESTO ELSE SENZA GRAFFA????
-//                
-//                if (whichReport != "coParcelPlan") {
-        this.reportTogenerate = baUnitId + "_" + this.reportdate + ".pdf";
 
-//                    String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
-//                    final String featureFront = this.svgPath + "front.svg";
-//                    final String featureBack = this.svgPath + "back.svg";
+        this.reportTogenerate = baUnitId + "_" + this.reportdate + ".pdf";
         this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
         this.reportTogenerate = this.reportTogenerate.replace("/", "_");
 
-//                    MapImageInformation mapImageInfo = mapImage.getInformation(appBaunit.getId());
-//                    final String featureImageFileName = mapImageInfo.getMapImageLocation();
-//                    final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
-//                    final Number scale = mapImageInfo.getScale();
-//                    final Integer srid = mapImageInfo.getSrid();
-//                    final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
-//                    if (this.whichReport.contains("parcelPlan")){  
-//                        System.out.println("QUI::::   parcelPlan");
-//                        ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
-//                        showReport(ParcelPlan, parcelLabel, this.whichReport);
-//                        jprintlist.add(ParcelPlan);
-//                    } else if (this.whichReport.contains("title")){  
-        System.out.println("QUI::::  title");
-//            CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall, sourceRef);
         CofO = ReportManager.getCofO(baUnit);
         showReport(CofO, this.whichReport);
         jprintlist.add(CofO);
-//                    }
-//                    else {  
-//                        System.out.println("QUI::::  else");
-//
-//                        CofO = ReportManager.getSysRegCertificatesReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall,sourceRef);
-//                        showReport(CofO, parcelLabel, "title");
-//                        ParcelPlan = ReportManager.getSysRegSlrtPlanReport(baUnit, tmpLocation, applicationBean, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
-//                        showReport(ParcelPlan, parcelLabel,"parcelPlan");
-//                        jprintlist.add(CofO);
-//                        jprintlist.add(ParcelPlan);
-//                    }
-//                }
-//
-//                if (whichReport == "coParcelPlan") {
-//                        this.reportTogenerate = tmpLocation + "_" + this.reportdate + ".pdf";
-//                        String parcelLabel = tmpLocation + '/' + appBaunit.getNameFirstpart();
-//                        final String featureFront = this.svgPath + "front.svg";
-//                        final String featureBack = this.svgPath + "back.svg";
-//                        this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
-//                        this.reportTogenerate = this.reportTogenerate.replace("/", "_");
-//
-//
-//
-//                        MapImageInformation mapImageInfo = mapImage.getInformation(appBaunit.getId());
-//                        final String featureImageFileName = mapImageInfo.getMapImageLocation();
-//                        final String featureScalebarFileName = mapImageInfo.getScalebarImageLocation();
-//                        final Number scale = mapImageInfo.getScale();
-//                        final Integer srid = mapImageInfo.getSrid();
-//                        final String featureImageFileNameSmall = mapImageInfo.getSketchMapImageLocation();
-//                        System.out.println("QUI::::   parcelPlan");
-//                        ParcelPlan = ReportManager.getSysRegSlrtPlanReport(null, tmpLocation, null, appBaunit, featureImageFileName, featureScalebarFileName, srid, scale, featureFront, featureBack, featureImageFileNameSmall);
-//                        showReport(ParcelPlan, parcelLabel, this.whichReport);
-//                        jprintlist.add(ParcelPlan);
-//                }                 
 
         i = i + 1;
-//            }
-
-//         if ((this.nr == "" || this.nr == null)&&(whichReport != "coParcelPlan")) {     
-//             System.out.println("QUI::::  FA TOTAL");
-//                    
-//            whichFile= "TOTAL_"+this.whichReport+"-"+ this.location.replace('/', '-');
-//            for(int c=0; c<whichFile.length(); c++){
-//                if ((!Character.isLetterOrDigit(whichFile.charAt(c)))&& (!Character.isSpaceChar(whichFile.charAt(c))))
-//                {
-//                    whichFile = whichFile.replace(whichFile.charAt(c),'-');
-//                }
-//            }
-//            JRExporter exporter = new JRPdfExporter();
-//            exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
-//            OutputStream output = new FileOutputStream(new File(cachePath +whichFile+ ".pdf"));
-//            exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, output);
-//            try {
-//                exporter.exportReport();
-//                output.close();
-//            } catch (JRException ex) {
-//                Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            
-//            try {    
-//                FileUtility.saveFileFromStream(null, cachePath + whichFile+ ".pdf");
-//                saveDocument(whichFile + ".pdf", this.currentDate, this.reportdate, whichFile, whichReport);
-//                FileUtility.deleteFileFromCache(cachePath + whichFile+ ".pdf");
-//            } catch (Exception ex) {
-//                Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//           }  
-//        } catch (InitializeMapException ex) {
-//            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (SchemaException ex) {
-//            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (FactoryException ex) {
-//            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (TransformException ex) {
-//            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(SysRegCertParamsForm.class.getName()).log(Level.SEVERE, null, ex);
-//        }
         if (i == 0) {
             MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
         } else {
@@ -593,68 +445,21 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
         }
 
         this.dispose();
-
-//        if (Desktop.isDesktopSupported()&&(this.nr == "" || this.nr == null)) {         
-//            try {
-//                File myFile = new File(cachePath + whichFile+ ".pdf");
-//                Desktop.getDesktop().open(myFile);
-//            } catch (IOException ex) {
-//                // no application registered for PDFs
-//            }
-//        }
-//        else {
         this.form.setVisible(true);
         this.form.setAlwaysOnTop(true);
-//        }
     }
 
 
     private void btnGenCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCertificateActionPerformed
-//        if (cadastreObjectSearch.getSelectedElement() != null) {
-//            this.location = cadastreObjectSearch.getSelectedElement().toString();
-//            tmpLocation = (this.location.substring(this.location.indexOf("/") + 1).trim());
-//        } else {
-//            MessageUtility.displayMessage(ClientMessage.CHECK_SELECT_LOCATION);
-//            return;
-//        }
-//
         Date currentdate = new Date(System.currentTimeMillis());
         this.currentDate = currentdate;
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy");
         this.reportdate = formatter.format(currentdate);
-//
-//        if (nr != null) {
-//            sysRegCertificatesListBean.passParameterApp(tmpLocation, nr);
-//        } else {
-//            sysRegCertificatesListBean.passParameter(tmpLocation);
-//        }
-//
-//        String baUnitId = null;
-//        String nrTmp = null;
-//        int i = 0;
-//       
-//        for (Iterator<SysRegCertificatesBean> it = sysRegCertificatesListBean.getSysRegCertificates().iterator(); it.hasNext();) {
-//            SysRegCertificatesBean appBaunit = it.next();
-//             baUnitId = appBaunit.getBaUnitId();
-//             
-//            this.reportTogenerate = baUnitId + "_" + tmpLocation + "_" + this.reportdate + ".pdf";
-////            showReport(ReportManager.getBaUnitReport(getBaUnit(baUnitId)));
-//            showReport(ReportManager.getSysRegCertificatesReport(getBaUnit(baUnitId),tmpLocation));
-//            i = i + 1;
-//        }
-//        if (i==0) {
-//         MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
-//        } else {
-//         showDocMessage(this.tmpLocation);   
-//        }
-//        this.dispose();
-
         SolaTask t = new SolaTask<Void, Void>() {
 
             @Override
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(ClientMessage.PROGRESS_MSG_GENERATING_REPORT));
-//                        .PROGRESS_MSG_CREATE_CERTIFICATE)); TBCHANGED WITH THIS
                 try {
                     generateReport();
 
@@ -679,8 +484,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 
     private String getPrefix() {
         prefix = WSManager.getInstance().getInstance().getAdminService().getSetting(
-                //                "state", "");
-                "system-id", "");
+                               "system-id", "");
         return prefix;
     }
 

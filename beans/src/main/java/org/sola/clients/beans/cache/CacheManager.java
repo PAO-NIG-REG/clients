@@ -141,6 +141,8 @@ public final class CacheManager {
      * Cache key of the {@link MortgageTypeBean} collection.
      */
     public static final String MORTGAGE_TYPE_CODES_KEY = MortgageTypeBean.class.getName() + LIST_POSTFIX;
+    
+    public static final String ROT_TYPE_CODES_KEY = RotTypeBean.class.getName() + LIST_POSTFIX;
     /**
      * Cache key of the {@link RRRGroupTypeBean} collection.
      */
@@ -206,6 +208,15 @@ public final class CacheManager {
      */
     public static final String LAND_USE_TYPE_CODES_KEY = LandUseTypeBean.class.getName() + LIST_POSTFIX;
     /**
+     * Cache key of the {@link LgaTypeBean} collection.
+     */
+    public static final String LGA_TYPE_CODES_KEY = LgaTypeBean.class.getName() + LIST_POSTFIX;
+     /**
+     * Cache key of the {@link ZoneTypeBean} collection.
+     */
+    public static final String ZONE_TYPE_CODES_KEY = ZoneTypeBean.class.getName() + LIST_POSTFIX;
+   
+    /**
      * Cache key of the {@link LeaseConditionBean} collection.
      */
     public static final String CONDITION_TYPE_CODES_KEY = ConditionTypeBean.class.getName() + LIST_POSTFIX;
@@ -263,6 +274,7 @@ public final class CacheManager {
     private static final String GET_ID_TYPES = "getIdTypes";
     private static final String GET_BA_UNIT_TYPES = "getBaUnitTypes";
     private static final String GET_MORTGAGE_TYPES = "getMortgageTypes";
+    private static final String GET_ROT_TYPES = "getRotTypes";
     private static final String GET_RRR_GROUP_TYPES = "getRrrGroupTypes";
     private static final String GET_RRR_TYPES = "getRrrTypes";
     private static final String GET_REGISTRATION_STATUS_TYPES = "getRegistrationStatusTypes";
@@ -278,7 +290,10 @@ public final class CacheManager {
     private static final String GET_BR_VALIDATION_TARGET_TYPES = "getBrValidationTargetTypes";
     private static final String GET_BA_UNIT_REL_TYPES = "getBaUnitRelTypes";
     private static final String GET_LAND_USE_TYPES = "getLandUseTypes";
+    private static final String GET_LGA_TYPES = "getLgaTypes";
+    private static final String GET_ZONE_TYPES = "getZoneTypes";
     private static final String GET_CONDITION_TYPES = "getConditionTypes";
+    private static final String GET_CONDITION_TYPES_FOR = "getConditionTypesFor";
     private static final String GET_BAUNIT_DETAIL_TYPES = "getBaUnitDetailTypes";
     private static final String GET_RRR_DETAIL_TYPES = "getRrrDetailTypes";
     private static final String GET_HIERARCHY_LEVELS = "getHierarchyLevels";
@@ -354,7 +369,19 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_LAND_USE_TYPES, LAND_USE_TYPE_CODES_KEY);
     }
-
+    
+    public static List<LgaTypeBean> getLgaTypes() {
+        return getCachedBeanList(LgaTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_LGA_TYPES, LGA_TYPE_CODES_KEY);
+    }
+    
+    public static List<ZoneTypeBean> getZoneTypes() {
+        return getCachedBeanList(ZoneTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_ZONE_TYPES, ZONE_TYPE_CODES_KEY);
+    }
+    
     public static List<SourceBaUnitRelationTypeBean> getSourceBaUnitRelationTypes() {
         return getCachedBeanList(SourceBaUnitRelationTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
@@ -384,6 +411,11 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_MORTGAGE_TYPES, MORTGAGE_TYPE_CODES_KEY);
     }
+      public static List<RotTypeBean> getRotTypes() {
+        return getCachedBeanList(RotTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_ROT_TYPES, ROT_TYPE_CODES_KEY);
+    }
 
     public static List<BaUnitTypeBean> getBaUnitTypes() {
         return getCachedBeanList(BaUnitTypeBean.class,
@@ -402,6 +434,14 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_CONDITION_TYPES, CONDITION_TYPE_CODES_KEY);
     }
+    
+    
+    public static List<ConditionTypeBean> getConditionTypesFor() {
+        return getCachedBeanList(ConditionTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_CONDITION_TYPES_FOR, CONDITION_TYPE_CODES_KEY);
+    }
+    
     
      public static List<BaUnitDetailTypeBean> getBaUnitDetailTypes() {
         return getCachedBeanList(BaUnitDetailTypeBean.class,

@@ -27,25 +27,40 @@
  */
 package org.sola.clients.beans.referencedata;
 
-import org.sola.clients.beans.AbstractCodeBean;
+import org.jdesktop.observablecollections.ObservableList;
+import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.controls.SolaCodeList;
 
 /**
- * Represents reference data object of the <b>condition_type</b> table.
- * Could be populated from the {@link ConditionTypeTO} object.<br /> For more
- * information see data dictionary <b>Administrative</b> schema.
+ * Holds the list of {@link RrrTypeBean} objects.
  */
-public class ConditionTypeBean extends AbstractCodeBean {
-    private String isFor;
-    
-    
-    public ConditionTypeBean(){
-        super();
-    }
-     public String getIsFor() {
-        return isFor;
+public class LgaTypeListBean extends AbstractBindingBean {
+
+    public static final String SELECTED_LGA_TYPE_PROPERTY = "selectedLgaType";
+    private SolaCodeList<LgaTypeBean> lgaTypeList;
+    private LgaTypeBean selectedLgaType;
+
+    /**
+     * Initializes object's instance and populates {@link ObservableList}&lt;
+     * {@link LandUseTypeBean} &gt; with values from the cache.
+     */
+    public LgaTypeListBean() {
+        // Load from cache by default
+        lgaTypeList = new SolaCodeList<LgaTypeBean>(CacheManager.getLgaTypes());
     }
 
-    public void setIsFor(String isFor) {
-        this.isFor = isFor;
+    public ObservableList<LgaTypeBean> getLgaTypeList() {
+        return lgaTypeList.getFilteredList();
+    }
+
+    public LgaTypeBean getSelectedLgaType() {
+        return selectedLgaType;
+    }
+
+    public void setSelectedLgaType(LgaTypeBean selectedLgaType) {
+        this.selectedLgaType = selectedLgaType;
+        propertySupport.firePropertyChange(SELECTED_LGA_TYPE_PROPERTY,
+                null, selectedLgaType);
     }
 }

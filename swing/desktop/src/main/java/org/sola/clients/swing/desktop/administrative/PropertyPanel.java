@@ -103,9 +103,7 @@ import org.sola.webservices.transferobjects.cadastre.SpatialValueAreaTO;
  */
 public class PropertyPanel extends ContentPanel {
 
-    static List<JLabel> listOfLabels = new ArrayList<JLabel>();
-    static List<JTextField> listOfTextFields = new ArrayList<JTextField>();
-
+   
     /**
      * Listens for events of different right forms, to add created right into
      * the list of rights or update existing one.
@@ -134,8 +132,8 @@ public class PropertyPanel extends ContentPanel {
     private PropertyChangeListener newPropertyWizardListener;
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
-    private JComboBox cbxGen = new javax.swing.JComboBox();
-    private boolean cofOenabled = false;
+    
+   
 
     /**
      * Creates {@link BaUnitBean} used to bind form components.
@@ -228,7 +226,6 @@ public class PropertyPanel extends ContentPanel {
         resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
         initComponents();
         portInit();
-
     }
 
     /**
@@ -264,21 +261,6 @@ public class PropertyPanel extends ContentPanel {
      * Makes post initialization tasks.
      */
     private void portInit() {
-
-        // Populate detail list with standard conditions for new RrrBean
-        baUnitBean1.addBaUnitDetail(baUnitDetailTypeListBean1.getBaUnitDetailList());
-//                    conditionTypes.getLeaseConditionList());
-
-        baUnitDetailTypeListBean1.addPropertyChangeListener(new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(BaUnitDetailTypeListBean.SELECTED_BAUNIT_DETAIL_TYPE_PROPERTY)) {
-
-                }
-            }
-        });
-
         customizeForm();
 
         rrrTypes.addPropertyChangeListener(new PropertyChangeListener() {
@@ -324,177 +306,12 @@ public class PropertyPanel extends ContentPanel {
             }
         });
 
-        customizeTitleTab();
         saveBaUnitState();
-
-    }
-
-    private void customizeTitleTab() {
-
-        if (applicationService != null && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD))
-                && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE))
-//                && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_MORTGAGE))
-//                && (!applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_VARY_MORTGAGE))
-                ) {
-            this.tabTitle.setVisible(false);
-            this.tabTitle.setEnabled(false);
-            tabsMain.removeTabAt(tabsMain.indexOfComponent(tabTitle));
-            this.btnPrintBaUnit1.setVisible(false);
-        } else {
-            java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle"); // NOI18N
-            this.groupPanel1.setTitleText(bundle.getString("PropertyPanel.TitlePaperTitle.text"));
-            this.btnLinkPaperTitle.setText(bundle.getString("PropertyPanel.btnLinkDiagram.text"));
-            this.btnViewPaperTitle.setText(bundle.getString("PropertyPanel.btnViewDiagram.text"));
-            this.btnPrintBaUnit1.setVisible(false);
-            if (applicationService != null && (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE))) {
-                cofOenabled = true;
-            }
-
-            int rowCnt = this.baUnitBean1.getBaUnitDetailFilteredList().size();
-
-            GridBagLayout gridbag = new GridBagLayout();
-            matrixPanel.setLayout(gridbag);
-
-            GridBagConstraints c = new GridBagConstraints();
-            c = new GridBagConstraints();
-
-//            BaUnitDetailBean[] orderedDetail = new BaUnitDetailBean[rowCnt];
-            
-            List <BaUnitDetailBean> orderedDetail = new ArrayList <BaUnitDetailBean>(); 
-
-            for (BaUnitDetailBean it : this.baUnitBean1.getBaUnitDetailFilteredList()) {
-               if (it.getDetailType().getStatus().equalsIgnoreCase("c")) { 
-//                orderedDetail[(it.getDetailType().getOrderView()) - 1] = it;
-                  orderedDetail.add(it);
-                
-               } 
-            }
-
-            for (final BaUnitDetailBean appBaUnitDetail : orderedDetail) {
-                if (appBaUnitDetail.getDetailType().getStatus().equalsIgnoreCase("c")) {
-                    String pre = "";
-                    pre = String.format("%" + 8 + "s", pre);
-                    JLabel l = new JLabel(appBaUnitDetail.getDetailType().getDisplayValue() + pre, JLabel.TRAILING);
-                    l.setPreferredSize(new java.awt.Dimension(10, 25));
-                    l.setMaximumSize(new java.awt.Dimension(10, 25));
-                    l.setHorizontalAlignment(JLabel.TRAILING);
-                    l.setSize(new java.awt.Dimension(10, 25));
-                    l.setFont((this.labName.getFont())); // NOI18N
-
-                    JLabel l2 = new JLabel();
-
-                    final JTextField textField = new JTextField(appBaUnitDetail.getCustomDetailText());
-                    textField.setPreferredSize(new java.awt.Dimension(50, 25));
-                    textField.setMaximumSize(new java.awt.Dimension(50, 25));
-                    textField.setSize(new java.awt.Dimension(50, 25));
-                    textField.setHorizontalAlignment(JTextField.LEFT);
-                    if (appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cOfO") && this.cofOenabled == false
-                            ) {
-                        textField.setEditable(false);
-                        textField.setEnabled(false);
-                    } else {
-                        textField.setEditable(true);
-                        textField.setEnabled(true);
-                    }
-                    textField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusLost(java.awt.event.FocusEvent evt) {
-                            appBaUnitDetail.setCustomDetailText(textField.getText());
-
-                        }
-                    });
-
-                    final WatermarkDate txtDate = new org.sola.clients.swing.common.controls.WatermarkDate();
-                    txtDate.setText(appBaUnitDetail.getCustomDetailText());
-                    txtDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-                        public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                            appBaUnitDetail.setCustomDetailText(txtDate.getText());
-
-                        }
-                    });
-                    JButton btnDate = new javax.swing.JButton();
-                    btnDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/calendar.png"))); // NOI18N
-                    btnDate.setBorder(null);
-                    btnDate.setHorizontalAlignment(JTextField.LEFT);
-                    btnDate.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                            showCalendar(txtDate);
-                        }
-                    });
-
-                    c.fill = GridBagConstraints.HORIZONTAL;
-                    c.ipady = 5;
-                    c.gridx = 0;
-                    c.weightx = 0.5;
-                    c.gridwidth = 1;
-                    matrixPanel.add(l, c);
-
-                    if (appBaUnitDetail.getDetailType().getFieldType().contentEquals("DATE")) {
-
-                        c.gridx = 1;
-                        c.weightx = 1;
-                        c.gridwidth = 1;
-                        matrixPanel.add(txtDate, c);
-
-                        c.fill = GridBagConstraints.NONE;
-                        c.gridx = 2;
-                        c.weightx = 0.02;
-                        c.gridwidth = 0;
-                        matrixPanel.add(btnDate, c);
-
-                    } else if (appBaUnitDetail.getDetailType().getFieldType().equalsIgnoreCase("COMBO") && appBaUnitDetail.getDetailType().getCode().equalsIgnoreCase("cOfOtype")) {
-                        int lutCnt = this.landUseTypeListBean1.getLandUseTypeList().size();
-                        int i = 0;
-                        String[] lut = new String[lutCnt];
-                        for (final LandUseTypeBean appLandUseType : this.landUseTypeListBean1.getLandUseTypeList()) {
-                            lut[i] = appLandUseType.getDisplayValue();
-                            i = i + 1;
-                        }
-                        String[] comboBoxArray = lut;
-                        cbxGen = new javax.swing.JComboBox(comboBoxArray);
-                        final JComboBox cbxCBX = cbxGen;
-                        cbxCBX.setSelectedItem(appBaUnitDetail.getCustomDetailText());
-                        cbxCBX.addActionListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                appBaUnitDetail.setCustomDetailText(cbxCBX.getSelectedItem().toString());
-                            }
-                        });
-
-                        c.gridx = 1;
-                        c.weightx = 1;
-                        c.gridwidth = 1;
-                        matrixPanel.add(cbxCBX, c);
-
-                        c.fill = GridBagConstraints.NONE;
-                        c.gridx = 2;
-                        c.weightx = 0.02;
-                        c.gridwidth = 0;
-                        matrixPanel.add(l2, c);
-                    } else {
-
-                        c.gridx = 1;
-                        c.weightx = 1;
-                        c.gridwidth = 1;
-                        matrixPanel.add(textField, c);
-
-                        c.fill = GridBagConstraints.NONE;
-                        c.gridx = 2;
-                        c.weightx = 0.02;
-                        c.gridwidth = 0;
-                        matrixPanel.add(l2, c); // add the labels into the panel
-
-                    }
-                }
-            }
-        }
 
     }
 
     private void formatSize(String size) {
         txtArea.setText(size.substring(0, size.indexOf('.')));
-    }
-
-    private void addStandardBaUnitDetail() {
-        baUnitBean1.addBaUnitDetail(baUnitDetailTypeListBean1.getSelectedBaUnitDetailType());
     }
 
     /**
@@ -1113,6 +930,7 @@ public class PropertyPanel extends ContentPanel {
     private void print() {
         if (ApplicationServiceBean.saveInformationService(RequestTypeBean.CODE_TITLE_SERACH)) {
             showReport(ReportManager.getBaUnitReport(getBaUnit(
+//                     showReport(ReportManager.getBaUnitReportStandard(getBaUnit(
                     baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
 
         }
@@ -1126,10 +944,11 @@ public class PropertyPanel extends ContentPanel {
             if (baUnitBean1.getStatusCode().equals("current")) {
                 showReport(ReportManager.getCofO(getBaUnit(
                         baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
+//                this.btnCertificate.setText("Certificate");
             } else {
                 showReport(ReportManager.getBaUnitReport(getBaUnit(
                         baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
-
+//                this.btnCertificate.setText("Data Extract");
             }
         }
     }
@@ -1217,18 +1036,18 @@ public class PropertyPanel extends ContentPanel {
         }
         
         
-        
-     if (applicationService != null && (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD))
-                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE))
-//                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_MORTGAGE))
-//                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_VARY_MORTGAGE))
-         ) 
-     {
-        if (baUnitBean1.getFilteredSourceList().size()<= 0 || !baUnitBean1.getFilteredSourceList().get(0).getTypeCode().contentEquals("cadastralSurvey")) {
-             MessageUtility.displayMessage(ClientMessage.APPLICATION_SELECT_DIAGRAM_TO_ATTACH_TO);
-         return; 
-        }
-     }  
+//  QUI DIAGRAM  COFO        
+//     if (applicationService != null && (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD))
+//                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE))
+////                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_MORTGAGE))
+////                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_VARY_MORTGAGE))
+//         ) 
+//     {
+//        if (baUnitBean1.getFilteredSourceList().size()<= 0 || !baUnitBean1.getFilteredSourceList().get(0).getTypeCode().contentEquals("cadastralSurvey")) {
+//             MessageUtility.displayMessage(ClientMessage.APPLICATION_SELECT_DIAGRAM_TO_ATTACH_TO);
+//         return; 
+//        }
+//     }  
         
         
         if (txtArea.isEditable() || isBtnNext) {
@@ -1448,8 +1267,6 @@ public class PropertyPanel extends ContentPanel {
         popupChildBaUnits = new javax.swing.JPopupMenu();
         menuOpenChildBaUnit = new javax.swing.JMenuItem();
         baUnitAreaBean1 = createBaUnitAreaBean();
-        baUnitDetailTypeListBean1 = new org.sola.clients.beans.referencedata.BaUnitDetailTypeListBean();
-        baUnitDetailBean1 = new org.sola.clients.beans.administrative.BaUnitDetailBean();
         landUseTypeListBean1 = new org.sola.clients.beans.referencedata.LandUseTypeListBean();
         jToolBar5 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
@@ -1457,7 +1274,7 @@ public class PropertyPanel extends ContentPanel {
         jSeparator4 = new javax.swing.JToolBar.Separator();
         btnSecurity = new javax.swing.JButton();
         btnPrintBaUnit = new javax.swing.JButton();
-        btnPrintBaUnit1 = new javax.swing.JButton();
+        btnCertificate = new javax.swing.JButton();
         tabsMain = new javax.swing.JTabbedPane();
         jPanel7 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -1549,10 +1366,6 @@ public class PropertyPanel extends ContentPanel {
         pnlNextButton = new javax.swing.JPanel();
         btnNext = new javax.swing.JButton();
         mapPanel = new javax.swing.JPanel();
-        tabTitle = new javax.swing.JPanel();
-        groupPanel2 = new org.sola.clients.swing.ui.GroupPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        matrixPanel = new javax.swing.JPanel();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
 
         popupParcels.setName("popupParcels"); // NOI18N
@@ -1751,18 +1564,18 @@ public class PropertyPanel extends ContentPanel {
         });
         jToolBar5.add(btnPrintBaUnit);
 
-        btnPrintBaUnit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/approve1.png"))); // NOI18N
-        btnPrintBaUnit1.setText(bundle.getString("PropertyPanel.btnPrintBaUnit1.text")); // NOI18N
-        btnPrintBaUnit1.setFocusable(false);
-        btnPrintBaUnit1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnPrintBaUnit1.setName("btnPrintBaUnit1"); // NOI18N
-        btnPrintBaUnit1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPrintBaUnit1.addActionListener(new java.awt.event.ActionListener() {
+        btnCertificate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/approve1.png"))); // NOI18N
+        btnCertificate.setText(bundle.getString("PropertyPanel.btnCertificate.text")); // NOI18N
+        btnCertificate.setFocusable(false);
+        btnCertificate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCertificate.setName("btnCertificate"); // NOI18N
+        btnCertificate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCertificate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintBaUnit1ActionPerformed(evt);
+                btnCertificateActionPerformed(evt);
             }
         });
-        jToolBar5.add(btnPrintBaUnit1);
+        jToolBar5.add(btnCertificate);
 
         tabsMain.setName("tabsMain"); // NOI18N
         tabsMain.setPreferredSize(new java.awt.Dimension(494, 300));
@@ -1896,7 +1709,6 @@ public class PropertyPanel extends ContentPanel {
         jLabel4.setText(bundle.getString("PropertyPanel.jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 
-        txtEstateType.setEditable(false);
         txtEstateType.setName("txtEstateType"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${estateType}"), txtEstateType, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -2025,9 +1837,8 @@ public class PropertyPanel extends ContentPanel {
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cadastreObjectFilteredList}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, eLProperty, tableParcels);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameFirstpart}"));
-        columnBinding.setColumnName("Name Firstpart");
-        columnBinding.setColumnClass(String.class);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("Plot  ${nameFirstpart}"));
+        columnBinding.setColumnName("Plot  ${nameFirstpart}");
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameLastpart}"));
         columnBinding.setColumnName("Name Lastpart");
@@ -2873,52 +2684,6 @@ public class PropertyPanel extends ContentPanel {
 
         tabsMain.addTab(bundle.getString("PropertyPanel.mapPanel.TabConstraints.tabTitle"), mapPanel); // NOI18N
 
-        tabTitle.setName("tabTitle"); // NOI18N
-
-        groupPanel2.setName("groupPanel2"); // NOI18N
-        groupPanel2.setTitleText(bundle.getString("PropertyPanel.groupPanel2.titleText")); // NOI18N
-
-        jScrollPane6.setName("jScrollPane6"); // NOI18N
-
-        matrixPanel.setAutoscrolls(true);
-        matrixPanel.setName("matrixPanel"); // NOI18N
-        matrixPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                matrixPanelMouseClicked(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout matrixPanelLayout = new org.jdesktop.layout.GroupLayout(matrixPanel);
-        matrixPanel.setLayout(matrixPanelLayout);
-        matrixPanelLayout.setHorizontalGroup(
-            matrixPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 0, Short.MAX_VALUE)
-        );
-        matrixPanelLayout.setVerticalGroup(
-            matrixPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 480, Short.MAX_VALUE)
-        );
-
-        jScrollPane6.setViewportView(matrixPanel);
-
-        org.jdesktop.layout.GroupLayout tabTitleLayout = new org.jdesktop.layout.GroupLayout(tabTitle);
-        tabTitle.setLayout(tabTitleLayout);
-        tabTitleLayout.setHorizontalGroup(
-            tabTitleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(groupPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 804, Short.MAX_VALUE)
-            .add(jScrollPane6)
-        );
-        tabTitleLayout.setVerticalGroup(
-            tabTitleLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(tabTitleLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(groupPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
-        );
-
-        tabsMain.addTab(bundle.getString("PropertyPanel.tabTitle.TabConstraints.tabTitle"), tabTitle); // NOI18N
-
         headerPanel.setName("headerPanel"); // NOI18N
         headerPanel.setTitleText(bundle.getString("PropertyPanel.headerPanel.titleText")); // NOI18N
 
@@ -3173,25 +2938,20 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
         configureSecurity();
     }//GEN-LAST:event_btnSecurityActionPerformed
 
-    private void btnPrintBaUnit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBaUnit1ActionPerformed
+    private void btnCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCertificateActionPerformed
         certificate();
-    }//GEN-LAST:event_btnPrintBaUnit1ActionPerformed
-
-    private void matrixPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_matrixPanelMouseClicked
-        System.out.println("MATRIX DIMENSION::::   " + matrixPanel.getSize());
-    }//GEN-LAST:event_matrixPanelMouseClicked
+    }//GEN-LAST:event_btnCertificateActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel areaPanel;
     private org.sola.clients.beans.administrative.BaUnitAreaBean baUnitAreaBean1;
     private org.sola.clients.beans.administrative.BaUnitBean baUnitBean1;
-    private org.sola.clients.beans.administrative.BaUnitDetailBean baUnitDetailBean1;
-    private org.sola.clients.beans.referencedata.BaUnitDetailTypeListBean baUnitDetailTypeListBean1;
     private org.sola.clients.beans.referencedata.RrrTypeListBean baUnitRrrTypes;
     private javax.swing.JButton btnAddNotation;
     private javax.swing.JButton btnAddParcel;
     private javax.swing.JButton btnAddParcelFromApplication;
     private javax.swing.JButton btnAddParent;
+    private javax.swing.JButton btnCertificate;
     private javax.swing.JButton btnChangeRight;
     private javax.swing.JButton btnCreateRight;
     private javax.swing.JButton btnEditRight;
@@ -3201,7 +2961,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JButton btnOpenChild;
     private javax.swing.JButton btnOpenParent;
     private javax.swing.JButton btnPrintBaUnit;
-    private javax.swing.JButton btnPrintBaUnit1;
     private javax.swing.JButton btnRemoveNotation;
     private javax.swing.JButton btnRemoveParcel;
     private javax.swing.JButton btnRemoveParent;
@@ -3219,7 +2978,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler4;
     private org.sola.clients.swing.ui.GroupPanel groupPanel1;
-    private org.sola.clients.swing.ui.GroupPanel groupPanel2;
     private org.sola.clients.swing.ui.HeaderPanel headerPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
@@ -3252,7 +3010,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JToolBar.Separator jSeparator1;
@@ -3273,7 +3030,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JLabel labName;
     private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypeListBean1;
     private javax.swing.JPanel mapPanel;
-    private javax.swing.JPanel matrixPanel;
     private javax.swing.JMenuItem menuAddParcel;
     private javax.swing.JMenuItem menuAddParentBaUnit;
     private javax.swing.JMenuItem menuEditRight;
@@ -3294,7 +3050,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JPopupMenu popupParentBaUnits;
     private javax.swing.JPopupMenu popupRights;
     private org.sola.clients.beans.referencedata.RrrTypeListBean rrrTypes;
-    private javax.swing.JPanel tabTitle;
     private javax.swing.JTable tableChildBaUnits;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableNotations;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableOwnership;

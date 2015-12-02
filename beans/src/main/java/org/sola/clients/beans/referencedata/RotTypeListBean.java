@@ -27,25 +27,39 @@
  */
 package org.sola.clients.beans.referencedata;
 
-import org.sola.clients.beans.AbstractCodeBean;
+import org.jdesktop.observablecollections.ObservableList;
+import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.controls.SolaObservableList;
 
 /**
- * Represents reference data object of the <b>condition_type</b> table.
- * Could be populated from the {@link ConditionTypeTO} object.<br /> For more
- * information see data dictionary <b>Administrative</b> schema.
+ * Holds the list of {@link MortgageTypeBean} objects.
  */
-public class ConditionTypeBean extends AbstractCodeBean {
-    private String isFor;
+public class RotTypeListBean extends AbstractBindingBean {
     
+    public static final String SELECTED_ROT_TYPE_PROPERTY = "selectedRotType";
+    private SolaObservableList<RotTypeBean> rotTypeListBean;
+    private RotTypeBean selectedRotType;
     
-    public ConditionTypeBean(){
-        super();
-    }
-     public String getIsFor() {
-        return isFor;
+    public RotTypeListBean() {
+        rotTypeListBean = new SolaObservableList(CacheManager.getRotTypes());
     }
 
-    public void setIsFor(String isFor) {
-        this.isFor = isFor;
+    public ObservableList<RotTypeBean> getRotTypeListBean() {
+        return rotTypeListBean;
     }
+
+    public void setRotTypeListBean(SolaObservableList<RotTypeBean> rotTypeListBean) {
+        this.rotTypeListBean = rotTypeListBean;
+    }
+
+    public RotTypeBean getSelectedRotType() {
+        return selectedRotType;
+    }
+
+    public void setSelectedRotType(RotTypeBean selectedRotType) {
+        this.selectedRotType = selectedRotType;
+        propertySupport.firePropertyChange(SELECTED_ROT_TYPE_PROPERTY, null, selectedRotType);
+    }
+    
 }

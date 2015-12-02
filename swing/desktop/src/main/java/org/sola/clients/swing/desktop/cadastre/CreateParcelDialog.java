@@ -142,7 +142,24 @@ public class CreateParcelDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-
+    
+    if (parcelPanel.txtPlot.getText().toString().equalsIgnoreCase(null)||parcelPanel.txtPlot.getText().toString().equalsIgnoreCase("")) {
+        MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_CADFIRSTPART);
+        return;
+    }
+    if (parcelPanel.txtParcelSurveyRef.getText().toString().equalsIgnoreCase(null)||parcelPanel.txtParcelSurveyRef.getText().toString().equalsIgnoreCase("")) {
+        MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_CADLASTPART);
+        return;
+    }
+    
+    String parcelNameFirstpart=parcelPanel.getCadastreObject().getPlotNum();
+    String parcelNameLasttpart="";
+    if(!parcelPanel.txtBlock.getText().toString().equalsIgnoreCase(null)&&!parcelPanel.txtBlock.getText().toString().equalsIgnoreCase("")) {
+        parcelNameLasttpart = parcelPanel.getCadastreObject().getBlock()+' ';
+    }   
+    parcelNameLasttpart = parcelNameLasttpart+parcelPanel.getCadastreObject().getSourceReference();
+    parcelPanel.getCadastreObject().setNameFirstpart(parcelNameFirstpart) ;
+    parcelPanel.getCadastreObject().setNameLastpart(parcelNameLasttpart);
     String parcelName = parcelPanel.getCadastreObject().getNameFirstpart() + ' ' + parcelPanel.getCadastreObject().getNameLastpart();
     final List<CadastreObjectBean> searchResult = new LinkedList<CadastreObjectBean>();
     TypeConverters.TransferObjectListToBeanList(
