@@ -304,7 +304,9 @@ public class ReportManager {
             RrrBean appdetail = it.next();
             
             if (appdetail.isPrimary() && !appdetail.getCOfO().equalsIgnoreCase(null) && !appdetail.getCOfO().equalsIgnoreCase("")) {
+               if (appdetail.getDateCommenced()!=null){
                 commencingDate = appdetail.getDateCommenced().toString();
+               } 
 //                zone = appdetail.getZoneCode();
 //                term = appdetail.getTerm().toString();
 //                groundRent = appdetail.getYearlyRent().toString();
