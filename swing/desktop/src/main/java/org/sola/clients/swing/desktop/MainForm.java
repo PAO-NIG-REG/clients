@@ -376,7 +376,10 @@ public class MainForm extends javax.swing.JFrame {
 
     }
       
-      
+    
+
+          
+    
     
       private void importSpatialPanel() {
         SolaTask t = new SolaTask<Void, Void>() {
@@ -385,9 +388,14 @@ public class MainForm extends javax.swing.JFrame {
             public Void doTask() {
                 setMessage(MessageUtility.getLocalizedMessageText(
                         ClientMessage.PROGRESS_MSG_SPATIAL_OBJECT_LOAD_STARTING));
-                ImportSpatialPanel panel = new ImportSpatialPanel();
-                System.out.println("IMPORT SPATIAL  ::::   "+panel.getName());
-                pnlContent.addPanel(panel, panel.getName(), true);
+                
+               if (!pnlContent.isPanelOpened(MainContentPanel.CARD_IMPORTSPATIAL)) {
+                   ImportSpatialPanel panel = new ImportSpatialPanel();
+                   System.out.println("IMPORT SPATIAL  ::::   "+panel.getName());
+                   pnlContent.addPanel(panel, MainContentPanel.CARD_IMPORTSPATIAL);
+               } 
+                pnlContent.showPanel(MainContentPanel.CARD_IMPORTSPATIAL);
+                
                 return null;
             }
         };

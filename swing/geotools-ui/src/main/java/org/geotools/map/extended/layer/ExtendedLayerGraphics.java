@@ -123,21 +123,34 @@ public class ExtendedLayerGraphics extends ExtendedFeatureLayer {
      * @return The added feature.
      */
     public SimpleFeature addFeature(String fid,
-            com.vividsolutions.jts.geom.Geometry geom,
+//            --com.vividsolutions.jts.geom.Geometry geom,
+            Geometry geom,
             java.util.HashMap<String, Object> fieldsWithValues,
             boolean refreshMap) {
-        if (geom.getSRID() == 0 ){
-            geom.setSRID(this.getSrid());
-        }else if (geom.getSRID() != this.getSrid()){
-            geom = GeometryUtility.transform(geom, this.getSrid());
+        SimpleFeature feature = null;
+        Integer srid = 0;
+        System.out.println("this.getSrid()   "+this.getSrid());
+        System.out.println("geom.getSRID()   "+geom.getSRID());
+        if (this.getSrid()== null && geom.getSRID() != 0){
+            srid=geom.getSRID();
+        } else {
+            srid = this.getSrid();
         }
-        SimpleFeature feature = this.getFeatureCollection().addFeature(fid, geom, fieldsWithValues);
+       
+        if (geom.getSRID() == 0){
+            geom.setSRID(srid);
+        }else if (geom.getSRID() != srid){
+            geom = GeometryUtility.transform(geom, srid);
+        }
+        feature = this.getFeatureCollection().addFeature(fid, geom, fieldsWithValues);
+       
         if (refreshMap) {
             this.getMapControl().refresh();
         }
         return feature;
     }
-
+    
+    
     /**
      * It calls the same method but with the geometry value in Well Know Binary
      * format.

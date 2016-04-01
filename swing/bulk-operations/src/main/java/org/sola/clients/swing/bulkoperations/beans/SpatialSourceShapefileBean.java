@@ -100,6 +100,9 @@ public class SpatialSourceShapefileBean extends SpatialSourceBean {
                 feature = iterator.next();
                 SpatialSourceObjectBean spatialObject = new SpatialSourceObjectBean();
                 Geometry geometry =(Geometry)feature.getDefaultGeometry();
+                if (geometry != null) {
+                System.out.println("geometry    "+geometry.toText());
+                System.out.println("geometry.getGeometryType()    "+geometry.getGeometryType());
                 if (geometry.getGeometryType().toLowerCase().startsWith("multi")
                         && isIfMultiUseFirstGeometry()){
                     geometry = geometry.getGeometryN(0);
@@ -112,6 +115,7 @@ public class SpatialSourceShapefileBean extends SpatialSourceBean {
                             feature.getAttribute(attribute.getName()));
                 }
                 spatialObjectList.add(spatialObject);
+                }
             }
             iterator.close();
         } catch (IOException ex) {

@@ -46,6 +46,7 @@ import org.sola.clients.swing.common.tasks.TaskManager;
 import org.sola.clients.swing.gis.data.PojoDataAccess;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.FileBrowser;
+import org.sola.clients.swing.ui.MainContentPanel;
 import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
@@ -241,7 +242,6 @@ public class ImportSpatialPanel extends ContentPanel {
                                 spatialBulkMove.getTransactionCadastreChange(),
                                 destinationBean.getCadastreObjectTypeCode(),
                                 destinationBean.getNameLastPart());
-                    
                 }else{
                     PojoDataAccess.getInstance().resetMapDefinition();
                 }

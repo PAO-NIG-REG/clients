@@ -64,6 +64,7 @@ public class ConditionForRrrBean extends AbstractIdBean {
     private String rrrId;
     private int conditionQuantity;
     private String conditionUnit;
+    private String conditionCode;
     
     public ConditionForRrrBean() {
         super();
@@ -112,7 +113,8 @@ public class ConditionForRrrBean extends AbstractIdBean {
 
     /** Returns true if lease condition is custom. */
     public boolean isCustomCondition(){
-        if(getConditionCode()==null || getConditionCode().isEmpty()){
+//        if(getConditionCode()==null || getConditionCode().isEmpty()){
+        if (getConditionType() == null) {    
             return true;
         }
         return false;
@@ -125,23 +127,36 @@ public class ConditionForRrrBean extends AbstractIdBean {
      */
     public String getConditionText(){
         if(isCustomCondition()){
-            return getCustomConditionText();
+//            return getCustomConditionText();
+            return getConditionCode();
         } else {
             return getConditionType().getDescription();
         }
     }
     
     public String getConditionCode() {
-        if (getConditionType() == null) {
-            return null;
-        }
+//        if (getConditionType() == null) {
+//            return null;
+//        }
+        
+         if(isCustomCondition()){
+            return conditionCode;
+         }
         return getConditionType().getCode();
     }
 
     public void setConditionCode(String conditionCode) {
-        String oldValue = getConditionCode();
+//        String oldValue = getConditionCode();
+//        if(isCustomCondition()){
+//         this.conditionCode = conditionCode;   
+//        } else {
+//        this.conditionCode = conditionCode;      
+//        setConditionType(CacheManager.getBeanByCode(CacheManager.getConditionTypes(), conditionCode));
+//        }
+        String oldValue = this.conditionCode;
+        this.conditionCode = conditionCode;
         setConditionType(CacheManager.getBeanByCode(CacheManager.getConditionTypes(), conditionCode));
-        propertySupport.firePropertyChange(CONDITION_CODE_PROPERTY, oldValue, conditionCode);
+        propertySupport.firePropertyChange(CONDITION_CODE_PROPERTY, oldValue, this.conditionCode);
     }
 
     public ConditionTypeBean getConditionType() {

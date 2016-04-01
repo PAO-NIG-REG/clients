@@ -144,6 +144,8 @@ public class PojoDataAccess {
             double west, double south, double east, double north, int srid,
             double pixelTolerance) {
         ConfigMapLayerTO configMapLayer = this.getMapLayerInfoList().get(name);
+    
+        System.out.println("configMapLayer   "+configMapLayer.getPojoQueryName());
         QueryForNavigation spatialQueryInfo = new QueryForNavigation();
         spatialQueryInfo.setQueryName(configMapLayer.getPojoQueryName());
         spatialQueryInfo.setWest(west);

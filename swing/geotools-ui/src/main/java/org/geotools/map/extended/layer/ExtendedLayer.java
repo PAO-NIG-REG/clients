@@ -57,7 +57,8 @@ public class ExtendedLayer {
    
     public ExtendedLayer(){    
     }
-
+    
+    
     /**
      * Gets the srid. It uses the srid of the map control where the layer is added.
      * @return 
@@ -67,6 +68,7 @@ public class ExtendedLayer {
         if (this.mapControl != null){
             srid = this.mapControl.getSrid();
         }
+        
         return srid;
     }
 

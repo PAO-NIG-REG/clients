@@ -236,7 +236,7 @@ public class RrrBean extends AbstractTransactionedBean {
 
     public RrrBean() {
         super();
-        registrationDate = Calendar.getInstance().getTime();
+//        registrationDate = Calendar.getInstance().getTime();
         sourceList = new SolaList();
         rrrShareList = new SolaList();
         rightHolderList = new SolaList();
@@ -580,6 +580,7 @@ public class RrrBean extends AbstractTransactionedBean {
             message = ClientMessage.CHECK_SIZE_CONDITIONS_LIST, payload = Localized.class)
     public ObservableList<ConditionForRrrBean> getConditionsFilteredList() {
         return conditionsList.getFilteredList();
+        
     }
 
     public void setConditionsList(SolaList<ConditionForRrrBean> conditionsList) {
@@ -656,7 +657,8 @@ public class RrrBean extends AbstractTransactionedBean {
      */
     public void removeSelectedRrrCondition() {
         if (selectedCondition != null) {
-            getConditionsList().safeRemove(selectedCondition, EntityAction.DISASSOCIATE);
+//            getConditionsList().safeRemove(selectedCondition, EntityAction.DISASSOCIATE);
+            getConditionsList().safeRemove(selectedCondition, EntityAction.DELETE);
         }
     }
 
@@ -769,6 +771,7 @@ public class RrrBean extends AbstractTransactionedBean {
                 shareBean.setRrrId(getId());
             }
             for (ConditionForRrrBean leaseCondition : getConditionsList()) {
+                leaseCondition.generateId();
                 leaseCondition.resetVersion();
             }
             

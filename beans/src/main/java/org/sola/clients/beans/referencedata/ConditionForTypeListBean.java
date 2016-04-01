@@ -88,12 +88,7 @@ public class ConditionForTypeListBean extends AbstractBindingListBean {
      * @param createDummy Indicates whether to add empty object on the list.
      */
     public final void loadListFor(boolean createDummy) {
-//        loadCodeList(ConditionTypeBean.class, leaseConditionListFor, 
-//                CacheManager.getConditionTypesFor(), createDummy);
-//         loadCodeList(ConditionTypeBean.class, leaseConditionListFor, 
-//                CacheManager.getConditionTypesFor(), createDummy);
-//        SolaCodeList<ConditionTypeBean> appCondition = new SolaCodeList<ConditionTypeBean>();
-//        List<ConditionTypeBean> appCondition = CacheManager.getConditionTypesFor();
+
         List<ConditionTypeBean> appCondition = TypeConverters.TransferObjectListToBeanList(WSManager.getInstance().getReferenceDataService().getConditionTypesFor(),
                ConditionTypeBean.class, null);
         List<ConditionTypeBean> conditionList = new SolaCodeList<ConditionTypeBean>();;
@@ -104,12 +99,8 @@ public class ConditionForTypeListBean extends AbstractBindingListBean {
             }
            } 
         }
-//        leaseConditionListFor = appCondition; 
         loadCodeList(ConditionTypeBean.class, leaseConditionListFor, 
                appCondition  , createDummy);
-//        leaseConditionListFor = TypeConverters.TransferObjectListToBeanList(WSManager.getInstance().getReferenceDataService().getConditionTypesFor(),
-//               ConditionTypeBean.class, null);
-
     }
 
 //    public ObservableList<ConditionTypeBean> getLeaseConditionListFor() {

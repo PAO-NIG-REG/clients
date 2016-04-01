@@ -1,28 +1,30 @@
 /**
  * ******************************************************************************************
- * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations (FAO).
- * All rights reserved.
+ * Copyright (C) 2014 - Food and Agriculture Organization of the United Nations
+ * (FAO). All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- *    1. Redistributions of source code must retain the above copyright notice,this list
- *       of conditions and the following disclaimer.
- *    2. Redistributions in binary form must reproduce the above copyright notice,this list
- *       of conditions and the following disclaimer in the documentation and/or other
- *       materials provided with the distribution.
- *    3. Neither the name of FAO nor the names of its contributors may be used to endorse or
- *       promote products derived from this software without specific prior written permission.
+ * 1. Redistributions of source code must retain the above copyright notice,this
+ * list of conditions and the following disclaimer. 2. Redistributions in binary
+ * form must reproduce the above copyright notice,this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. 3. Neither the name of FAO nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,STRICT LIABILITY,OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT,STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
 /*
@@ -64,6 +66,7 @@ import org.sola.clients.swing.gis.layer.PojoLayer;
 import org.sola.common.logging.LogUtility;
 import org.sola.common.messaging.GisMessage;
 import org.sola.common.messaging.MessageUtility;
+import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.services.boundary.wsclients.exception.WebServiceClientException;
 import org.sola.webservices.spatial.ResultForNavigationInfo;
 import org.sola.webservices.spatial.SpatialResult;
@@ -102,7 +105,7 @@ public class PojoFeatureSource implements SimpleFeatureSource {
         SimpleFeatureType type = this.getNewFeatureType(
                 this.layer.getLayerName(),
                 this.dataSource.getMapLayerInfoList().get(
-                this.layer.getLayerName()).getPojoStructure());
+                        this.layer.getLayerName()).getPojoStructure());
         this.collection = new PojoFeatureCollection(type);
         this.builder = new SimpleFeatureBuilder(type);
     }
@@ -231,6 +234,8 @@ public class PojoFeatureSource implements SimpleFeatureSource {
     @Override
     public PojoFeatureCollection getFeatures(Query query) throws IOException {
         Filter filter = query.getFilter();
+
+        System.out.println(query.toString());
         if (filter == null) {
             throw new UnsupportedOperationException(GisMessage.GENERAL_EXCEPTION_FILTER_NOTFOUND);
         }
@@ -238,14 +243,19 @@ public class PojoFeatureSource implements SimpleFeatureSource {
             throw new UnsupportedOperationException(GisMessage.GENERAL_EXCEPTION_TYPE_NOTSUPPORTED);
         }
         org.opengis.filter.spatial.BBOX bboxFilter = (org.opengis.filter.spatial.BBOX) filter;
-        org.geotools.filter.LiteralExpressionImpl literalExpression =
-                (org.geotools.filter.LiteralExpressionImpl) bboxFilter.getExpression2();
+        org.geotools.filter.LiteralExpressionImpl literalExpression
+                = (org.geotools.filter.LiteralExpressionImpl) bboxFilter.getExpression2();
         Geometry filteringGeometry = (Geometry) literalExpression.getValue();
         Envelope boundingBox = (Envelope) filteringGeometry.getEnvelopeInternal();
         double west = boundingBox.getMinX();
         double east = boundingBox.getMaxX();
         double south = boundingBox.getMinY();
         double north = boundingBox.getMaxY();
+        System.out.println("WEST  " + west);
+        System.out.println("EAST  " + east);
+        System.out.println("SOUTH  " + south);
+        System.out.println("NORTH  " + north);
+
         this.ModifyFeatureCollection(west, south, east, north);
         return this.collection;
     }
@@ -277,13 +287,14 @@ public class PojoFeatureSource implements SimpleFeatureSource {
         this.lastNorth = north;
         try {
             ResultForNavigationInfo resultInfo = getResultForNavigation(west, south, east, north);
+            System.out.println("RESULT INFO  " + resultInfo.toString());
             List<SimpleFeature> featuresToAdd = this.getFeaturesFromData(resultInfo.getToAdd());
             this.collection.clear();
             this.collection.addAll(featuresToAdd);
         } catch (WebServiceClientException ex) {
             LogUtility.log(
                     String.format(GisMessage.GENERAL_RETRIEVE_FEATURES_ERROR,
-                    this.getLayer().getTitle()), ex);
+                            this.getLayer().getTitle()), ex);
             Messaging.getInstance().show(
                     GisMessage.GENERAL_RETRIEVE_FEATURES_ERROR, this.getLayer().getTitle());
         }
@@ -291,18 +302,40 @@ public class PojoFeatureSource implements SimpleFeatureSource {
 
     /**
      * It gets information from the service for the specified extent.
-     * 
+     *
      * @param west
      * @param south
      * @param east
      * @param north
-     * @return 
+     * @return
      */
+ 
     protected ResultForNavigationInfo getResultForNavigation(
             double west, double south, double east, double north) {
+
+        System.out.println("DATASOURCE     " + this.dataSource.toString());
+        System.out.println("this.getLayer().LAYERNAME:::()    " + this.getLayer().getLayerName());
+        System.out.println("this.getLayer().getSrid()    " + this.getLayer().getSrid());
+        String validSrid = getSettingValue("map-srid");
+        Integer srid = Integer.parseInt(validSrid);
+        if (this.getLayer().getSrid() != null) {
+            srid = this.getLayer().getSrid();
+        }
+
         return this.dataSource.GetQueryData(
                 this.getSchema().getTypeName(), west, south, east, north,
-                this.getLayer().getSrid(), this.getLayer().getMapControl().getPixelResolution());
+                srid, this.getLayer().getMapControl().getPixelResolution());
+//              this.getLayer().getSrid(), this.getLayer().getMapControl().getPixelResolution());
+    }
+
+    public static String getSettingValue(String setting) {
+        String settingValue;
+
+        settingValue = WSManager.getInstance().getInstance().getAdminService().getSetting(
+                setting, "");
+
+        return settingValue;
+
     }
 
     /**

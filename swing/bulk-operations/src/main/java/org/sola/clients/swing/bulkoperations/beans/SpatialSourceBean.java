@@ -37,6 +37,7 @@ import javax.validation.constraints.NotNull;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.sola.clients.beans.AbstractCodeBean;
 import org.sola.clients.beans.controls.SolaObservableList;
+import org.sola.services.boundary.wsclients.WSManager;
 
 /**
  * Abstract bean that encapsulates common functionality and properties for a 
@@ -100,14 +101,28 @@ public abstract class  SpatialSourceBean extends AbstractCodeBean {
         //The list of attributes will be populated
         loadAttributes();
     }
+   
+    public static String getSettingValue(String setting) {
+        String settingValue;
 
+        settingValue = WSManager.getInstance().getInstance().getAdminService().getSetting(
+                setting, "");
+
+        return settingValue;
+
+    }
+    
     public Integer getSrid() {
+        String validSrid = getSettingValue("map-srid");
+        srid = Integer.parseInt(validSrid);
         return srid;
     }
 
     public void setSrid(Integer srid) {
         this.srid = srid;
+//        String validSrid = getSettingValue("map-srid");
         System.out.println(srid);
+//        System.out.println(validSrid);
     }
     
     /**
