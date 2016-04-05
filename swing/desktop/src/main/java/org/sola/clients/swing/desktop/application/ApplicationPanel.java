@@ -2114,7 +2114,7 @@ public class ApplicationPanel extends ContentPanel {
         tabPropertyDetails.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${filteredPropertyList}");
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, eLProperty, tabPropertyDetails, "");
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, eLProperty, tabPropertyDetails);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nameFirstpart}"));
         columnBinding.setColumnName("Name Firstpart");
         columnBinding.setColumnClass(String.class);
@@ -2390,6 +2390,11 @@ public class ApplicationPanel extends ContentPanel {
         cadastreObjectSearch.setName(bundle.getString("ApplicationPanel.cadastreObjectSearch.name")); // NOI18N
         cadastreObjectSearch.setPreferredSize(new java.awt.Dimension(200, 28));
         cadastreObjectSearch.setWatermarkText(bundle.getString("ApplicationPanel.cadastreObjectSearch.watermarkText")); // NOI18N
+        cadastreObjectSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastreObjectSearchActionPerformed(evt);
+            }
+        });
         jToolBar1.add(cadastreObjectSearch);
 
         filler1.setName(bundle.getString("ApplicationPanel.filler1.name")); // NOI18N
@@ -3078,6 +3083,10 @@ public class ApplicationPanel extends ContentPanel {
     private void txtAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAreaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAreaActionPerformed
+
+    private void cadastreObjectSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastreObjectSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cadastreObjectSearchActionPerformed
 
     private void openSysRegCertParamsForm(String id) {
         SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, id, null, "title");
