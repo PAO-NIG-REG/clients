@@ -360,14 +360,18 @@ public class ApplicationPanel extends ContentPanel {
             btnCertificate.setEnabled(false);
             documentsPanel.setAllowEdit(editAllowed);
             cadastreObjectSearch.setEnabled(editAllowed);
-            if (appBean.getStatusCode().equals("approved")) {
+//            if (appBean.getStatusCode().equals("approved")) {
                 for (Iterator<ApplicationServiceBean> it = appBean.getServiceList().iterator(); it.hasNext();) {
                     final ApplicationServiceBean appService = it.next();
-                    if (appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)) {
+                   if (appService.getStatusCode().equalsIgnoreCase("completed")){
+                    if (appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)
+                            ||appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_OWNERSHIP)
+                            ||appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
                         btnCertificate.setEnabled(true);
                     }
+                   }
                 }
-            }
+//            }
         } else {
             if (!SecurityBean.isInRole(RolesConstants.APPLICATION_CREATE_APPS)) {
                 btnSave.setEnabled(false);
@@ -2390,6 +2394,11 @@ public class ApplicationPanel extends ContentPanel {
         cadastreObjectSearch.setName(bundle.getString("ApplicationPanel.cadastreObjectSearch.name")); // NOI18N
         cadastreObjectSearch.setPreferredSize(new java.awt.Dimension(200, 28));
         cadastreObjectSearch.setWatermarkText(bundle.getString("ApplicationPanel.cadastreObjectSearch.watermarkText")); // NOI18N
+        cadastreObjectSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastreObjectSearchActionPerformed(evt);
+            }
+        });
         jToolBar1.add(cadastreObjectSearch);
 
         filler1.setName(bundle.getString("ApplicationPanel.filler1.name")); // NOI18N
@@ -3078,6 +3087,10 @@ public class ApplicationPanel extends ContentPanel {
     private void txtAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAreaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAreaActionPerformed
+
+    private void cadastreObjectSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastreObjectSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cadastreObjectSearchActionPerformed
 
     private void openSysRegCertParamsForm(String id) {
         SysRegCertParamsForm certificateGenerator = new SysRegCertParamsForm(null, true, id, null, "title");

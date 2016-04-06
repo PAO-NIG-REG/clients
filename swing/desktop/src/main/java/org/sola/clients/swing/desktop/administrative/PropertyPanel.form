@@ -609,7 +609,6 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtFirstPart">
                       <Properties>
-                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="name" type="java.lang.String" value="txtFirstPart" noResource="true"/>
                       </Properties>
                       <BindingProperties>
@@ -657,7 +656,6 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtLastPart">
                       <Properties>
-                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="name" type="java.lang.String" value="txtLastPart" noResource="true"/>
                       </Properties>
                       <BindingProperties>

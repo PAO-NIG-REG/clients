@@ -948,6 +948,8 @@ public class PropertyPanel extends ContentPanel {
                 showReport(ReportManager.getCofO(getBaUnit(
                         baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
 //                this.btnCertificate.setText("Certificate");
+                this.btnCertificate.setEnabled(true);
+                this.btnCertificate.setVisible(true);
             } else {
                 showReport(ReportManager.getBaUnitReport(getBaUnit(
                         baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
@@ -1650,7 +1652,6 @@ public class PropertyPanel extends ContentPanel {
         jLabel1.setText(bundle.getString("PropertyPanel.jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        txtFirstPart.setEditable(false);
         txtFirstPart.setName("txtFirstPart"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${nameFirstpart}"), txtFirstPart, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -1681,7 +1682,6 @@ public class PropertyPanel extends ContentPanel {
         jLabel2.setText(bundle.getString("PropertyPanel.jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
 
-        txtLastPart.setEditable(false);
         txtLastPart.setName("txtLastPart"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${nameLastpart}"), txtLastPart, org.jdesktop.beansbinding.BeanProperty.create("text"));

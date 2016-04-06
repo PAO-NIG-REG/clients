@@ -53,7 +53,8 @@ public class CadastreObjectSearch2 extends TextSearch {
         List<CadastreObjectBean> searchResult = new LinkedList<CadastreObjectBean>();
         
         TypeConverters.TransferObjectListToBeanList(
-                WSManager.getInstance().getCadastreService().getCadastreObjectByParts(searchText),
+                WSManager.getInstance().getCadastreService().getCadastreObjectByAllParts(searchText),
+//                        getCadastreObjectByParts(searchText),
                 CadastreObjectBean.class, (List) searchResult);
         setDataList(searchResult);
     }

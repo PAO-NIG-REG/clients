@@ -416,38 +416,41 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 
         for (Iterator<ApplicationServiceBean> it = applicationBean.getServiceList().iterator(); it.hasNext();) {
             final ApplicationServiceBean appService = it.next();
-            if (appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)) {
-                List<BaUnitBean> baUnitList = BaUnitBean.getBaUnitsByServiceId(appService.getId());
-                baUnitId = baUnitList.get(0).getId();
+            if (appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)
+                    || appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_OWNERSHIP)
+                    || appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)
+                )
+                {
+                    List<BaUnitBean> baUnitList = BaUnitBean.getBaUnitsByServiceId(appService.getId());
+                    baUnitId = baUnitList.get(0).getId();
+                }
             }
+
+            final BaUnitBean baUnit = getBaUnit(baUnitId);
+
+            List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
+            JasperPrint CofO = null;
+
+            this.reportTogenerate = baUnitId + "_" + this.reportdate + ".pdf";
+            this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
+            this.reportTogenerate = this.reportTogenerate.replace("/", "_");
+
+            CofO = ReportManager.getCofO(baUnit);
+            showReport(CofO, this.whichReport);
+            jprintlist.add(CofO);
+
+            i = i + 1;
+            if (i == 0) {
+                MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
+            } else {
+                showDocMessage(this.tmpLocation, prevCofO.toString());
+
+            }
+
+            this.dispose();
+            this.form.setVisible(true);
+            this.form.setAlwaysOnTop(true);
         }
-
-        final BaUnitBean baUnit = getBaUnit(baUnitId);
-
-            
-        List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
-        JasperPrint CofO = null;
-
-        this.reportTogenerate = baUnitId + "_" + this.reportdate + ".pdf";
-        this.reportTogenerate = this.reportTogenerate.replace(" ", "_");
-        this.reportTogenerate = this.reportTogenerate.replace("/", "_");
-
-        CofO = ReportManager.getCofO(baUnit);
-        showReport(CofO, this.whichReport);
-        jprintlist.add(CofO);
-
-        i = i + 1;
-        if (i == 0) {
-            MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
-        } else {
-            showDocMessage(this.tmpLocation, prevCofO.toString());
-
-        }
-
-        this.dispose();
-        this.form.setVisible(true);
-        this.form.setAlwaysOnTop(true);
-    }
 
 
     private void btnGenCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenCertificateActionPerformed
@@ -484,7 +487,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 
     private String getPrefix() {
         prefix = WSManager.getInstance().getInstance().getAdminService().getSetting(
-                               "system-id", "");
+                "system-id", "");
         return prefix;
     }
 

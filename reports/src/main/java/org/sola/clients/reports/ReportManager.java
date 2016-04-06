@@ -185,15 +185,25 @@ public class ReportManager {
             RrrBean appdetail = it.next();
             
             if (appdetail.isPrimary() && !appdetail.getCOfO().equalsIgnoreCase(null) && !appdetail.getCOfO().equalsIgnoreCase("")) {
-                commencingDate = appdetail.getDateCommenced().toString();
                 zone = appdetail.getZoneCode();
-                term = appdetail.getTerm().toString();
-                groundRent = appdetail.getYearlyRent().toString();
                 title = appdetail.getCOfO();
-                advpayment = appdetail.getAdvancePayment().toString();
-                revperiod = appdetail.getReviewPeriod().toString();
                 estate = appdetail.getRotCode();
                 appNr = appdetail.getInstrRegNum();
+                if (appdetail.getDateCommenced()!=null){
+                commencingDate = appdetail.getDateCommenced().toString();
+                }
+                if (appdetail.getTerm()!=null){
+                term = appdetail.getTerm().toString();
+                }
+                if (appdetail.getYearlyRent()!=null){
+                groundRent = appdetail.getYearlyRent().toString();
+                }
+                if (appdetail.getAdvancePayment()!=null){
+                advpayment = appdetail.getAdvancePayment().toString();
+                }
+                if (appdetail.getReviewPeriod()!=null){
+                revperiod = appdetail.getReviewPeriod().toString();
+                }
                 
                 for (Iterator<SourceBean> itsor =  appdetail.getSourceList().iterator(); itsor.hasNext();) {
                     SourceBean appSource = itsor.next();
