@@ -582,7 +582,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="233" pref="103" max="32767" attributes="0"/>
+                              <EmptySpace min="233" pref="113" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtFirstPart" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -629,7 +629,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="104" max="32767" attributes="0"/>
+                              <EmptySpace pref="125" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtLastPart" max="32767" attributes="1"/>
                       </Group>

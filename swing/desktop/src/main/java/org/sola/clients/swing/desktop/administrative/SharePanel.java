@@ -313,10 +313,17 @@ public class SharePanel extends ContentPanel {
         bindingGroup.addBinding(binding);
 
         txtNominator.setFormatterFactory(FormattersFactory.getInstance().getShortFormatterFactory());
+        txtNominator.setText(bundle.getString("SharePanel.txtNominator.text")); // NOI18N
         txtNominator.setName("txtNominator"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrShareBean, org.jdesktop.beansbinding.ELProperty.create("${nominator}"), txtNominator, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrShareBean, org.jdesktop.beansbinding.ELProperty.create("${numerator}"), txtNominator, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
+
+        txtNominator.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNominatorActionPerformed(evt);
+            }
+        });
 
         headerPanel.setName("headerPanel"); // NOI18N
         headerPanel.setTitleText(bundle.getString("SharePanel.headerPanel.titleText")); // NOI18N
@@ -510,6 +517,11 @@ public class SharePanel extends ContentPanel {
     private void btnSelectExistingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectExistingActionPerformed
         openSelectRightHolderForm();
     }//GEN-LAST:event_btnSelectExistingActionPerformed
+
+    private void txtNominatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNominatorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNominatorActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOwner;
     private javax.swing.JButton btnEditOwner;

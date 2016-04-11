@@ -1663,7 +1663,7 @@ public class PropertyPanel extends ContentPanel {
             jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel10Layout.createSequentialGroup()
                 .add(jLabel1)
-                .add(103, 103, Short.MAX_VALUE))
+                .add(113, 113, Short.MAX_VALUE))
             .add(txtFirstPart)
         );
         jPanel10Layout.setVerticalGroup(
@@ -1693,7 +1693,7 @@ public class PropertyPanel extends ContentPanel {
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .add(jLabel2)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
             .add(txtLastPart)
         );
         jPanel9Layout.setVerticalGroup(
