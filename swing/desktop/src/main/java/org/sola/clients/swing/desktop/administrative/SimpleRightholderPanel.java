@@ -38,6 +38,7 @@ import org.sola.clients.beans.administrative.validation.SimpleOwnershipValidatio
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
 import org.sola.clients.beans.party.PartySummaryBean;
+import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.swing.common.laf.LafManager;
@@ -125,7 +126,13 @@ public class SimpleRightholderPanel extends ContentPanel {
             btnSave.setText(MessageUtility.getLocalizedMessage(
                     ClientMessage.GENERAL_LABELS_TERMINATE_AND_CLOSE).getMessage());
         }
-
+        
+        if (appService != null){
+            if (!appService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)){
+                this.jLabel2.setIcon(null);
+            }
+        }
+        
         if (rrrAction != RrrBean.RRR_ACTION.EDIT && rrrAction != RrrBean.RRR_ACTION.VIEW
                 && appService != null) {
             // Set default noation text from the selected application service

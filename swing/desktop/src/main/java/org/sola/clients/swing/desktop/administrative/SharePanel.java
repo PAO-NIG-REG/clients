@@ -92,6 +92,9 @@ public class SharePanel extends ContentPanel {
         if (rrrAction == RrrBean.RRR_ACTION.NEW) {
             btnSave.setText(MessageUtility.getLocalizedMessage(
                     ClientMessage.GENERAL_LABELS_CREATE_AND_CLOSE).getMessage());
+            txtNominator.setEditable(true);
+            txtDenominator.setEditable(true);
+            
         } else if (rrrAction == RrrBean.RRR_ACTION.VIEW) {
             btnSave.setEnabled(false);
             txtNominator.setEditable(false);
@@ -178,7 +181,7 @@ public class SharePanel extends ContentPanel {
     }
 
     private boolean saveRrrShare() {
-
+         System.out.println("NOMINATORE    "+rrrShareBean.getNominator());
         if (rrrShareBean.validate(true).size() < 1) {
             firePropertyChange(UPDATED_RRR_SHARE, null, rrrShareBean);
             close();
@@ -316,7 +319,7 @@ public class SharePanel extends ContentPanel {
         txtNominator.setText(bundle.getString("SharePanel.txtNominator.text")); // NOI18N
         txtNominator.setName("txtNominator"); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrShareBean, org.jdesktop.beansbinding.ELProperty.create("${numerator}"), txtNominator, org.jdesktop.beansbinding.BeanProperty.create("value"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrShareBean, org.jdesktop.beansbinding.ELProperty.create("${nominator}"), txtNominator, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
         txtNominator.addActionListener(new java.awt.event.ActionListener() {

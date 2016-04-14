@@ -371,6 +371,19 @@ public class PropertyPanel extends ContentPanel {
             // User does not have rights to view the map
             tabsMain.removeTabAt(tabsMain.indexOfComponent(mapPanel));
         }
+        
+        if (baUnitBean1.getCadastreObjectFilteredList()!=null && baUnitBean1.getCadastreObjectFilteredList().size()>0 ) {
+            for (CadastreObjectBean co : baUnitBean1.getCadastreObjectFilteredList()) { 
+                if (co.getNameFirstpart()==null) {
+                    co.setNameFirstpart("");
+                }
+                if (co.getNameLastpart()==null) {
+                    co.setNameLastpart("");
+                }
+            }   
+        }
+        
+        
         customizeRightsButtons(null);
         customizeNotationButtons(null);
         customizeRightTypesList();
@@ -1041,19 +1054,7 @@ public class PropertyPanel extends ContentPanel {
         }
         
         
-//  QUI DIAGRAM  COFO        
-//     if (applicationService != null && (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD))
-//                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE))
-////                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_REG_MORTGAGE))
-////                || (applicationService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_VARY_MORTGAGE))
-//         ) 
-//     {
-//        if (baUnitBean1.getFilteredSourceList().size()<= 0 || !baUnitBean1.getFilteredSourceList().get(0).getTypeCode().contentEquals("cadastralSurvey")) {
-//             MessageUtility.displayMessage(ClientMessage.APPLICATION_SELECT_DIAGRAM_TO_ATTACH_TO);
-//         return; 
-//        }
-//     }  
-        
+
         
         if (txtArea.isEditable() || isBtnNext) {
 

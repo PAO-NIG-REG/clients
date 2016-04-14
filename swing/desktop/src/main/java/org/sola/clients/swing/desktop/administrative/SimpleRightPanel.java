@@ -33,6 +33,7 @@ import javax.swing.JFormattedTextField;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
+import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.swing.common.laf.LafManager;
@@ -141,6 +142,12 @@ public class SimpleRightPanel extends ContentPanel {
         }
         if (rrrAction == RrrBean.RRR_ACTION.CANCEL) {
             btnSave.setText("Extinguish");
+        }
+        
+        if (appService != null){
+            if (!appService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)){
+                this.jLabel13.setIcon(null);
+            }
         }
 
         if (rrrAction != RrrBean.RRR_ACTION.EDIT && rrrAction != RrrBean.RRR_ACTION.VIEW

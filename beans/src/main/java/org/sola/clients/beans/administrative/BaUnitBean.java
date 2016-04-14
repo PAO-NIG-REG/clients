@@ -314,6 +314,19 @@ public class BaUnitBean extends BaUnitSummaryBean {
                 return false;
             }
         }
+        int i =0;
+        if (this.getRrrList() != null){
+            for (RrrBean rrr : this.getRrrList()) { 
+                if (rrr.isPrimary()){
+                    i= i+1;
+                }
+            }
+            if (i>1) {
+                MessageUtility.displayMessage(ClientMessage.BAUNIT_ONLY_ONE_PRIMARY);
+                return false;
+            }
+        }
+        
         return true; 
     }
 
