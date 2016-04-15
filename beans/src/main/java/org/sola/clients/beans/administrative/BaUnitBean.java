@@ -315,8 +315,8 @@ public class BaUnitBean extends BaUnitSummaryBean {
             }
         }
         int i =0;
-        if (this.getRrrList() != null){
-            for (RrrBean rrr : this.getRrrList()) { 
+        if (rrrList != null){
+            for (RrrBean rrr : rrrList.getFilteredList()) { 
                 if (rrr.isPrimary()){
                     i= i+1;
                 }
