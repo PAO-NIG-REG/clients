@@ -339,7 +339,6 @@ public class MortgagePanel extends ContentPanel {
 
         jPanel2.setName("jPanel2"); // NOI18N
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
         jLabel13.setText(bundle.getString("MortgagePanel.jLabel13.text")); // NOI18N
         jLabel13.setName("jLabel13"); // NOI18N
 
@@ -366,7 +365,7 @@ public class MortgagePanel extends ContentPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel13)
-                        .addGap(0, 94, Short.MAX_VALUE))
+                        .addGap(0, 108, Short.MAX_VALUE))
                     .addComponent(txtRegDatetime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegDate))

@@ -1044,11 +1044,15 @@ public class PropertyPanel extends ContentPanel {
         if (baUnitBean1.validate(true).size() > 0) {
             return;
         }
-
-        if (!baUnitBean1.isValid()) {
-            return;
-        }
-
+        if (applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_NEW_FREEHOLD)) {
+                if (!baUnitBean1.isValidNewCofO()) {
+                return;
+            }
+        } else {
+            if (!baUnitBean1.isValid()) {
+                return;
+            }
+      }
         if (applicationService.getRequestTypeCode().contains("systematicRegn")) {
             calculateAreaSysreg();
         }

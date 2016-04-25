@@ -38,6 +38,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -70,6 +71,8 @@ import org.sola.clients.swing.desktop.DashBoardPanel;
 import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.administrative.PropertyHelper;
 import org.sola.clients.swing.desktop.administrative.PropertyPanel;
+import org.sola.clients.swing.desktop.cadastre.CreateParcelDialog;
+import org.sola.clients.swing.desktop.cadastre.SearchParcelDialog;
 import org.sola.clients.swing.desktop.reports.SysRegCertParamsForm;
 import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
 import org.sola.clients.swing.gis.ui.controlsbundle.ControlsBundleForApplicationLocation;
@@ -695,6 +698,10 @@ public class ApplicationPanel extends ContentPanel {
     }
 
     private boolean saveApplication() {
+//        if (this.cbxGender.getSelectedIndex()==-1){
+//            MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_GENDER);
+//            return false;
+//        }
         appBean.setLocation(this.mapControl.getApplicationLocation());
         boolean isSuccess = false;
         //appBean.getAgent().setTypeCode(PartyTypeBean.CODE_NATURAL_PERSON);
@@ -962,6 +969,7 @@ public class ApplicationPanel extends ContentPanel {
         jSeparator8 = new javax.swing.JToolBar.Separator();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
         btnRemoveParcel = new org.sola.clients.swing.common.buttons.BtnRemove();
+        btnAddParcel1 = new javax.swing.JButton();
         mapPanel = new javax.swing.JPanel();
         feesPanel = new javax.swing.JPanel();
         scrollFeeDetails = new javax.swing.JScrollPane();
@@ -2460,6 +2468,18 @@ public class ApplicationPanel extends ContentPanel {
         });
         jToolBar1.add(btnRemoveParcel);
 
+        btnAddParcel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/new.png"))); // NOI18N
+        btnAddParcel1.setText(bundle.getString("ApplicationPanel.btnAddParcel1.text")); // NOI18N
+        btnAddParcel1.setFocusable(false);
+        btnAddParcel1.setName("btnAddParcel1"); // NOI18N
+        btnAddParcel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAddParcel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddParcel1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnAddParcel1);
+
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
         jPanel27Layout.setHorizontalGroup(
@@ -3138,6 +3158,41 @@ public class ApplicationPanel extends ContentPanel {
 
     }//GEN-LAST:event_btnDbExtractActionPerformed
     /**
+     * Open form to add new parcel or search for existing one.\
+     *
+     * @param isNew Opens {@link CreateParcelDialog} if true, otherwise opens
+     * {@link SearchParcelDialog}
+     */
+    private void newParcel(boolean isNew) {
+
+        PropertyChangeListener listener = new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                if (e.getNewValue() != null) {
+                    appBean.addCadastreObject((CadastreObjectBean) ((CadastreObjectBean) e.getNewValue()).copy());
+                }
+            }
+        };
+
+        JDialog form;
+
+        if (isNew) {
+            form = new CreateParcelDialog(null, null, true);
+        } else {
+            form = new SearchParcelDialog(null, true);
+        }
+
+        form.setLocationRelativeTo(this);
+        form.addPropertyChangeListener(CreateParcelDialog.SELECTED_PARCEL, listener);
+        form.setVisible(true);
+        form.removePropertyChangeListener(CreateParcelDialog.SELECTED_PARCEL, listener);
+    }
+
+    private void btnAddParcel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddParcel1ActionPerformed
+        newParcel(true);
+    }//GEN-LAST:event_btnAddParcel1ActionPerformed
+    /**
      * Returns {@link BaUnitBean} by first and last name part.
      */
     private BaUnitBean getBaUnit(String nameFirstPart, String nameLastPart) {
@@ -3522,7 +3577,7 @@ public class ApplicationPanel extends ContentPanel {
             if (!appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_OWNERSHIP)) {
                 for (BaUnitBean baunit : BaUnitBean.getBaUnitsByServiceId(appService.getId())) { 
                     for (RrrBean rrr : baunit.getRrrList()) {    
-                        if (rrr.getTypeCode().contentEquals(RrrBean.CODE_OWNERSHIP)) {
+                        if (rrr.getTypeCode().contentEquals(RrrBean.CODE_OWNERSHIP)||rrr.getTypeCode().contentEquals(RrrBean.CODE_MORTGAGE)) {
                             rrr.setRegistrationDate(Calendar.getInstance().getTime());
                             baunit.saveBaUnit(appService.getId());
                         }
@@ -3626,6 +3681,7 @@ public class ApplicationPanel extends ContentPanel {
     public org.sola.clients.beans.application.ApplicationBean appBean;
     private org.sola.clients.beans.application.ApplicationDocumentsHelperBean applicationDocumentsHelper;
     private org.sola.clients.swing.common.buttons.BtnAdd btnAddParcel;
+    private javax.swing.JButton btnAddParcel1;
     private javax.swing.JButton btnAddProperty;
     private javax.swing.JButton btnAddService;
     private javax.swing.JButton btnCalculateFee;

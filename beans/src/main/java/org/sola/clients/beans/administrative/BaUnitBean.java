@@ -314,6 +314,32 @@ public class BaUnitBean extends BaUnitSummaryBean {
                 return false;
             }
         }
+//        int i =0;
+//        if (rrrList != null){
+//            for (RrrBean rrr : rrrList.getFilteredList()) { 
+//                if (rrr.isPrimary()){
+//                    i= i+1;
+//                }
+//            }
+//            if (i>1) {
+//                MessageUtility.displayMessage(ClientMessage.BAUNIT_ONLY_ONE_PRIMARY);
+//                return false;
+//            }
+//        }
+        
+        return true; 
+    }
+    
+      public boolean isValidNewCofO() {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
+//        if(!this.getName().isEmpty()&& this.getName()!= null && this.getName()!= "" ){
+
+        if (this.getName() != null) {
+            if (this.getName().length() > 255) {
+                MessageUtility.displayMessage(ClientMessage.CHECK_FIELD_INVALID_LENGTH_PAR, new Object[]{bundle.getString("PropertyPanel.jLabel5.text")});
+                return false;
+            }
+        }
         int i =0;
         if (rrrList != null){
             for (RrrBean rrr : rrrList.getFilteredList()) { 
@@ -330,6 +356,7 @@ public class BaUnitBean extends BaUnitSummaryBean {
         return true; 
     }
 
+    
     public void removeSelectedParcel() {
         if (selectedParcel != null && cadastreObjectList != null) {
             if (selectedParcel.getStatusCode().equalsIgnoreCase(CadastreObjectBean.PENDING_STATUS)) {

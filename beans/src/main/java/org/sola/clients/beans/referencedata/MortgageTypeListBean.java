@@ -29,30 +29,72 @@ package org.sola.clients.beans.referencedata;
 
 import org.jdesktop.observablecollections.ObservableList;
 import org.sola.clients.beans.AbstractBindingBean;
+import org.sola.clients.beans.AbstractBindingListBean;
 import org.sola.clients.beans.cache.CacheManager;
+import org.sola.clients.beans.controls.SolaCodeList;
 import org.sola.clients.beans.controls.SolaObservableList;
 
 /**
  * Holds the list of {@link MortgageTypeBean} objects.
  */
-public class MortgageTypeListBean extends AbstractBindingBean {
+public class MortgageTypeListBean extends AbstractBindingListBean {
+//        AbstractBindingBean {
     
     public static final String SELECTED_MORTGAGE_TYPE_PROPERTY = "selectedMortgageType";
-    private SolaObservableList<MortgageTypeBean> mortgageTypeListBean;
+//    private SolaObservableList<MortgageTypeBean> mortgageTypeListBean;
+    private SolaCodeList<MortgageTypeBean> mortgageTypeListBean;
     private MortgageTypeBean selectedMortgageType;
     
+//    public MortgageTypeListBean() {
+//        mortgageTypeListBean = new SolaObservableList(CacheManager.getMortgageTypes());
+//    }
+    
     public MortgageTypeListBean() {
-        mortgageTypeListBean = new SolaObservableList(CacheManager.getMortgageTypes());
+        this(false);
     }
 
+     /** 
+     * Creates object instance.
+     * @param createDummy Indicates whether to add empty object on the list.
+     */
+    public MortgageTypeListBean(boolean createDummy) {
+        this(createDummy, (String) null);
+    }
+    
+       /** 
+     * Creates object instance.
+     * @param createDummy Indicates whether to add empty object on the list.
+     * @param excludedCodes Codes, which should be skipped while filtering.
+     */
+    public MortgageTypeListBean(boolean createDummy, String ... excludedCodes) {
+        super();
+        mortgageTypeListBean = new SolaCodeList<MortgageTypeBean>(excludedCodes);
+        loadList(createDummy);
+    }
+
+    /** 
+     * Loads list of {@link BaUnitRelTypeBean}.
+     * @param createDummy Indicates whether to add empty object on the list.
+     */
+    public final void loadList(boolean createDummy) {
+        loadCodeList(MortgageTypeBean.class, mortgageTypeListBean, 
+                CacheManager.getMortgageTypes(), createDummy);
+    }
+    
     public ObservableList<MortgageTypeBean> getMortgageTypeListBean() {
-        return mortgageTypeListBean;
+        return mortgageTypeListBean.getFilteredList();
     }
-
-    public void setMortgageTypeListBean(SolaObservableList<MortgageTypeBean> mortgageTypeListBean) {
-        this.mortgageTypeListBean = mortgageTypeListBean;
+    
+   
+//    public void setMortgageTypeListBean(SolaObservableList<MortgageTypeBean> mortgageTypeListBean) {
+//        this.mortgageTypeListBean = mortgageTypeListBean;
+//    }
+    
+    
+     public void setExcludedCodes(String ... codes){
+       mortgageTypeListBean.setExcludedCodes(codes);
     }
-
+    
     public MortgageTypeBean getSelectedMortgageType() {
         return selectedMortgageType;
     }

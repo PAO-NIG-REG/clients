@@ -65,6 +65,7 @@ public class ApplicationValidator implements ConstraintValidator<ApplicationChec
                     MessageUtility.getLocalizedMessageText(
                     ClientMessage.CHECK_APP_CONTACT_PERSON_NULL)).addConstraintViolation();
         } else {
+            
             // address validation
             if (appBean.getContactPerson().getAddress() == null || 
                     appBean.getContactPerson().getAddress().getDescription() == null ||
@@ -105,7 +106,7 @@ public class ApplicationValidator implements ConstraintValidator<ApplicationChec
                         MessageUtility.getLocalizedMessageText(
                         ClientMessage.CHECK_APP_CONTACT_PERSON_LASTNAME)).addConstraintViolation();
             }
-           
+         
             if (appBean.getContactPerson().getLastName() != null && !appBean.getContactPerson().getLastName().isEmpty()) {
                 if (appBean.getContactPerson().getLastName().length()>50){
                         result = false;
@@ -114,6 +115,15 @@ public class ApplicationValidator implements ConstraintValidator<ApplicationChec
                         ClientMessage.CHECK_FIELD_INVALID_LENGTH))+" "+bundle.getString("ApplicationPanel.labLastName.text")).addConstraintViolation();
                 }
             }
+              //            gender validation
+            
+            System.out.println("GENDER CODE::::::::::::  "+appBean.getContactPerson().getGenderCode());
+            if (appBean.getContactPerson().getGenderCode()==null||appBean.getContactPerson().getGenderCode().isEmpty()){
+              result = false;   
+             constraintContext.buildConstraintViolationWithTemplate(
+                     MessageUtility.getLocalizedMessageText(
+                        ClientMessage.CHECK_NOTNULL_GENDER)).addConstraintViolation();
+            }  
             
             // phone validation
             if (appBean.getContactPerson().getPhone() != null && !appBean.getContactPerson().getPhone().isEmpty()) {

@@ -299,6 +299,7 @@ public class SharePanel extends ContentPanel {
         setHeaderPanel(headerPanel);
         setHelpTopic("ownership_rrr"); // NOI18N
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(662, 348));
 
         jLabel1.setFont(LafManager.getInstance().getLabFontBold());
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
@@ -310,6 +311,7 @@ public class SharePanel extends ContentPanel {
         jLabel2.setName("jLabel2"); // NOI18N
 
         txtDenominator.setFormatterFactory(FormattersFactory.getInstance().getShortFormatterFactory());
+        txtDenominator.setText(bundle.getString("SharePanel.txtDenominator.text_1")); // NOI18N
         txtDenominator.setName("txtDenominator"); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrShareBean, org.jdesktop.beansbinding.ELProperty.create("${denominator}"), txtDenominator, org.jdesktop.beansbinding.BeanProperty.create("value"));
@@ -454,7 +456,7 @@ public class SharePanel extends ContentPanel {
                         .addComponent(txtDenominator, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

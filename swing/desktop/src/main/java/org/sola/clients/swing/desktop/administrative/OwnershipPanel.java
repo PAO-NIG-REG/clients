@@ -139,8 +139,8 @@ public class OwnershipPanel extends ContentPanel {
     private void postInit() {
 
         this.txtCofO.setEnabled(false);
-        if (this.appService!= null)   {
-            if(this.appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
+        if (this.appService != null) {
+            if (this.appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
                 this.txtCofO.setEnabled(true);
             } else {
                 this.txtCofO.setEnabled(false);
@@ -170,8 +170,8 @@ public class OwnershipPanel extends ContentPanel {
                 }
             }
         });
-        
-         rrrBean.addPropertyChangeListener(new PropertyChangeListener() {
+
+        rrrBean.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -208,14 +208,14 @@ public class OwnershipPanel extends ContentPanel {
      * @param isFor for what the conditions apply.
      */
 //    public static ConditionForTypeListBean createConditionTypeFor() {
-      private  ConditionForTypeListBean createConditionTypeFor() {
+    private ConditionForTypeListBean createConditionTypeFor() {
         if (conditionTypes == null) {
             conditionTypes = TypeConverters.TransferObjectToBean(
-                WSManager.getInstance().getReferenceDataService().getConditionTypesFor(),
-                ConditionForTypeListBean.class, null);
+                    WSManager.getInstance().getReferenceDataService().getConditionTypesFor(),
+                    ConditionForTypeListBean.class, null);
         }
-        return  conditionTypes;
-        
+        return conditionTypes;
+
 //        return TypeConverters.TransferObjectToBean(
 //                WSManager.getInstance().getReferenceDataService().getConditionTypesFor(),
 //                ConditionForTypeListBean.class, null);
@@ -281,9 +281,9 @@ public class OwnershipPanel extends ContentPanel {
             btnSave.setText(MessageUtility.getLocalizedMessage(
                     ClientMessage.GENERAL_LABELS_TERMINATE_AND_CLOSE).getMessage());
         }
-		
-		if (appService != null){
-            if (!appService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)){
+
+        if (appService != null) {
+            if (!appService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
                 this.jLabel13.setIcon(null);
             }
         }
@@ -304,6 +304,13 @@ public class OwnershipPanel extends ContentPanel {
 
         btnSecurity.setVisible(btnSave.isEnabled()
                 && SecurityBean.isInRole(RolesConstants.CLASSIFICATION_CHANGE_CLASS));
+
+        if (txtTerm.getText() == ""||txtTerm.getText() == null ||txtTerm.getText().equalsIgnoreCase(null)||txtTerm.getText().equalsIgnoreCase("")) {
+            txtTerm.setText("99");
+        }
+        if (txtRevPeriod.getText() == ""||txtRevPeriod.getText() == null||txtRevPeriod.getText().equalsIgnoreCase(null)||txtRevPeriod.getText().equalsIgnoreCase("")) {
+            txtRevPeriod.setText("10");
+        }
     }
 
     private void openShareForm(RrrShareBean shareBean, RrrBean.RRR_ACTION rrrAction) {
