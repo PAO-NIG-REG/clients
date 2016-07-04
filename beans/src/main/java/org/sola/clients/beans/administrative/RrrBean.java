@@ -153,10 +153,10 @@ public class RrrBean extends AbstractTransactionedBean {
     private Date dateCommenced;
     private Date dateSigned;
     private String cOfO;
-    private Integer term;
+    private Integer term =99;
     private BigDecimal advancePayment;
     private BigDecimal yearlyRent;
-    private Integer reviewPeriod;
+    private Integer reviewPeriod =2;
 
     public String getInstrRegNum() {
         return instrRegNum;

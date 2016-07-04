@@ -52,10 +52,10 @@ public class RrrShareBean extends AbstractVersionedBean {
     private String rrrId;
     @NotNull(message = ClientMessage.CHECK_NOTNULL_NOMINATOR, payload = Localized.class)
     @Min(value = 1, message = ClientMessage.CHECK_MIN_NOMINATOR, payload = Localized.class)
-    private Short nominator;
+    private Short nominator =1;
     @Min(value = 1, message = ClientMessage.CHECK_MIN_DENOMINATOR, payload = Localized.class)
     @NotNull(message = ClientMessage.CHECK_NOTNULL_DENOMINATOR, payload = Localized.class)
-    private Short denominator;
+    private Short denominator=1;
     private SolaList<PartySummaryBean> rightHolderList;
     private transient PartySummaryBean selectedRightHolder;
 
