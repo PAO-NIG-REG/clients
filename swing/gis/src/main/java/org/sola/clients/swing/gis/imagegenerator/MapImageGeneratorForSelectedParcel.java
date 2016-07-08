@@ -308,7 +308,6 @@ public class MapImageGeneratorForSelectedParcel {
             coordinate = min + (max - min) / 2;
         }
         return coordinate;
-
     }
 
     private int getProperGridCutCoordinate(int min, int max, int gridCutDistance) {
