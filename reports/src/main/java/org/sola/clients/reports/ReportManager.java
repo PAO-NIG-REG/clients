@@ -47,7 +47,6 @@ import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import org.sola.clients.beans.administrative.BaUnitAreaBean;
 import org.sola.clients.beans.administrative.BaUnitBean;
 import org.sola.clients.beans.administrative.BaUnitDetailBean;
-import org.sola.clients.beans.administrative.ConditionForRrrBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.application.*;
@@ -163,6 +162,7 @@ public class ReportManager {
         String advpayment = "";
         String estate = "";
         String revperiod = "";
+        String leaseConditions = "";
         Date lodgingDate = null;
         BigDecimal size = null;
 
@@ -189,6 +189,7 @@ public class ReportManager {
                 title = appdetail.getCOfO();
                 estate = appdetail.getRotCode();
                 appNr = appdetail.getInstrRegNum();
+                leaseConditions = appdetail.getLeaseConditions();
                 if (appdetail.getDateCommenced()!=null){
                 commencingDate = appdetail.getDateCommenced().toString();
                 }
@@ -211,17 +212,6 @@ public class ReportManager {
                         diagramImage = cachePath + appSource.getArchiveDocument().getFileName();
                     }
                 }
-                
-                for (Iterator<ConditionForRrrBean> itcfr =  appdetail.getConditionsList().iterator(); itcfr.hasNext();) {
-                    ConditionForRrrBean appCfr = itcfr.next();
-                    if (appCfr.getConditionCode().equalsIgnoreCase("yearsTodevelope")) {
-                        timeToDevelop = appCfr.getCustomConditionText();
-                    }
-                    if (appCfr.getConditionCode().equalsIgnoreCase("valueTodevelope")) {
-                        valueForImprov = appCfr.getCustomConditionText();
-                    }
-                }
-                
             }
 
         }
