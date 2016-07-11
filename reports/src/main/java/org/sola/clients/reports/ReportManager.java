@@ -231,6 +231,7 @@ public class ReportManager {
         inputParameters.put("REFNR", title);
         inputParameters.put("LGA", lga);
         inputParameters.put("WARD", zone);
+        inputParameters.put("LEASE_CONDITIONS", leaseConditions);
         inputParameters.put("STATE", state);
         inputParameters.put("ADDRESS", address);
         inputParameters.put("LODGING_DATE", lodgingDate);
