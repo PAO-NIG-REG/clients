@@ -25,17 +25,38 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
-package org.sola.clients.beans.referencedata;
+package org.sola.clients.beans.administrative.validation;
 
-import org.sola.clients.beans.AbstractCodeBean;
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import javax.validation.Constraint;
+import javax.validation.Payload;
 
+@Target( { METHOD, FIELD, ANNOTATION_TYPE })
+@Retention(RUNTIME)
+@Constraint(validatedBy = LeaseConditionsValidator.class)
+@Documented
 /**
- * Represents reference data object of the <b>condition_type</b> table.
- * Could be populated from the {@link ConditionForTypeTO} object.<br /> For more
- * information see data dictionary <b>Administrative</b> schema.
+ * Annotation constraint to check lease conditions text in the {@link RrrBean}
  */
-public class ConditionForTypeBean extends AbstractCodeBean {
-    public ConditionForTypeBean(){
-        super();
-    }
+public @interface LeaseConditionsCheck{
+
+    /** Error message in case of constraint violation */
+    String message() default "";
+    
+    /** Total size of the shares to be checked. Default is 1 */
+    float shareSize() default 1;
+    
+    /** Array of interfaces, defining evaluation groups */
+    Class<?>[] groups() default {};
+
+    /**
+     * Used by clients of the Bean Validation API to assign custom payload 
+     * objects to a constraint
+     */
+    Class<? extends Payload>[] payload() default {};
+
 }

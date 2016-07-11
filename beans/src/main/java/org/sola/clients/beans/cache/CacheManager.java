@@ -36,6 +36,7 @@ import java.util.logging.Logger;
 import org.sola.clients.beans.AbstractBindingBean;
 import org.sola.clients.beans.AbstractCodeBean;
 import org.sola.clients.beans.AbstractIdBean;
+import org.sola.clients.beans.administrative.LeaseConditionsTemplateSearchResultsBean;
 import org.sola.clients.beans.converters.TypeConverters;
 import org.sola.clients.beans.referencedata.*;
 import org.sola.clients.beans.security.RoleBean;
@@ -141,7 +142,7 @@ public final class CacheManager {
      * Cache key of the {@link MortgageTypeBean} collection.
      */
     public static final String MORTGAGE_TYPE_CODES_KEY = MortgageTypeBean.class.getName() + LIST_POSTFIX;
-    
+
     public static final String ROT_TYPE_CODES_KEY = RotTypeBean.class.getName() + LIST_POSTFIX;
     /**
      * Cache key of the {@link RRRGroupTypeBean} collection.
@@ -211,27 +212,21 @@ public final class CacheManager {
      * Cache key of the {@link LgaTypeBean} collection.
      */
     public static final String LGA_TYPE_CODES_KEY = LgaTypeBean.class.getName() + LIST_POSTFIX;
-     /**
+    /**
      * Cache key of the {@link ZoneTypeBean} collection.
      */
     public static final String ZONE_TYPE_CODES_KEY = ZoneTypeBean.class.getName() + LIST_POSTFIX;
-   
+
     /**
-     * Cache key of the {@link LeaseConditionBean} collection.
-     */
-    public static final String CONDITION_TYPE_CODES_KEY = ConditionTypeBean.class.getName() + LIST_POSTFIX;
-    
-      /**
      * Cache key of the {@link BaUnitDetailBean} collection.
      */
     public static final String BAUNIT_DETAIL_TYPE_CODES_KEY = BaUnitDetailTypeBean.class.getName() + LIST_POSTFIX;
-    
-      /**
+
+    /**
      * Cache key of the {@link RRR_DETAILBean} collection.
      */
     public static final String RRR_DETAIL_TYPE_CODES_KEY = RrrDetailTypeBean.class.getName() + LIST_POSTFIX;
 
-    
     /**
      * Cache key of the {@link HierarchyLevelBean} collection.
      */
@@ -252,13 +247,9 @@ public final class CacheManager {
      * {@link org.sola.clients.beans.system.PanelLauncherGroupBean} collection.
      */
     public static final String CONFIG_PANEL_LAUNCHER_GROUP_KEY = PanelLauncherGroupBean.class.getName() + LIST_POSTFIX;
-    
+
     public static final String GET_NOTIFY_RELATIONSHIP_TYPE_KEY = NotifyRelationshipTypeBean.class.getName() + LIST_POSTFIX;
- 
-    
-    
-    
-    
+   
     private static final String GET_APPLICATION_STATUS_TYPES = "getApplicationStatusTypes";
     private static final String GET_SOURCE_TYPES = "getSourceTypes";
     private static final String GET_COMMUNICATION_TYPES = "getCommunicationTypes";
@@ -292,8 +283,6 @@ public final class CacheManager {
     private static final String GET_LAND_USE_TYPES = "getLandUseTypes";
     private static final String GET_LGA_TYPES = "getLgaTypes";
     private static final String GET_ZONE_TYPES = "getZoneTypes";
-    private static final String GET_CONDITION_TYPES = "getConditionTypes";
-    private static final String GET_CONDITION_TYPES_FOR = "getConditionTypesFor";
     private static final String GET_BAUNIT_DETAIL_TYPES = "getBaUnitDetailTypes";
     private static final String GET_RRR_DETAIL_TYPES = "getRrrDetailTypes";
     private static final String GET_HIERARCHY_LEVELS = "getHierarchyLevels";
@@ -301,9 +290,7 @@ public final class CacheManager {
     private static final String GET_PANEL_LAUNCHER_GROUPS = "getPanelLauncherGroups";
     private static final String GET_REQUEST_DISPLAY_GROUPS = "getRequestDisplayGroups";
     private static final String GET_NOTIFY_RELATIONSHIP_TYPES = "getNotifyRelationshipTypes";
-    
-    
-    
+
     public static List<BrValidationTargetTypeBean> getBrValidationTargetTypes() {
         return getCachedBeanList(BrValidationTargetTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
@@ -369,19 +356,19 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_LAND_USE_TYPES, LAND_USE_TYPE_CODES_KEY);
     }
-    
+
     public static List<LgaTypeBean> getLgaTypes() {
         return getCachedBeanList(LgaTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_LGA_TYPES, LGA_TYPE_CODES_KEY);
     }
-    
+
     public static List<ZoneTypeBean> getZoneTypes() {
         return getCachedBeanList(ZoneTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_ZONE_TYPES, ZONE_TYPE_CODES_KEY);
     }
-    
+
     public static List<SourceBaUnitRelationTypeBean> getSourceBaUnitRelationTypes() {
         return getCachedBeanList(SourceBaUnitRelationTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
@@ -411,7 +398,8 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_MORTGAGE_TYPES, MORTGAGE_TYPE_CODES_KEY);
     }
-      public static List<RotTypeBean> getRotTypes() {
+
+    public static List<RotTypeBean> getRotTypes() {
         return getCachedBeanList(RotTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_ROT_TYPES, ROT_TYPE_CODES_KEY);
@@ -429,31 +417,18 @@ public final class CacheManager {
                 GET_ID_TYPES, ID_TYPE_CODES_KEY);
     }
 
-    public static List<ConditionTypeBean> getConditionTypes() {
-        return getCachedBeanList(ConditionTypeBean.class,
-                WSManager.getInstance().getReferenceDataService(),
-                GET_CONDITION_TYPES, CONDITION_TYPE_CODES_KEY);
-    }
-    
-    
-    public static List<ConditionTypeBean> getConditionTypesFor() {
-        return getCachedBeanList(ConditionTypeBean.class,
-                WSManager.getInstance().getReferenceDataService(),
-                GET_CONDITION_TYPES_FOR, CONDITION_TYPE_CODES_KEY);
-    }
-    
-    
-     public static List<BaUnitDetailTypeBean> getBaUnitDetailTypes() {
+    public static List<BaUnitDetailTypeBean> getBaUnitDetailTypes() {
         return getCachedBeanList(BaUnitDetailTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_BAUNIT_DETAIL_TYPES, BAUNIT_DETAIL_TYPE_CODES_KEY);
     }
-    
-     public static List<RrrDetailTypeBean> getRrrDetailTypes() {
+
+    public static List<RrrDetailTypeBean> getRrrDetailTypes() {
         return getCachedBeanList(RrrDetailTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_RRR_DETAIL_TYPES, RRR_DETAIL_TYPE_CODES_KEY);
-    } 
+    }
+
     public static List<PartyTypeBean> getPartyTypes() {
         return getCachedBeanList(PartyTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
@@ -596,9 +571,8 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_REQUEST_DISPLAY_GROUPS, GET_REQUEST_DISPLAY_GROUP_KEY);
     }
-    
-    
-     public static List<NotifyRelationshipTypeBean> getNotifyRelationshipTypes() {
+
+    public static List<NotifyRelationshipTypeBean> getNotifyRelationshipTypes() {
         return getCachedBeanList(NotifyRelationshipTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),
                 GET_NOTIFY_RELATIONSHIP_TYPES, GET_NOTIFY_RELATIONSHIP_TYPE_KEY);
@@ -622,28 +596,26 @@ public final class CacheManager {
 
         if (cache.contains(key)) {
             result = (List<T>) cache.get(key);
-        } else {
-            if (wsClient != null && methodName != null && !methodName.equals("")) {
-                try {
-                    List<S> toList;
-                    toList = (List) wsClient.getClass().getMethod(methodName).invoke(wsClient);
-                    TypeConverters.TransferObjectListToBeanList(toList, beanClass, (List) result);
-                    cache.put(key, result);
-                } catch (IllegalAccessException ex) {
-                    MessageUtility.displayMessage(ClientMessage.GENERAL_UNEXPECTED,
-                            new Object[]{ex.getLocalizedMessage()});
-                } catch (IllegalArgumentException ex) {
-                    Logger.getLogger(CacheManager.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InvocationTargetException ex) {
-                    MessageUtility.displayMessage(ClientMessage.GENERAL_UNEXPECTED,
-                            new Object[]{ex.getLocalizedMessage()});
-                } catch (NoSuchMethodException ex) {
-                    MessageUtility.displayMessage(ClientMessage.ERR_NO_SUCH_METHOD,
-                            new Object[]{methodName, ex.getLocalizedMessage()});
-                } catch (SecurityException ex) {
-                    MessageUtility.displayMessage(ClientMessage.GENERAL_UNEXPECTED,
-                            new Object[]{ex.getLocalizedMessage()});
-                }
+        } else if (wsClient != null && methodName != null && !methodName.equals("")) {
+            try {
+                List<S> toList;
+                toList = (List) wsClient.getClass().getMethod(methodName).invoke(wsClient);
+                TypeConverters.TransferObjectListToBeanList(toList, beanClass, (List) result);
+                cache.put(key, result);
+            } catch (IllegalAccessException ex) {
+                MessageUtility.displayMessage(ClientMessage.GENERAL_UNEXPECTED,
+                        new Object[]{ex.getLocalizedMessage()});
+            } catch (IllegalArgumentException ex) {
+                Logger.getLogger(CacheManager.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvocationTargetException ex) {
+                MessageUtility.displayMessage(ClientMessage.GENERAL_UNEXPECTED,
+                        new Object[]{ex.getLocalizedMessage()});
+            } catch (NoSuchMethodException ex) {
+                MessageUtility.displayMessage(ClientMessage.ERR_NO_SUCH_METHOD,
+                        new Object[]{methodName, ex.getLocalizedMessage()});
+            } catch (SecurityException ex) {
+                MessageUtility.displayMessage(ClientMessage.GENERAL_UNEXPECTED,
+                        new Object[]{ex.getLocalizedMessage()});
             }
         }
         return Collections.unmodifiableList(result);

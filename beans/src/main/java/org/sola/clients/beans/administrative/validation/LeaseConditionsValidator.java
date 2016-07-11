@@ -25,27 +25,40 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * *********************************************************************************************
  */
-package org.sola.clients.beans.referencedata;
+package org.sola.clients.beans.administrative.validation;
 
-import org.sola.clients.beans.AbstractCodeBean;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import org.sola.common.StringUtility;
+import org.sola.common.messaging.ClientMessage;
+import org.sola.common.messaging.MessageUtility;
 
 /**
- * Represents reference data object of the <b>condition_type</b> table.
- * Could be populated from the {@link ConditionTypeTO} object.<br /> For more
- * information see data dictionary <b>Administrative</b> schema.
+ * Validates lease conditions text to make sure all parameters are provided. Looks for "[@]" combinations
  */
-public class ConditionTypeBean extends AbstractCodeBean {
-    private String isFor;
-    
-    
-    public ConditionTypeBean(){
-        super();
-    }
-     public String getIsFor() {
-        return isFor;
+public class LeaseConditionsValidator implements ConstraintValidator<LeaseConditionsCheck, String> {
+
+    @Override
+    public void initialize(LeaseConditionsCheck a) {
     }
 
-    public void setIsFor(String isFor) {
-        this.isFor = isFor;
+    @Override
+    public boolean isValid(String leaseConditions, ConstraintValidatorContext constraintContext) {
+        if (StringUtility.isEmpty(leaseConditions)) {
+            return true;
+        }
+
+        boolean result = true;
+        
+        constraintContext.disableDefaultConstraintViolation();
+        
+        if(leaseConditions.contains("[@]")){
+            result = false;
+            constraintContext.buildConstraintViolationWithTemplate(
+                    MessageUtility.getLocalizedMessageText(
+                        ClientMessage.BAUNIT_LEASE_CONDITIONS_MISSING_PARAMS)).addConstraintViolation();
+        }
+        
+        return result;
     }
 }

@@ -31,19 +31,14 @@ package org.sola.clients.swing.desktop.administrative;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.List;
 import javax.swing.JFormattedTextField;
 import javax.validation.groups.Default;
-import org.sola.clients.beans.administrative.ConditionForRrrBean;
+import org.sola.clients.beans.administrative.LeaseConditionsTemplateBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.RrrShareBean;
 import org.sola.clients.beans.administrative.validation.OwnershipValidationGroup;
 import org.sola.clients.beans.application.ApplicationBean;
 import org.sola.clients.beans.application.ApplicationServiceBean;
-import org.sola.clients.beans.converters.TypeConverters;
-import org.sola.clients.beans.referencedata.ConditionForTypeBean;
-import org.sola.clients.beans.referencedata.ConditionForTypeListBean;
-import org.sola.clients.beans.referencedata.ConditionTypeBean;
 import org.sola.clients.beans.referencedata.RequestTypeBean;
 import org.sola.clients.beans.referencedata.StatusConstants;
 import org.sola.clients.beans.security.SecurityBean;
@@ -54,16 +49,12 @@ import org.sola.clients.swing.desktop.MainForm;
 import org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel;
 import org.sola.clients.swing.ui.ContentPanel;
 import org.sola.clients.swing.ui.MainContentPanel;
-import org.sola.clients.swing.common.utils.FormattersFactory;
-import org.sola.clients.swing.ui.renderers.CustomNameCinditionCellRenderer;
 import org.sola.clients.swing.ui.renderers.TableCellListRenderer;
 import org.sola.clients.swing.ui.security.SecurityClassificationDialog;
-import org.sola.clients.swing.ui.source.DocumentsManagementPanel;
 import org.sola.common.RolesConstants;
 import org.sola.common.WindowUtility;
 import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
-import org.sola.services.boundary.wsclients.WSManager;
 
 /**
  * Form for managing ownership right. {@link RrrBean} is used to bind the data
@@ -85,7 +76,6 @@ public class OwnershipPanel extends ContentPanel {
     }
 
     private ApplicationBean applicationBean;
-//    private ConditionForTypeListBean  conditionTypes;  
     private ApplicationServiceBean appService;
     private RrrBean.RRR_ACTION rrrAction;
     public static final String UPDATED_RRR = "updatedRRR";
@@ -121,23 +111,16 @@ public class OwnershipPanel extends ContentPanel {
 
     public OwnershipPanel(RrrBean rrrBean, ApplicationBean applicationBean,
             ApplicationServiceBean applicationService, RrrBean.RRR_ACTION rrrAction) {
-
         this.applicationBean = applicationBean;
         this.appService = applicationService;
         this.rrrAction = rrrAction;
-//        conditionTypes = new ConditionForTypeListBean ();
         prepareRrrBean(rrrBean, rrrAction);
-        conditionTypes = createConditionTypeFor();
         initComponents();
         postInit();
-
-//        customizeForm();
-//        customizeSharesButtons(null);
-//        saveRrrState();
     }
 
     private void postInit() {
-
+        templates.loadList(true, rrrBean.getRrrType().getCode());
         this.txtCofO.setEnabled(false);
         if (this.appService != null) {
             if (this.appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
@@ -155,77 +138,9 @@ public class OwnershipPanel extends ContentPanel {
             this.labZone.setVisible(false);
         }
 
-        conditionTypes = createConditionTypeFor();
-// Populate lease conditions list with standard conditions for new RrrBean
-        if (rrrAction == RrrBean.RRR_ACTION.NEW) {
-            rrrBean.addConditions(conditionTypes.getLeaseConditionListFor());
-        }
-
-        conditionTypes.addPropertyChangeListener(new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(ConditionForTypeListBean.SELECTED_CONDITION_TYPE_PROPERTY)) {
-                    customizeAddStandardConditionButton();
-                }
-            }
-        });
-
-        rrrBean.addPropertyChangeListener(new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(RrrBean.SELECTED_CONDITION_PROPERTY)) {
-                    customizeLeaseConditionsButtons();
-                }
-            }
-        });
-        customizeAddStandardConditionButton();
-        customizeLeaseConditionsButtons();
         customizeForm();
         customizeSharesButtons(null);
-
         saveRrrState();
-    }
-
-    private void customizeLeaseConditionsButtons() {
-
-        boolean enabled = rrrBean.getSelectedCondition() != null && rrrAction != RrrBean.RRR_ACTION.VIEW;
-
-        btnRemoveCondition.setEnabled(enabled);
-        if (enabled) {
-            btnEditCondition.setEnabled(rrrBean.getSelectedCondition().isCustomCondition());
-        } else {
-            btnEditCondition.setEnabled(enabled);
-        }
-        menuEditCondition.setEnabled(btnEditCondition.isEnabled());
-        menuRemoveCondition.setEnabled(btnRemoveCondition.isEnabled());
-    }
-
-    /**
-     * Returns list of conditions, for the rrr.
-     *
-     * @param isFor for what the conditions apply.
-     */
-//    public static ConditionForTypeListBean createConditionTypeFor() {
-    private ConditionForTypeListBean createConditionTypeFor() {
-        if (conditionTypes == null) {
-            conditionTypes = TypeConverters.TransferObjectToBean(
-                    WSManager.getInstance().getReferenceDataService().getConditionTypesFor(),
-                    ConditionForTypeListBean.class, null);
-        }
-        return conditionTypes;
-
-//        return TypeConverters.TransferObjectToBean(
-//                WSManager.getInstance().getReferenceDataService().getConditionTypesFor(),
-//                ConditionForTypeListBean.class, null);
-    }
-
-    private void customizeAddStandardConditionButton() {
-        if (rrrAction != RrrBean.RRR_ACTION.VIEW) {
-            return;
-        }
-        btnAddStandardCondition.setEnabled(conditionTypes.getSelectedConditionType() != null);
     }
 
     private void prepareRrrBean(RrrBean rrrBean, RrrBean.RRR_ACTION rrrAction) {
@@ -300,6 +215,9 @@ public class OwnershipPanel extends ContentPanel {
             txtRegDatetime.setEditable(false);
             btnRegDate.setEnabled(false);
             txtNotationText.setEditable(false);
+            txtConditionsText.setEnabled(false);
+            cbxConditionsTemplates.setEnabled(false);
+            btnInsertConditionsText.setEnabled(false);
         }
 
         btnSecurity.setVisible(btnSave.isEnabled()
@@ -364,14 +282,10 @@ public class OwnershipPanel extends ContentPanel {
         menuRemoveShare = new javax.swing.JMenuItem();
         menuChangeShare = new javax.swing.JMenuItem();
         menuViewShare = new javax.swing.JMenuItem();
-        leaseConditionsPopUp = new javax.swing.JPopupMenu();
-        menuAddCustomCondition = new javax.swing.JMenuItem();
-        menuEditCondition = new javax.swing.JMenuItem();
-        menuRemoveCondition = new javax.swing.JMenuItem();
         zoneTypeListBean1 = new org.sola.clients.beans.referencedata.ZoneTypeListBean();
         rrrTypeListBean1 = new org.sola.clients.beans.referencedata.RrrTypeListBean();
         rotTypeListBean1 = new org.sola.clients.beans.referencedata.RotTypeListBean();
-        conditionTypes = new org.sola.clients.beans.referencedata.ConditionForTypeListBean();
+        templates = new org.sola.clients.beans.administrative.LeaseConditionsTemplateSearchResultsListBean();
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
         jToolBar2 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
@@ -398,17 +312,13 @@ public class OwnershipPanel extends ContentPanel {
         groupPanel2 = new org.sola.clients.swing.ui.GroupPanel();
         documentsPanel = createDocumentsPanel();
         conditionsPanel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableLeaseConditions = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
         jToolBar3 = new javax.swing.JToolBar();
-        cbxStandardConditions = new javax.swing.JComboBox();
-        btnAddStandardCondition = new javax.swing.JButton();
+        cbxConditionsTemplates = new javax.swing.JComboBox();
+        btnInsertConditionsText = new javax.swing.JButton();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0), new java.awt.Dimension(10, 32767));
-        btnAddCustomCondition = new javax.swing.JButton();
-        btnEditCondition = new javax.swing.JButton();
-        btnRemoveCondition = new javax.swing.JButton();
-        jSeparator5 = new javax.swing.JToolBar.Separator();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0), new java.awt.Dimension(10, 32767));
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtConditionsText = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtRegDatetime = new org.sola.clients.swing.common.controls.WatermarkDate();
@@ -476,38 +386,6 @@ public class OwnershipPanel extends ContentPanel {
             }
         });
         popUpShares.add(menuViewShare);
-
-        leaseConditionsPopUp.setName("leaseConditionsPopUp"); // NOI18N
-
-        menuAddCustomCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/add.png"))); // NOI18N
-        menuAddCustomCondition.setText(bundle.getString("OwnershipPanel.menuAddCustomCondition.text")); // NOI18N
-        menuAddCustomCondition.setName("menuAddCustomCondition"); // NOI18N
-        menuAddCustomCondition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAddCustomConditionActionPerformed(evt);
-            }
-        });
-        leaseConditionsPopUp.add(menuAddCustomCondition);
-
-        menuEditCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/pencil.png"))); // NOI18N
-        menuEditCondition.setText(bundle.getString("OwnershipPanel.menuEditCondition.text")); // NOI18N
-        menuEditCondition.setName("menuEditCondition"); // NOI18N
-        menuEditCondition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuEditConditionActionPerformed(evt);
-            }
-        });
-        leaseConditionsPopUp.add(menuEditCondition);
-
-        menuRemoveCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/remove.png"))); // NOI18N
-        menuRemoveCondition.setText(bundle.getString("OwnershipPanel.menuRemoveCondition.text")); // NOI18N
-        menuRemoveCondition.setName("menuRemoveCondition"); // NOI18N
-        menuRemoveCondition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuRemoveConditionActionPerformed(evt);
-            }
-        });
-        leaseConditionsPopUp.add(menuRemoveCondition);
 
         setHeaderPanel(headerPanel);
         setHelpTopic("ownership_rrr"); // NOI18N
@@ -734,112 +612,56 @@ public class OwnershipPanel extends ContentPanel {
 
         conditionsPanel.setName("conditionsPanel"); // NOI18N
 
-        jScrollPane2.setName("jScrollPane2"); // NOI18N
-
-        tableLeaseConditions.setName("tableLeaseConditions"); // NOI18N
-
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${conditionsFilteredList}");
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, eLProperty, tableLeaseConditions);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${conditionType.displayValue}"));
-        columnBinding.setColumnName("Condition Type.display Value");
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${conditionText}"));
-        columnBinding.setColumnName("Condition Text");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${customConditionText}"));
-        columnBinding.setColumnName("Custom Condition Text");
-        columnBinding.setColumnClass(String.class);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${selectedCondition}"), tableLeaseConditions, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
-        bindingGroup.addBinding(binding);
-
-        jScrollPane2.setViewportView(tableLeaseConditions);
-        if (tableLeaseConditions.getColumnModel().getColumnCount() > 0) {
-            tableLeaseConditions.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tableLeaseConditions.getColumnModel().getColumn(0).setMaxWidth(300);
-            tableLeaseConditions.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("OwnershipPanel.tableLeaseConditions.columnModel.title0")); // NOI18N
-            tableLeaseConditions.getColumnModel().getColumn(0).setCellRenderer(new CustomNameCinditionCellRenderer());
-            tableLeaseConditions.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("OwnershipPanel.tableLeaseConditions.columnModel.title2")); // NOI18N
-            tableLeaseConditions.getColumnModel().getColumn(2).setPreferredWidth(300);
-            tableLeaseConditions.getColumnModel().getColumn(2).setMaxWidth(300);
-            tableLeaseConditions.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("OwnershipPanel.tableLeaseConditions.columnModel.title1")); // NOI18N
-        }
-
         jToolBar3.setFloatable(false);
         jToolBar3.setRollover(true);
         jToolBar3.setName("jToolBar3"); // NOI18N
 
-        cbxStandardConditions.setName("cbxStandardConditions"); // NOI18N
+        cbxConditionsTemplates.setName("cbxConditionsTemplates"); // NOI18N
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${leaseConditionListFor}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, conditionTypes, eLProperty, cbxStandardConditions);
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${templates}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, templates, eLProperty, cbxConditionsTemplates);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, conditionTypes, org.jdesktop.beansbinding.ELProperty.create("${selectedConditionType}"), cbxStandardConditions, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, templates, org.jdesktop.beansbinding.ELProperty.create("${selectedTemplate}"), cbxConditionsTemplates, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
-        jToolBar3.add(cbxStandardConditions);
+        jToolBar3.add(cbxConditionsTemplates);
 
-        btnAddStandardCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/add.png"))); // NOI18N
-        btnAddStandardCondition.setText(bundle.getString("OwnershipPanel.btnAddStandardCondition.text")); // NOI18N
-        btnAddStandardCondition.setFocusable(false);
-        btnAddStandardCondition.setName("btnAddStandardCondition"); // NOI18N
-        btnAddStandardCondition.addActionListener(new java.awt.event.ActionListener() {
+        btnInsertConditionsText.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/down.png"))); // NOI18N
+        btnInsertConditionsText.setText(bundle.getString("OwnershipPanel.btnInsertConditionsText.text")); // NOI18N
+        btnInsertConditionsText.setFocusable(false);
+        btnInsertConditionsText.setName("btnInsertConditionsText"); // NOI18N
+        btnInsertConditionsText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddStandardConditionActionPerformed(evt);
+                btnInsertConditionsTextActionPerformed(evt);
             }
         });
-        jToolBar3.add(btnAddStandardCondition);
+        jToolBar3.add(btnInsertConditionsText);
 
         filler3.setName("filler3"); // NOI18N
         jToolBar3.add(filler3);
 
-        btnAddCustomCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/add.png"))); // NOI18N
-        btnAddCustomCondition.setText(bundle.getString("OwnershipPanel.btnAddCustomCondition.text")); // NOI18N
-        btnAddCustomCondition.setFocusable(false);
-        btnAddCustomCondition.setName("btnAddCustomCondition"); // NOI18N
-        btnAddCustomCondition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddCustomConditionActionPerformed(evt);
-            }
-        });
-        jToolBar3.add(btnAddCustomCondition);
-
-        btnEditCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/pencil.png"))); // NOI18N
-        btnEditCondition.setText(bundle.getString("OwnershipPanel.btnEditCondition.text")); // NOI18N
-        btnEditCondition.setFocusable(false);
-        btnEditCondition.setName("btnEditCondition"); // NOI18N
-        btnEditCondition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditConditionActionPerformed(evt);
-            }
-        });
-        jToolBar3.add(btnEditCondition);
-
-        btnRemoveCondition.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/remove.png"))); // NOI18N
-        btnRemoveCondition.setText(bundle.getString("OwnershipPanel.btnRemoveCondition.text")); // NOI18N
-        btnRemoveCondition.setFocusable(false);
-        btnRemoveCondition.setName("btnRemoveCondition"); // NOI18N
-        btnRemoveCondition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveConditionActionPerformed(evt);
-            }
-        });
-        jToolBar3.add(btnRemoveCondition);
-
-        jSeparator5.setName("jSeparator5"); // NOI18N
-        jToolBar3.add(jSeparator5);
-
         filler2.setName("filler2"); // NOI18N
         jToolBar3.add(filler2);
+
+        jScrollPane2.setName("jScrollPane2"); // NOI18N
+
+        txtConditionsText.setColumns(20);
+        txtConditionsText.setRows(5);
+        txtConditionsText.setName("txtConditionsText"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, rrrBean, org.jdesktop.beansbinding.ELProperty.create("${leaseConditions}"), txtConditionsText, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jScrollPane2.setViewportView(txtConditionsText);
 
         javax.swing.GroupLayout conditionsPanelLayout = new javax.swing.GroupLayout(conditionsPanel);
         conditionsPanel.setLayout(conditionsPanelLayout);
         conditionsPanelLayout.setHorizontalGroup(
             conditionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(conditionsPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conditionsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(conditionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
+                .addGroup(conditionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
                     .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1044,7 +866,7 @@ public class OwnershipPanel extends ContentPanel {
                     .addComponent(txtAnnualRent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtRevPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTerm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 35, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1145,33 +967,14 @@ public class OwnershipPanel extends ContentPanel {
         configureSecurity();
     }//GEN-LAST:event_btnSecurityActionPerformed
 
-    private void btnAddCustomConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomConditionActionPerformed
-        addCustomCondition();
-    }//GEN-LAST:event_btnAddCustomConditionActionPerformed
-
-    private void btnEditConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditConditionActionPerformed
-        editCustomCondition();
-    }//GEN-LAST:event_btnEditConditionActionPerformed
-
-    private void btnRemoveConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveConditionActionPerformed
-        removeCondition();
-    }//GEN-LAST:event_btnRemoveConditionActionPerformed
-
-    private void btnAddStandardConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStandardConditionActionPerformed
-        addStandardCondition();
-    }//GEN-LAST:event_btnAddStandardConditionActionPerformed
-
-    private void menuAddCustomConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddCustomConditionActionPerformed
-        addCustomCondition();
-    }//GEN-LAST:event_menuAddCustomConditionActionPerformed
-
-    private void menuEditConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditConditionActionPerformed
-        editCustomCondition();
-    }//GEN-LAST:event_menuEditConditionActionPerformed
-
-    private void menuRemoveConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRemoveConditionActionPerformed
-        removeCondition();
-    }//GEN-LAST:event_menuRemoveConditionActionPerformed
+    private void btnInsertConditionsTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertConditionsTextActionPerformed
+        if(templates.getSelectedTemplate() != null && templates.getSelectedTemplate().getId() != null){
+            LeaseConditionsTemplateBean template = LeaseConditionsTemplateBean
+                    .getLeaseConditionsTemplate(templates.getSelectedTemplate().getId());
+            if(template != null)
+                txtConditionsText.setText(template.getTemplateText());
+        }
+    }//GEN-LAST:event_btnInsertConditionsTextActionPerformed
 
     private void btnCommDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommDateActionPerformed
         showCalendar(txtCommDatetime);
@@ -1184,50 +987,6 @@ public class OwnershipPanel extends ContentPanel {
     private void btnSignDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignDateActionPerformed
         showCalendar(txtSignDatetime);
     }//GEN-LAST:event_btnSignDateActionPerformed
-
-    private void addCustomCondition() {
-        CustomConditionForDialog form = new CustomConditionForDialog(null, MainForm.getInstance(), true);
-        WindowUtility.centerForm(form);
-
-        form.addPropertyChangeListener(new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(CustomConditionForDialog.CONDITION_SAVED)) {
-                    rrrBean.addRrrCondition((ConditionForRrrBean) evt.getNewValue());
-                }
-            }
-        });
-        form.setVisible(true);
-    }
-
-    private void editCustomCondition() {
-        CustomConditionForDialog form = new CustomConditionForDialog(
-                (ConditionForRrrBean) rrrBean.getSelectedCondition().copy(),
-                MainForm.getInstance(), true);
-        WindowUtility.centerForm(form);
-
-        form.addPropertyChangeListener(new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals(CustomConditionForDialog.CONDITION_SAVED)) {
-                    ConditionForRrrBean cond = (ConditionForRrrBean) evt.getNewValue();
-                    rrrBean.getSelectedCondition().setCustomConditionText(cond.getCustomConditionText());
-                    rrrBean.getSelectedCondition().setConditionCode(cond.getConditionCode());
-                }
-            }
-        });
-        form.setVisible(true);
-    }
-
-    private void addStandardCondition() {
-        rrrBean.addCondition(conditionTypes.getSelectedConditionType());
-    }
-
-    private void removeCondition() {
-        rrrBean.removeSelectedRrrCondition();
-    }
 
     private void changeShare() {
         if (rrrBean.getSelectedShare() != null) {
@@ -1252,23 +1011,19 @@ public class OwnershipPanel extends ContentPanel {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddCustomCondition;
     private javax.swing.JButton btnAddShare;
-    private javax.swing.JButton btnAddStandardCondition;
     private javax.swing.JButton btnChangeShare;
     private javax.swing.JButton btnCommDate;
-    private javax.swing.JButton btnEditCondition;
+    private javax.swing.JButton btnInsertConditionsText;
     private javax.swing.JButton btnRegDate;
-    private javax.swing.JButton btnRemoveCondition;
     private javax.swing.JButton btnRemoveShare;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSecurity;
     private javax.swing.JButton btnSignDate;
     private javax.swing.JButton btnViewShare;
+    private javax.swing.JComboBox cbxConditionsTemplates;
     private javax.swing.JComboBox cbxEstate;
-    private javax.swing.JComboBox cbxStandardConditions;
     private javax.swing.JComboBox cbxZone;
-    private org.sola.clients.beans.referencedata.ConditionForTypeListBean conditionTypes;
     private javax.swing.JPanel conditionsPanel;
     private org.sola.clients.swing.desktop.source.DocumentsManagementExtPanel documentsPanel;
     private javax.swing.Box.Filler filler1;
@@ -1295,32 +1050,28 @@ public class OwnershipPanel extends ContentPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JLabel labEstate;
     private javax.swing.JLabel labZone;
     private javax.swing.JLabel lblStatus;
-    private javax.swing.JPopupMenu leaseConditionsPopUp;
     private javax.swing.JTabbedPane mainTabbedPanel;
-    private javax.swing.JMenuItem menuAddCustomCondition;
     private javax.swing.JMenuItem menuAddShare;
     private javax.swing.JMenuItem menuChangeShare;
-    private javax.swing.JMenuItem menuEditCondition;
-    private javax.swing.JMenuItem menuRemoveCondition;
     private javax.swing.JMenuItem menuRemoveShare;
     private javax.swing.JMenuItem menuViewShare;
     private javax.swing.JPopupMenu popUpShares;
     private org.sola.clients.beans.referencedata.RotTypeListBean rotTypeListBean1;
     private org.sola.clients.beans.administrative.RrrBean rrrBean;
     private org.sola.clients.beans.referencedata.RrrTypeListBean rrrTypeListBean1;
-    private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableLeaseConditions;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableShares;
+    private org.sola.clients.beans.administrative.LeaseConditionsTemplateSearchResultsListBean templates;
     private javax.swing.JTextField txtAdvPayment;
     private javax.swing.JTextField txtAnnualRent;
     private javax.swing.JTextField txtCofO;
     private org.sola.clients.swing.common.controls.WatermarkDate txtCommDatetime;
+    private javax.swing.JTextArea txtConditionsText;
     private javax.swing.JTextField txtNotationText;
     private org.sola.clients.swing.common.controls.WatermarkDate txtRegDatetime;
     private javax.swing.JTextField txtRevPeriod;
