@@ -216,6 +216,8 @@ public final class CacheManager {
      * Cache key of the {@link ZoneTypeBean} collection.
      */
     public static final String ZONE_TYPE_CODES_KEY = ZoneTypeBean.class.getName() + LIST_POSTFIX;
+    
+    public static final String COFO_TYPE_CODES_KEY = CofoTypeBean.class.getName() + LIST_POSTFIX;
 
     /**
      * Cache key of the {@link BaUnitDetailBean} collection.
@@ -283,6 +285,7 @@ public final class CacheManager {
     private static final String GET_LAND_USE_TYPES = "getLandUseTypes";
     private static final String GET_LGA_TYPES = "getLgaTypes";
     private static final String GET_ZONE_TYPES = "getZoneTypes";
+    private static final String GET_COFO_TYPES = "getCofoTypes";
     private static final String GET_BAUNIT_DETAIL_TYPES = "getBaUnitDetailTypes";
     private static final String GET_RRR_DETAIL_TYPES = "getRrrDetailTypes";
     private static final String GET_HIERARCHY_LEVELS = "getHierarchyLevels";
@@ -368,7 +371,11 @@ public final class CacheManager {
                 WSManager.getInstance().getReferenceDataService(),
                 GET_ZONE_TYPES, ZONE_TYPE_CODES_KEY);
     }
-
+     public static List<CofoTypeBean> getCofoTypes() {
+        return getCachedBeanList(CofoTypeBean.class,
+                WSManager.getInstance().getReferenceDataService(),
+                GET_COFO_TYPES, COFO_TYPE_CODES_KEY);
+    }
     public static List<SourceBaUnitRelationTypeBean> getSourceBaUnitRelationTypes() {
         return getCachedBeanList(SourceBaUnitRelationTypeBean.class,
                 WSManager.getInstance().getReferenceDataService(),

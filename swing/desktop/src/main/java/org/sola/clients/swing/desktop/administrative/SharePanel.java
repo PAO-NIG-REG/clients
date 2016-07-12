@@ -94,9 +94,14 @@ public class SharePanel extends ContentPanel {
                     ClientMessage.GENERAL_LABELS_CREATE_AND_CLOSE).getMessage());
             txtNominator.setEditable(true);
             txtDenominator.setEditable(true);
+            btnClose.setEnabled(false);
+            btnClose.setVisible(false);
             
         } else if (rrrAction == RrrBean.RRR_ACTION.VIEW) {
             btnSave.setEnabled(false);
+            btnSave.setVisible(false);
+            btnClose.setEnabled(true);
+            btnClose.setVisible(true);
             txtNominator.setEditable(false);
             txtDenominator.setEditable(false);
             btnAddOwner.setEnabled(false);
@@ -244,6 +249,7 @@ public class SharePanel extends ContentPanel {
         groupPanel1 = new org.sola.clients.swing.ui.GroupPanel();
         jToolBar2 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         btnAddOwner = new javax.swing.JButton();
         btnEditOwner = new javax.swing.JButton();
@@ -340,7 +346,7 @@ public class SharePanel extends ContentPanel {
         jToolBar2.setRollover(true);
         jToolBar2.setName("jToolBar2"); // NOI18N
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/confirm-close.png"))); // NOI18N
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/save.png"))); // NOI18N
         btnSave.setText(bundle.getString("SharePanel.btnSave.text")); // NOI18N
         btnSave.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSave.setName("btnSave"); // NOI18N
@@ -350,6 +356,19 @@ public class SharePanel extends ContentPanel {
             }
         });
         jToolBar2.add(btnSave);
+
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/confirm-close.png"))); // NOI18N
+        btnClose.setText(bundle.getString("SharePanel.btnClose.text")); // NOI18N
+        btnClose.setFocusable(false);
+        btnClose.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnClose.setName("btnClose"); // NOI18N
+        btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnClose);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -527,8 +546,14 @@ public class SharePanel extends ContentPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNominatorActionPerformed
 
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+       close();
+      
+    }//GEN-LAST:event_btnCloseActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOwner;
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton btnEditOwner;
     private javax.swing.JButton btnRemoveOwner;
     private javax.swing.JButton btnSave;

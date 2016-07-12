@@ -141,6 +141,7 @@ public class SimpleRightholderPanel extends ContentPanel {
 
         if (rrrAction == RrrBean.RRR_ACTION.VIEW) {
             btnSave.setEnabled(false);
+            btnClose.setEnabled(true);
             txtNotationText.setEnabled(false);
             txtRegDatetime.setEditable(false);
             btnRegDate.setEnabled(false);
@@ -331,6 +332,7 @@ public class SimpleRightholderPanel extends ContentPanel {
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
         btnSecurity = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
@@ -401,7 +403,7 @@ public class SimpleRightholderPanel extends ContentPanel {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/confirm-close.png"))); // NOI18N
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/save.png"))); // NOI18N
         btnSave.setText(bundle.getString("SimpleOwhershipPanel.btnSave.text")); // NOI18N
         btnSave.setFocusable(false);
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -410,6 +412,18 @@ public class SimpleRightholderPanel extends ContentPanel {
             }
         });
         jToolBar1.add(btnSave);
+
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/confirm-close.png"))); // NOI18N
+        btnClose.setText(bundle.getString("SimpleRightholderPanel.btnClose.text")); // NOI18N
+        btnClose.setFocusable(false);
+        btnClose.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnClose);
 
         btnSecurity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/lock.png"))); // NOI18N
         btnSecurity.setText(bundle.getString("SimpleRightholderPanel.btnSecurity.text_1")); // NOI18N
@@ -669,8 +683,13 @@ public class SimpleRightholderPanel extends ContentPanel {
         configureSecurity();
     }//GEN-LAST:event_btnSecurityActionPerformed
 
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        close();
+    }//GEN-LAST:event_btnCloseActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOwner;
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton btnEditOwner;
     private javax.swing.JButton btnRegDate;
     private javax.swing.JButton btnRemoveOwner;

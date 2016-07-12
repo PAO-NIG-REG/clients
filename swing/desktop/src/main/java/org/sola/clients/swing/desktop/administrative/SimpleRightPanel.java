@@ -144,6 +144,10 @@ public class SimpleRightPanel extends ContentPanel {
             btnSave.setText("Extinguish");
         }
         
+        btnClose.setEnabled(false);
+        btnClose.setVisible(false);
+            
+        
         if (appService != null){
             if (!appService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)){
                 this.jLabel13.setIcon(null);
@@ -158,6 +162,9 @@ public class SimpleRightPanel extends ContentPanel {
 
         if (rrrAction == RrrBean.RRR_ACTION.VIEW) {
             btnSave.setVisible(false);
+            btnClose.setEnabled(true);
+            btnClose.setVisible(true);
+            
             txtNotationText.setEditable(false);
             txtRegDatetime.setEditable(false);
             btnRegDate.setEnabled(false);
@@ -211,6 +218,7 @@ public class SimpleRightPanel extends ContentPanel {
         headerPanel = new org.sola.clients.swing.ui.HeaderPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnSave = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
         btnSecurity = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(7, 0), new java.awt.Dimension(7, 0), new java.awt.Dimension(7, 32767));
@@ -245,7 +253,7 @@ public class SimpleRightPanel extends ContentPanel {
         jToolBar1.setRollover(true);
         jToolBar1.setName("jToolBar1"); // NOI18N
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/confirm-close.png"))); // NOI18N
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/save.png"))); // NOI18N
         btnSave.setText(bundle.getString("SimpleRightPanel.btnSave.text")); // NOI18N
         btnSave.setToolTipText(bundle.getString("SimpleRightPanel.btnSave.toolTipText")); // NOI18N
         btnSave.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -256,6 +264,19 @@ public class SimpleRightPanel extends ContentPanel {
             }
         });
         jToolBar1.add(btnSave);
+
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/confirm-close.png"))); // NOI18N
+        btnClose.setText(bundle.getString("SimpleRightPanel.btnClose.text")); // NOI18N
+        btnClose.setFocusable(false);
+        btnClose.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        btnClose.setName("btnClose"); // NOI18N
+        btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnClose);
 
         btnSecurity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/lock.png"))); // NOI18N
         btnSecurity.setText(bundle.getString("SimpleRightPanel.btnSecurity.text")); // NOI18N
@@ -388,7 +409,13 @@ public class SimpleRightPanel extends ContentPanel {
         configureSecurity();
     }//GEN-LAST:event_btnSecurityActionPerformed
 
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        close();
+
+    }//GEN-LAST:event_btnCloseActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRegDate;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSecurity;

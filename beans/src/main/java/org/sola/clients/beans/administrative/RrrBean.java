@@ -49,6 +49,7 @@ import org.sola.clients.beans.administrative.validation.TotalShareSize;
 import org.sola.clients.beans.cache.CacheManager;
 import org.sola.clients.beans.controls.SolaList;
 import org.sola.clients.beans.party.PartySummaryBean;
+import org.sola.clients.beans.referencedata.CofoTypeBean;
 import org.sola.clients.beans.referencedata.MortgageTypeBean;
 import org.sola.clients.beans.referencedata.RotTypeBean;
 import org.sola.clients.beans.referencedata.RrrTypeBean;
@@ -100,6 +101,8 @@ public class RrrBean extends AbstractTransactionedBean {
     public static final String ZONE_CODE_PROPERTY = "zoneCode";
     public static final String ROT_TYPE_PROPERTY = "rotType";
     public static final String ROT_CODE_PROPERTY = "rotCode";
+    public static final String COFO_TYPE_PROPERTY = "cofoType";
+    public static final String COFO_CODE_PROPERTY = "cofoCode";
     public static final String EXPIRATION_DATE_PROPERTY = "expirationDate";
     public static final String SHARE_PROPERTY = "share";
     public static final String AMOUNT_PROPERTY = "amount";
@@ -160,7 +163,31 @@ public class RrrBean extends AbstractTransactionedBean {
     private BigDecimal advancePayment;
     private BigDecimal yearlyRent;
     private Integer reviewPeriod = 2;
+   private CofoTypeBean cofoBean;
 
+     public void setCofoCode(String value) {
+        String oldValue = null;
+        if (cofoBean != null) {
+            oldValue = cofoBean.getCode();
+        }
+        setCofoType(CacheManager.getBeanByCode(
+                CacheManager.getCofoTypes(), value));
+        propertySupport.firePropertyChange(COFO_CODE_PROPERTY,
+                oldValue, value);
+    }
+
+    public CofoTypeBean getCofoType() {
+        return cofoBean;
+    }
+
+    public void setCofoType(CofoTypeBean cofoBean) {
+        if (this.cofoBean == null) {
+            this.cofoBean = new CofoTypeBean();
+        }
+        this.setJointRefDataBean(this.cofoBean, cofoBean, ROT_TYPE_PROPERTY);
+    }
+
+    
     public String getInstrRegNum() {
         return instrRegNum;
     }
