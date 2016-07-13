@@ -3577,15 +3577,16 @@ public class ApplicationPanel extends ContentPanel {
             if (!appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_OWNERSHIP)) {
                 for (BaUnitBean baunit : BaUnitBean.getBaUnitsByServiceId(appService.getId())) { 
                     for (RrrBean rrr : baunit.getRrrList()) {    
-                        if (rrr.getTypeCode().contentEquals(RrrBean.CODE_OWNERSHIP)||rrr.getTypeCode().contentEquals(RrrBean.CODE_MORTGAGE)) {
+                        if (rrr.getTypeCode().contentEquals(RrrBean.CODE_OWNERSHIP)||rrr.getTypeCode().contentEquals(RrrBean.CODE_MORTGAGE)||rrr.getTypeCode().contentEquals(RrrBean.CODE_LEASE)) {
                             rrr.setRegistrationDate(Calendar.getInstance().getTime());
-                            baunit.saveBaUnit(appService.getId());
+//                            baunit.saveBaUnit(appService.getId());
                         }
                     }
+                     baunit.saveBaUnit(appService.getId());
                 }
             }
         }
-
+        
         takeActionAgainstApplication(ApplicationActionTypeBean.APPROVE);
     }
 
