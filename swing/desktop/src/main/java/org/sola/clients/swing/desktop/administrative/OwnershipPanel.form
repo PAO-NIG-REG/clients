@@ -606,7 +606,7 @@
           </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="cofoTypeListBean1" sourcePath="${cofoTypeList}" target="jComboBox1" targetPath="elements" updateStrategy="0" immediately="false"/>
-            <BindingProperty name="selectedItem" source="rrrBean" sourcePath="${cofoType}" target="jComboBox1" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+            <BindingProperty name="selectedItem" source="rrrBean" sourcePath="${cofoTypeBean}" target="jComboBox1" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
           </BindingProperties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">

@@ -165,26 +165,33 @@ public class RrrBean extends AbstractTransactionedBean {
     private Integer reviewPeriod = 2;
    private CofoTypeBean cofoBean;
 
-     public void setCofoCode(String value) {
+     public void setCofoType(String value) {
         String oldValue = null;
         if (cofoBean != null) {
             oldValue = cofoBean.getCode();
         }
-        setCofoType(CacheManager.getBeanByCode(
+        setCofoTypeBean(CacheManager.getBeanByCode(
                 CacheManager.getCofoTypes(), value));
         propertySupport.firePropertyChange(COFO_CODE_PROPERTY,
                 oldValue, value);
     }
-
-    public CofoTypeBean getCofoType() {
+    
+     public String getCofoType() {
+        if (cofoBean != null) {
+            return cofoBean.getCode();
+        } else {
+            return null;
+        }
+    } 
+    public CofoTypeBean getCofoTypeBean() {
         return cofoBean;
     }
 
-    public void setCofoType(CofoTypeBean cofoBean) {
+    public void setCofoTypeBean(CofoTypeBean cofoBean) {
         if (this.cofoBean == null) {
             this.cofoBean = new CofoTypeBean();
         }
-        this.setJointRefDataBean(this.cofoBean, cofoBean, ROT_TYPE_PROPERTY);
+        this.setJointRefDataBean(this.cofoBean, cofoBean, COFO_TYPE_PROPERTY);
     }
 
     
