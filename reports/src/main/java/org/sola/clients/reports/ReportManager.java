@@ -35,6 +35,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -137,124 +138,123 @@ public class ReportManager {
      *
      * @param appBean Application bean containing data for the report.
      */
-    public static JasperPrint getCofO(BaUnitBean baUnitBean) {
+    public static JasperPrint getCofO(BaUnitBean reportBean) {
+        HashMap inputParameters = new HashMap();
+        String pdReport = null;
+        pdReport = "/" + getPrefix() + "reports/CofO.jasper";
 
-        String featureFloatFront = "images/sola/front_float.svg";
-        String featureFloatBack = "images/sola/back_float.svg";
-        String featureFront = "images/sola/front.svg";
-        String featureBack = "images/sola/back.svg";
         String diagramImage = null;
-
+        String cOfOnumber = null;
         String appNr = null;
-        String title = null;
-        String plan = null;
-        String address = null;
-        String timeToDevelop = null;
-        String valueForImprov = null;
-        String term = null;
+        String certificateType = null;
         String commencingDate = null;
-        String landUse = null;
-        String propAddress = null;
-        String lga = null;
-        String zone = null;
-        String state = null;
-        String groundRent = null;
-        String advpayment = "";
-        String estate = "";
-        String revperiod = "";
-        String leaseConditions = "";
-        Date lodgingDate = null;
-        BigDecimal size = null;
-
-        BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(baUnitBean.getId());
+        String term = "";
+        String annualRent = "Yearly Rent : ";
+        String rentReviewPeriod = "Review Period : ";
+        String addressNotices = "Address for notices : ";
+        String conditions = "";
+        
+        String parcelNumber = "";
+        String landUse = "Permitted Land Use: ";
+        String location = null;
+        String lga = "Local Government Area: ";
+        String plan = "";
+        String area = null;
+        
+        SimpleDateFormat regnFormat = new SimpleDateFormat("dd MMMMM yyyy");
+        DecimalFormat intFormat = new DecimalFormat("###,##0");
+   
+        BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(reportBean.getId());
         BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
-        size = baUnitAreaBean.getSize();
-
-//  COFO UPDATES  QUI CAMBIARE DIAGRAM...        
-//        for (Iterator<SourceBean> it = baUnitBean.getSourceList().iterator(); it.hasNext();) {
-//            SourceBean appSource = it.next();
-//            if (appSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
-//                diagramImage = cachePath + appSource.getArchiveDocument().getFileName();
-//            }
-//        }
-
-//        diagramImage = cachePath + baUnitBean.getSourceList().get(0).getArchiveDocument().getFileName();
-        state = getSettingValue("state");
-
-        for (Iterator<RrrBean> it = baUnitBean.getRrrList().iterator(); it.hasNext();) {
-            RrrBean appdetail = it.next();
-            
-            if (appdetail.isPrimary() && !appdetail.getCOfO().equalsIgnoreCase(null) && !appdetail.getCOfO().equalsIgnoreCase("")) {
-                zone = appdetail.getZoneCode();
-                title = appdetail.getCOfO();
-                estate = appdetail.getRotCode();
-                appNr = appdetail.getInstrRegNum();
-                leaseConditions = appdetail.getLeaseConditions();
-                if (appdetail.getDateCommenced()!=null){
-                commencingDate = appdetail.getDateCommenced().toString();
+        if (baUnitAreaBean.getSize() !=null){
+            area = "Area: " + intFormat.format(baUnitAreaBean.getSize()).toString()+ " square metres";
+        }
+       
+        for (Iterator<RrrBean> it = reportBean.getRrrList().iterator(); it.hasNext();) {
+            RrrBean rrrDetail = it.next();          
+            if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
+               if (rrrDetail.getDateCommenced()!=null){
+                commencingDate = regnFormat.format(rrrDetail.getDateCommenced()).toString();
+               } 
+                term = rrrDetail.getTerm().toString() + " years";
+                if (rrrDetail.getYearlyRent()!=null){
+                    annualRent = annualRent + rrrDetail.getYearlyRent().toString() + " Naira";
                 }
-                if (appdetail.getTerm()!=null){
-                term = appdetail.getTerm().toString();
+                if (rrrDetail.getDateCommenced()!=null){
+                    rentReviewPeriod = rentReviewPeriod + rrrDetail.getReviewPeriod().toString() + " years";
                 }
-                if (appdetail.getYearlyRent()!=null){
-                groundRent = appdetail.getYearlyRent().toString();
-                }
-                if (appdetail.getAdvancePayment()!=null){
-                advpayment = appdetail.getAdvancePayment().toString();
-                }
-                if (appdetail.getReviewPeriod()!=null){
-                revperiod = appdetail.getReviewPeriod().toString();
+                if (rrrDetail.getLeaseConditions()!=null){
+                    conditions = rrrDetail.getLeaseConditions();
                 }
                 
-                for (Iterator<SourceBean> itsor =  appdetail.getSourceList().iterator(); itsor.hasNext();) {
-                    SourceBean appSource = itsor.next();
-                    if (appSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
-                        diagramImage = cachePath + appSource.getArchiveDocument().getFileName();
+                cOfOnumber = rrrDetail.getCOfO();
+//                advpayment = rrrDetail.getAdvancePayment().toString();
+//                certificateType = rrrDetail.getCerticateType();
+                certificateType = "Building Site";
+                appNr = rrrDetail.getInstrRegNum();
+                
+                for (Iterator<SourceBean> itsor =  rrrDetail.getSourceList().iterator(); itsor.hasNext();) {
+                    SourceBean rrrSource = itsor.next();
+                    if (rrrSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
+                        diagramImage = cachePath + rrrSource.getArchiveDocument().getFileName();
                     }
                 }
             }
-
         }
-        for (Iterator<CadastreObjectBean> it = baUnitBean.getCadastreObjectList().iterator(); it.hasNext();) {
-            CadastreObjectBean appco = it.next();
+        
+        for (Iterator<CadastreObjectBean> it = reportBean.getCadastreObjectList().iterator(); it.hasNext();) {
+            CadastreObjectBean baUnitCO = it.next();
 
-            lga = appco.getLgaCode();
-            landUse = appco.getLandUseCode();
-            propAddress = appco.getAddressString();
-            plan = appco.getSourceReference();
+            if (baUnitCO.getPlotNum()!=null){
+                if (baUnitCO.getPlotNum()!= "ALL") {
+                    parcelNumber = "Land delineated on";
+                } else {
+                    parcelNumber = " Plot " + baUnitCO.getPlotNum();
+                }
+            }
+            if (baUnitCO.getLgaCode()!=null){
+                lga = lga + baUnitCO.getLgaCode();
+            }
+            if (baUnitCO.getLandUseCode()!=null){
+                landUse = landUse + baUnitCO.getLandUseCode().substring(0,1).toUpperCase() + baUnitCO.getLandUseCode().substring(1);
+            }
+// REMOVED UNTIL STORAGE OF LOCATION IS CLARIFIED
+//            if (baUnitCO.getAddressString()!=null){
+//                location = "At " + baUnitCO.getAddressString();
+//            } 
+            if (baUnitCO.getAddressString()!=null){
+                addressNotices = addressNotices + baUnitCO.getAddressString();
+            } 
+
+            if (baUnitCO.getSourceReference()!=null){
+                plan = plan + baUnitCO.getSourceReference();
+            }
         }
-
-        HashMap inputParameters = new HashMap();
-
+        
         inputParameters.put("REPORT_LOCALE", Locale.getDefault());
-        inputParameters.put("APP_NR", appNr);
-        inputParameters.put("REFNR", title);
-        inputParameters.put("LGA", lga);
-        inputParameters.put("WARD", zone);
-        inputParameters.put("LEASE_CONDITIONS", leaseConditions);
-        inputParameters.put("STATE", state);
-        inputParameters.put("ADDRESS", address);
-        inputParameters.put("LODGING_DATE", lodgingDate);
+        inputParameters.put("USER", SecurityBean.getCurrentUser().getFullUserName());
+        inputParameters.put("EMBLEM", ReportManager.class.getResourceAsStream("/images/sola/Coat_of_Arms_of_Nigeria.png"));
+        inputParameters.put("STATE", getSettingValue("state"));
+        inputParameters.put("REFNR", cOfOnumber);
+        inputParameters.put("CERTIFICATE_TYPE", certificateType);
+        
         inputParameters.put("COMMENCING_DATE", commencingDate);
-        inputParameters.put("TIME_DEVELOP", timeToDevelop);
-        inputParameters.put("VALUE_IMPROV", valueForImprov);
         inputParameters.put("TERM", term);
-        inputParameters.put("LAND_USE", landUse);
-        inputParameters.put("PROP_LOCATION", propAddress);
-        inputParameters.put("PLAN_NUMBER", plan);
-        inputParameters.put("SIZE", size);
-        inputParameters.put("GROUND_RENT", groundRent);
-        inputParameters.put("FRONT_IMAGE", featureFront);
-        inputParameters.put("BACK_IMAGE", featureBack);
-        inputParameters.put("FRONT_FLOAT_IMAGE", featureFloatFront);
-        inputParameters.put("BACK_FLOAT_IMAGE", featureFloatBack);
-        inputParameters.put("DIAGRAM_IMAGE", diagramImage);
+        inputParameters.put("ANNUAL_RENT", annualRent);
+        inputParameters.put("REVIEW_PERIOD", rentReviewPeriod);
+        inputParameters.put("ADDRESS_NOTICES", addressNotices);
 
+        inputParameters.put("PARCEL", parcelNumber + " Plan " + plan);
+        inputParameters.put("AREA_SQ_METRES", area);
+        inputParameters.put("LAND_USE", landUse);
+        inputParameters.put("LOCATION", location);
+
+        inputParameters.put("CONDITIONS", conditions);
+        inputParameters.put("DIAGRAM_IMAGE", diagramImage);
+         
         BaUnitBean[] beans = new BaUnitBean[1];
-        beans[0] = baUnitBean;
+        beans[0] = reportBean;
         JRDataSource jds = new JRBeanArrayDataSource(beans);
-        String pdReport = null;
-        pdReport = "/" + getPrefix() + "reports/CofO.jasper";
 
         System.err.println(pdReport);
         try {
@@ -267,16 +267,6 @@ public class ReportManager {
                     new Object[]{ex.getLocalizedMessage()});
             return null;
         }
-
-//        try {
-//            return JasperFillManager.fillReport(
-//                    ReportManager.class.getResourceAsStream("/reports/BaUnitReport.jasper"),
-//                    inputParameters, jds);
-//        } catch (JRException ex) {
-//            MessageUtility.displayMessage(ClientMessage.REPORT_GENERATION_FAILED,
-//                    new Object[]{ex.getLocalizedMessage()});
-//            return null;
-//        }
     }
 
     /**
