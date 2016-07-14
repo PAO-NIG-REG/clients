@@ -42,8 +42,9 @@ import org.sola.webservices.transferobjects.digitalarchive.DocumentBinaryTO;
 import org.sola.webservices.transferobjects.digitalarchive.DocumentTO;
 
 /**
- * Represents digital archive document, excluding binary content. Could be populated from the {@link DocumentTO}
- * object.<br /> For more information see data dictionary <b>d=Document</b> schema.
+ * Represents digital archive document, excluding binary content. Could be
+ * populated from the {@link DocumentTO} object.<br /> For more information see
+ * data dictionary <b>d=Document</b> schema.
  */
 public class DocumentBean extends AbstractIdBean {
 
@@ -52,7 +53,7 @@ public class DocumentBean extends AbstractIdBean {
     public static final String NR_PROPERTY = "nr";
     public static final String NAME_PROPERTY = "name";
     public static final String MIMETYPE_PROPERTY = "mimeType";
-    
+
     private String description;
     private String extension;
     private String mimeType;
@@ -120,7 +121,8 @@ public class DocumentBean extends AbstractIdBean {
     }
 
     /**
-     * Returns description property only if document is not deleted or disassociated
+     * Returns description property only if document is not deleted or
+     * disassociated
      */
     public String getName() {
         if (this.getEntityAction() != EntityAction.DISASSOCIATE
@@ -178,15 +180,15 @@ public class DocumentBean extends AbstractIdBean {
     }
 
     /**
-     * Opens document from the digital archive. This method will not check the local documents cache
-     * before retrieving the document.
+     * Opens document from the digital archive. This method will not check the
+     * local documents cache before retrieving the document.
      *
      * @param Id The ID of the document to open.
      * @see #openDocument(java.lang.String, java.lang.String)
      */
     public static void openDocument(String Id) {
         if (Id != null) {
-            DocumentBinaryTO documentBinary = WSManager.getInstance().getDigitalArchive().getDocument(Id);
+            DocumentBinaryTO documentBinary = getDocument(Id);
             if (documentBinary != null) {
                 FileUtility.openFile(documentBinary.getFileName());
             } else {
@@ -196,11 +198,29 @@ public class DocumentBean extends AbstractIdBean {
     }
 
     /**
-     * Checks if a document exists in the local documents cache and if so, opens the document from
-     * the cache, otherwise loads the document from the DigitalArchive service.
+     * Loads document from the digital archive. This method will not check the
+     * local documents cache before retrieving the document.
+     *
+     * @param Id The ID of the document to fetch.
+     * @return
+     * @see #openDocument(java.lang.String, java.lang.String)
+     */
+    public static DocumentBinaryTO getDocument(String Id) {
+        if (Id != null) {
+            return WSManager.getInstance().getDigitalArchive().getDocument(Id);
+        } else {
+            throw new SOLAException(ClientMessage.SOURCE_NO_DOCUMENT);
+        }
+    }
+
+    /**
+     * Checks if a document exists in the local documents cache and if so, opens
+     * the document from the cache, otherwise loads the document from the
+     * DigitalArchive service.
      *
      * @param Id The id of the document to open
-     * @param fileName The name of the file. The file name should be consistent with
+     * @param fileName The name of the file. The file name should be consistent
+     * with
      * {@linkplain #getFileName(java.lang.String, int, java.lang.String) getFileName}
      * @see #openDocument(java.lang.String)
      */
@@ -212,4 +232,3 @@ public class DocumentBean extends AbstractIdBean {
         }
     }
 }
-

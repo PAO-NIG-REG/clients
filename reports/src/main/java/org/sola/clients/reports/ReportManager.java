@@ -29,11 +29,11 @@
  */
 package org.sola.clients.reports;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -47,12 +47,12 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import org.sola.clients.beans.administrative.BaUnitAreaBean;
 import org.sola.clients.beans.administrative.BaUnitBean;
-import org.sola.clients.beans.administrative.BaUnitDetailBean;
 import org.sola.clients.beans.administrative.RrrBean;
 import org.sola.clients.beans.administrative.RrrReportBean;
 import org.sola.clients.beans.application.*;
 import org.sola.clients.beans.cadastre.CadastreObjectBean;
 import org.sola.clients.beans.converters.TypeConverters;
+import org.sola.clients.beans.digitalarchive.DocumentBean;
 import org.sola.clients.beans.system.BrReportBean;
 import org.sola.clients.beans.security.SecurityBean;
 import org.sola.clients.beans.source.SourceBean;
@@ -63,6 +63,7 @@ import org.sola.common.messaging.ClientMessage;
 import org.sola.common.messaging.MessageUtility;
 import org.sola.services.boundary.wsclients.WSManager;
 import org.sola.webservices.transferobjects.administrative.BaUnitAreaTO;
+import org.sola.webservices.transferobjects.digitalarchive.DocumentBinaryTO;
 
 /**
  * Provides methods to generate and display various reports.
@@ -311,6 +312,11 @@ public class ReportManager {
                     SourceBean appSource = itsor.next();
                     if (appSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
                         diagramImage = cachePath + appSource.getArchiveDocument().getFileName();
+                        File f = new File(diagramImage);
+                        if(!f.exists()){
+                            // Preload file
+                            DocumentBinaryTO doc = DocumentBean.getDocument(appSource.getArchiveDocument().getId());
+                        }
                     }
                 }
                 
