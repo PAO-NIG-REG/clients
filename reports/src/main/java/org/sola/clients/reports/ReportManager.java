@@ -198,6 +198,11 @@ public class ReportManager {
                     SourceBean rrrSource = itsor.next();
                     if (rrrSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
                         diagramImage = cachePath + rrrSource.getArchiveDocument().getFileName();
+                        File f = new File(diagramImage);
+                        if(!f.exists()){
+                            // Preload file
+                            DocumentBinaryTO doc = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());
+                        }
                     }
                 }
             }
