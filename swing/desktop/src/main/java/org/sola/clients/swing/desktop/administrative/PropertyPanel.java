@@ -319,6 +319,9 @@ public class PropertyPanel extends ContentPanel {
      * the {@link BaUnitBean} and other components.
      */
     private void customizeForm() {
+        
+        this.jPanel12.setVisible(false);
+        this.jPanel12.setEnabled(false);
         if (nameFirstPart != null && nameLastPart != null) {
             headerPanel.setTitleText(String.format(
                     resourceBundle.getString("PropertyPanel.existingProperty.Text"),
