@@ -1,8 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="org.sola.clients.reports.locale.CofO" whenResourceMissingType="Empty" uuid="0a3917ce-86d8-4f47-b98a-dce032263ed2">
-	<property name="ireport.zoom" value="0.9090909090909091"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="850" columnWidth="480" leftMargin="65" rightMargin="50" topMargin="20" bottomMargin="20" uuid="7e437324-9a14-4a89-98d8-e5b069b6221f">
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="843"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
 	<style name="table 1">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -32,172 +59,76 @@
 	</style>
 	<style name="table 2">
 		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
+			<pen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 	</style>
 	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
+			<pen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 	</style>
 	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
+			<pen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 	</style>
 	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
 		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
+			<pen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<conditionExpression><![CDATA[ne0Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
 			<style backcolor="#EFF7FF"/>
 		</conditionalStyle>
 	</style>
 	<style name="table 3">
 		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
+			<pen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 	</style>
 	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 	</style>
 	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 	</style>
 	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
 		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 	</style>
 	<style name="table 4">
 		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
+			<pen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 	</style>
 	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 	</style>
 	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 	</style>
 	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
 		<box>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="table">
-		<box>
-			<pen lineWidth="0.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_TH" mode="Opaque" backcolor="#73E6AC">
-		<box>
-			<pen lineWidth="0.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_CH" mode="Opaque" backcolor="#CFE6DA">
-		<box>
-			<pen lineWidth="0.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 5">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 6">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-			<bottomPen lineWidth="0.0"/>
-		</box>
-	</style>
-	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<subDataset name="dataset1" uuid="aa78c295-0659-4997-b5b7-f210a66d514f">
-		<parameter name="AREA" class="java.lang.Object">
-			<parameterDescription><![CDATA[]]></parameterDescription>
-			<defaultValueExpression><![CDATA[$P{AREA}.toString()]]></defaultValueExpression>
-		</parameter>
-		<queryString language="SQL">
-			<![CDATA[]]>
-		</queryString>
-		<field name="nameFirstpart" class="java.lang.String">
-			<fieldDescription><![CDATA[nameFirstpart]]></fieldDescription>
-		</field>
-		<field name="nameLastpart" class="java.lang.String">
-			<fieldDescription><![CDATA[nameLastpart]]></fieldDescription>
-		</field>
-		<field name="cadastreObjectType" class="java.lang.String">
-			<fieldDescription><![CDATA[cadastreObjectType.displayValue]]></fieldDescription>
-		</field>
-		<field name="sourceReference" class="java.lang.String">
-			<fieldDescription><![CDATA[sourceReference]]></fieldDescription>
-		</field>
-		<field name="status" class="java.lang.String">
-			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
-		</field>
-	</subDataset>
-	<subDataset name="Rights" uuid="25b0e5d8-2405-49b2-9a5e-a101240eee30">
-		<field name="rrrType" class="java.lang.String">
-			<fieldDescription><![CDATA[rrrType.displayValue]]></fieldDescription>
-		</field>
-		<field name="registrationDate" class="java.util.Date">
-			<fieldDescription><![CDATA[registrationDate]]></fieldDescription>
-		</field>
-		<field name="status" class="java.lang.String">
-			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
-		</field>
-	</subDataset>
-	<subDataset name="Ownership" uuid="73b4a37b-9515-4519-b746-1e234679015a">
-		<field name="Owners" class="java.lang.String">
+	<subDataset name="Ownership" uuid="155f5e97-b098-4ae0-a9ff-78d1bbca1d94">
+		<field name="Name" class="java.lang.String">
 			<fieldDescription><![CDATA[rrrShare.rightHoldersStringList]]></fieldDescription>
 		</field>
 		<field name="Share" class="java.lang.String">
@@ -207,497 +138,444 @@
 			<fieldDescription><![CDATA[status]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Notations" uuid="5da07c1a-bf32-4d42-8b44-9677987dfed3">
-		<field name="Ref. Number" class="java.lang.String">
+	<subDataset name="Notations" uuid="39a7e5e3-b924-471b-b9af-03fa970e984b">
+		<field name="ref" class="java.lang.String">
 			<fieldDescription><![CDATA[referenceNr]]></fieldDescription>
 		</field>
-		<field name="Notation Text" class="java.lang.String">
+		<field name="notationText" class="java.lang.String">
 			<fieldDescription><![CDATA[notationText]]></fieldDescription>
 		</field>
-		<field name="Status" class="java.lang.String">
+		<field name="status" class="java.lang.String">
 			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Table Dataset 1" uuid="7febb7d9-5650-4b1d-aa3c-1ec95991e72c"/>
-	<parameter name="ADDRESS" class="java.lang.String"/>
-	<parameter name="LODGING_DATE" class="java.util.Date"/>
-	<parameter name="COMMENCING_DATE" class="java.lang.String"/>
-	<parameter name="TIME_DEVELOP" class="java.lang.String"/>
-	<parameter name="VALUE_IMPROV" class="java.lang.String"/>
-	<parameter name="TERM" class="java.lang.String"/>
-	<parameter name="APP_NR" class="java.lang.String"/>
-	<parameter name="LAND_USE" class="java.lang.String"/>
-	<parameter name="PROP_LOCATION" class="java.lang.String"/>
-	<parameter name="SIZE" class="java.math.BigDecimal"/>
-	<parameter name="GROUND_RENT" class="java.lang.String"/>
-	<parameter name="REFNR" class="java.lang.String"/>
-	<parameter name="FRONT_IMAGE" class="java.lang.String"/>
-	<parameter name="BACK_IMAGE" class="java.lang.String"/>
-	<parameter name="FRONT_FLOAT_IMAGE" class="java.lang.String"/>
-	<parameter name="BACK_FLOAT_IMAGE" class="java.lang.String"/>
-	<parameter name="PLAN_NUMBER" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
+	<subDataset name="Interests" uuid="5d787ffd-5e80-45a9-9130-37421bf17904">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="instrRegNum" class="java.lang.String">
+			<fieldDescription><![CDATA[instrRegNum]]></fieldDescription>
+		</field>
+		<field name="rrrType" class="org.sola.clients.beans.referencedata.RrrTypeBean">
+			<fieldDescription><![CDATA[rrrType]]></fieldDescription>
+		</field>
+		<field name="registrationDate" class="java.util.Date">
+			<fieldDescription><![CDATA[registrationDate]]></fieldDescription>
+		</field>
+		<field name="status" class="org.sola.clients.beans.referencedata.RegistrationStatusTypeBean">
+			<fieldDescription><![CDATA[status]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="EMBLEM" class="java.lang.Object"/>
 	<parameter name="STATE" class="java.lang.String"/>
+	<parameter name="REFNR" class="java.lang.String"/>
+	<parameter name="TERM" class="java.lang.String"/>
+	<parameter name="COMMENCING_DATE" class="java.lang.String"/>
+	<parameter name="LAND_USE" class="java.lang.String"/>
+	<parameter name="PARCEL" class="java.lang.String"/>
+	<parameter name="ADDRESS_NOTICES" class="java.lang.String"/>
+	<parameter name="AREA_SQ_METRES" class="java.lang.String"/>
+	<parameter name="LOCATION" class="java.lang.String"/>
 	<parameter name="LGA" class="java.lang.String"/>
-	<parameter name="WARD" class="java.lang.String"/>
+	<parameter name="CERTIFICATE_TYPE" class="java.lang.String"/>
+	<parameter name="ANNUAL_RENT" class="java.lang.String"/>
+	<parameter name="REVIEW_PERIOD" class="java.lang.String"/>
+	<parameter name="CONDITIONS" class="java.lang.String"/>
 	<parameter name="DIAGRAM_IMAGE" class="java.lang.String"/>
+	<parameter name="ADVANCE_PAYMENT" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="baUnitType" class="org.sola.clients.beans.referencedata.BaUnitTypeBean">
-		<fieldDescription><![CDATA[baUnitType]]></fieldDescription>
-	</field>
-	<field name="cadastreObjectFilteredList" class="org.jdesktop.observablecollections.ObservableList">
-		<fieldDescription><![CDATA[cadastreObjectFilteredList]]></fieldDescription>
-	</field>
-	<field name="estateType" class="java.lang.String">
-		<fieldDescription><![CDATA[estateType]]></fieldDescription>
-	</field>
-	<field name="filteredSourceList" class="org.jdesktop.observablecollections.ObservableList">
-		<fieldDescription><![CDATA[filteredSourceList]]></fieldDescription>
-	</field>
-	<field name="name" class="java.lang.String">
-		<fieldDescription><![CDATA[name]]></fieldDescription>
-	</field>
 	<field name="nameFirstpart" class="java.lang.String">
 		<fieldDescription><![CDATA[nameFirstpart]]></fieldDescription>
 	</field>
 	<field name="nameLastpart" class="java.lang.String">
 		<fieldDescription><![CDATA[nameLastpart]]></fieldDescription>
 	</field>
-	<field name="rrrFilteredList" class="org.jdesktop.observablecollections.ObservableList">
-		<fieldDescription><![CDATA[rrrFilteredList]]></fieldDescription>
-	</field>
 	<field name="rrrSharesList" class="org.jdesktop.observablecollections.ObservableList">
 		<fieldDescription><![CDATA[rrrSharesList]]></fieldDescription>
-	</field>
-	<field name="status" class="org.sola.clients.beans.referencedata.RegistrationStatusTypeBean">
-		<fieldDescription><![CDATA[status]]></fieldDescription>
 	</field>
 	<field name="allBaUnitNotationList" class="org.jdesktop.observablecollections.ObservableList">
 		<fieldDescription><![CDATA[allBaUnitNotationList]]></fieldDescription>
 	</field>
+	<field name="rrrFilteredList" class="org.jdesktop.observablecollections.ObservableList">
+		<fieldDescription><![CDATA[rrrFilteredList]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<detail>
-		<band height="842" splitType="Stretch">
+	<title>
+		<band height="147" splitType="Stretch">
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement x="0" y="0" width="595" height="842" uuid="c331bdf6-8546-43a4-b135-dbf1abbdf643"/>
-				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{FRONT_IMAGE})]]></imageExpression>
+				<reportElement x="161" y="1" width="141" height="60" uuid="31c0ed26-c5ff-48c3-bbc0-73050991aefe"/>
+				<imageExpression><![CDATA[$P{EMBLEM}]]></imageExpression>
 			</image>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Opaque" x="150" y="162" width="295" height="22" backcolor="#FFFFFF" uuid="4bd2aeb3-76cb-43bc-89ff-9cf143e7e3bb"/>
-				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="0" y="64" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="713194c5-5938-443d-bb11-5d48aea765c1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{STATE}+" State"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{STATE}+" State of Nigeria"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="417" y="15" width="63" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="c2a4bcae-669e-4f17-b201-630909872b91"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Tahoma" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REFNR}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="379" y="44" width="101" height="15" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="d88e0f8a-26e7-4bbd-a560-5b5c4183f548"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Tahoma" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nameFirstpart}+"/"+ $F{nameLastpart}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="418" y="2" width="62" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="e329a142-30a5-40ea-a500-93935efb0870"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Tahoma" size="8" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CofO Number"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="399" y="30" width="81" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="1a559fe1-24ff-43f2-b2b6-dc51183d448d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Tahoma" size="8" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Regn. Vol/Folio"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="0" y="81" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="dd254bea-fa00-4281-a328-e1e455d1d6e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["The Land Use Decree No. 6 of 1978"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="39" y="272" width="533" height="284" uuid="849cceee-b619-4273-b20c-f27d19cb544e"/>
-				<textElement>
-					<font fontName="Nyala" size="11"/>
-					<paragraph lineSpacing="Single"/>
+				<reportElement x="0" y="99" width="480" height="30" forecolor="#000000" uuid="10151749-1c08-41df-a5ef-13a08a9f3a8c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
-				<text><![CDATA[Hereafter called "the holder" is entitled to a right of occupancy of and over land described in the First Schedule for the terms and conditions stated herein:
-
-Term:
-
-Commencement Date:
-
-Subject to the statutory conditions listed in the Third Schedule and any and all of the following specific conditions:
-
-1. The permitted land use shall be:
-
-2. To pay an annual ground rent of:
-
-or such other amounts as may be reassessed, in advance on or before the first day of January
-
-Given under my hand on:
-]]></text>
+				<text><![CDATA[CERTIFICATE OF OCCUPANCY]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="560" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="42" width="175" height="18" uuid="a6dc4b8f-f31d-4961-931e-e359eb4c056b"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Tahoma" size="13" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[RIGHT OF OCCUPANCY :]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="248" y="375" width="200" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="51904640-c519-4713-b606-12c8cc3481f9"/>
-				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
-					<font fontName="Nyala" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				<reportElement mode="Transparent" x="0" y="62" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="01315cb7-187d-456e-a754-a0a0ed02ee00"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Term: " + $P{TERM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="171" width="175" height="18" uuid="e0229f8e-d0ac-42cf-a781-6432c0f4943f"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Tahoma" size="13" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[LAND :]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="0" y="80" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="b30ae0aa-f2fe-4e6c-9826-950c0784a896"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Commencing: " + $P{COMMENCING_DATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="0" y="99" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="851ee4a0-474e-4621-9a7d-b8a49e0d3f42"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{LAND_USE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="169" y="299" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="23ee43a8-83f5-4a0a-a150-830ce7050ea1"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Nyala" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				<reportElement mode="Transparent" x="0" y="152" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="1302a32b-45d0-4e9e-99ed-af8befcf27e0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{TERM}+" years"]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="295" y="57" width="268" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b9c09534-734f-42f9-ad33-a603cf578daa"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Nyala" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single" rightIndent="20"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{REFNR}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ADDRESS_NOTICES}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="248" y="398" width="214" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="15c375b8-6409-4aef-a02c-d56207ba78b7">
-					<printWhenExpression><![CDATA[!$P{GROUND_RENT}.equals( "0" )]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
-					<font fontName="Nyala" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				<reportElement mode="Transparent" x="0" y="190" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="0c4c60b8-f753-4d47-aec9-071858d81d2d"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{GROUND_RENT}+" "+$R{currency}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Parcel: " + $P{PARCEL}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="false">
-				<reportElement positionType="Float" x="169" y="319" width="136" height="20" forecolor="#000000" uuid="55704ded-531e-42ef-9a5b-90256780711d"/>
-				<textElement verticalAlignment="Bottom">
-					<font fontName="Nyala" size="11" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{COMMENCING_DATE}]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="39" y="216" width="200" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="36e9bed0-db3f-46e8-a8b4-f7ba3ced0eb9"/>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="0" y="208" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="3be6157f-3097-4004-977c-6d1621ff6efe"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single" leftIndent="5"/>
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["This is to certify that:"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{AREA_SQ_METRES}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="418" y="537" width="120" height="1" uuid="f376a489-e243-45b6-ba27-c763b55a2211"/>
-			</line>
-			<frame>
-				<reportElement positionType="Float" x="39" y="598" width="551" height="116" uuid="e78a9f2e-3d99-4155-a669-122fde50b2ea"/>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="0" y="17" width="200" height="20" backcolor="#FFFFFF" uuid="54fb2e76-27d8-48e6-9d03-e4eeeb053556"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA["All that piece of land situated in the"]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="0" y="41" width="130" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="a28fd408-e27d-4d5e-b282-81cf6976a7e3"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Local Government Area: "]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="125" y="41" width="121" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="03235d13-23ca-4096-9406-e1443494aabb"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{LGA}]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="0" y="62" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="52f37a37-c5cf-4220-be29-26e15023df71"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA["State: "]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="100" y="63" width="151" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="3549238d-bcd2-42bf-bc53-dc9678f9d725"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{STATE}]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="0" y="81" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="c07f884a-b55f-4427-9756-e4d8e60dd023"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Parcel Number: "]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="265" y="64" width="65" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="a41d3b7c-547a-4546-97a8-c1b6b30e4762"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Location: "]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="265" y="42" width="185" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="943a9a04-c5fb-4e56-a08b-3782b4c31d89"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Approximate Area (in square metres): "]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="266" y="85" width="267" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="5d7ef72f-c07d-48b1-8b74-da26b664dc02"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
-						<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA["as more particularly shown on attached Plan"]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="100" y="84" width="156" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="17d45c42-9f21-418e-9ccd-212314f0ba82"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement positionType="Float" mode="Transparent" x="450" y="43" width="101" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="da0563aa-893b-47a2-acfd-01f4e03e9032"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{SIZE}]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement positionType="Float" mode="Transparent" x="330" y="66" width="220" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="20a2d09d-4c9c-4008-bcfe-e8e1de6abf96"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-						<font fontName="Nyala" size="10" isBold="true" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{PROP_LOCATION}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement positionType="Float" x="180" y="1" width="107" height="16" uuid="75d567e2-f9fb-4d54-b94f-ea070b508eaa"/>
-					<textElement>
-						<font fontName="Nyala" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["FIRST SCHEDULE"]]></textFieldExpression>
-				</textField>
-			</frame>
-			<staticText>
-				<reportElement x="448" y="539" width="54" height="20" uuid="816942aa-1f6e-45ea-b55e-b0cf5caca56e"/>
-				<textElement>
-					<font fontName="Nyala" size="11"/>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="0" y="226" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="bd93e8e2-88d1-4866-aae5-6ae37b4d5f93"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Governor]]></text>
+				<textFieldExpression><![CDATA[$P{LOCATION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="0" y="243" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="1ba6f3da-58e5-4bd3-8864-4a499e945ed0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{LGA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="256" width="175" height="18" uuid="1914c18a-24b0-4e2d-bb0b-57e8ed204a1d"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Tahoma" size="13" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[RIGHTHOLDERS :]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement key="table" style="table" positionType="Float" x="39" y="237" width="533" height="30" uuid="b6478bdc-6bf3-4cf1-afe5-da987a638250"/>
+				<reportElement key="table 1" style="table" x="2" y="280" width="480" height="47" uuid="0cda04f5-0b08-4a10-a98f-cd187f9f4ba7"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Ownership" uuid="efbe276b-6fc9-4948-b31d-510200d46ab8">
+					<datasetRun subDataset="Ownership" uuid="590acba3-116e-46c7-a533-d703773c1b41">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{rrrSharesList}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="532" uuid="3706dc3a-baed-42e2-a437-f2dab9d79ac7">
-						<jr:detailCell style="table_TD" height="22" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement positionType="Float" x="0" y="0" width="532" height="22" uuid="9d120150-24fd-4f9a-8277-3b72e89d6e20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Nyala" size="13"/>
+					<jr:column width="550" uuid="16602148-4158-4ca8-9e65-d330dc77ba0d">
+						<jr:detailCell style="table 1" height="22" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" x="0" y="0" width="480" height="22" uuid="765edc27-5393-4329-8a4b-6658e1cebe16"/>
+								<textElement>
+									<font fontName="Tahoma" pdfFontName="Times-Roman"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{Owners}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
-			<frame>
-				<reportElement x="225" y="129" width="100" height="20" uuid="eb2ea1a6-921e-4efc-8c56-7d98ec1fd6bc"/>
-			</frame>
-		</band>
-		<band height="842">
-			<image scaleImage="RetainShape" hAlign="Center" vAlign="Top">
-				<reportElement x="0" y="0" width="595" height="842" uuid="4e9dfc31-4d6a-448e-8638-cf2d2e9eb334"/>
-				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromLocation($P{BACK_IMAGE})]]></imageExpression>
-			</image>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="164" y="78" width="119" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="228555ea-c97b-40af-8550-5a4d95468dcc"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Nyala" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="0" y="134" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="9f1ad044-87e3-4fe9-a1cd-945484fb0ec3"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["SECOND SCHEDULE - "]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Transparent" x="295" y="78" width="217" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="87cc774e-5b2f-4011-a6f7-3783afa6f260"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Nyala" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["OTHER INTERESTS"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{REVIEW_PERIOD}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="375" y="54" width="188" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="ad4cee38-f937-4348-a3c5-90c44e89177a"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Nyala" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single" rightIndent="20"/>
+				<reportElement mode="Transparent" x="0" y="116" width="480" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="0a7d61d2-abdb-41da-8f5c-1c1878c4bdfe"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{REFNR}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ANNUAL_RENT}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="351" width="480" height="18" uuid="3b0a1bb6-e7ae-4a9f-bd44-1b4af7b6bcbd"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DATED the         day of                         20]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="369" width="480" height="18" uuid="d67fbb81-1a19-49cd-bde6-82c81095305b"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Given under my hand]]></text>
+			</staticText>
 			<textField>
-				<reportElement positionType="Float" mode="Opaque" x="52" y="171" width="491" height="273" uuid="3629228d-6ff1-4b52-80f8-04353c97da4d"/>
-				<textElement textAlignment="Left">
-					<font fontName="Nyala" size="11"/>
+				<reportElement isPrintRepeatedValues="false" x="1" y="506" width="480" height="18" isPrintInFirstWholeBand="true" uuid="de64803a-d5bb-4850-bbb2-80b576e9c9ce"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma"/>
 				</textElement>
-				<textFieldExpression><![CDATA["1.     To pay and discharge all rates, taxes, assessments and impositions whatsoever which shall at all\n"+
-"       times be charged, assessed or imposed on the said land or any part thereof or any building thereon \n"+
-"       or upon the occupier or occupiers thereof.\n"+
-"\n"+
-"2.     To pay penal rent of 20% in respect of any payment made after 31st March each year.\n"+
-"\n"+
-"3.     Not to subdivide the land or erect or build or permit to be erected or built on the land, buildings\n"+
-"       other than those permitted to be erected by virtue of this Certificate of Occupancy nor to make or\n"+
-"       permit to be made any addition or alteration to the said buildings already erected on the land except\n"+
-"       in accordance with plans and specifications approved by the planning authority.\n"+
-"\n"+
-"4.     To maintain in good and substantial repair to the satisfaction of the Commissioner or any other\n"+
-"       officer appointed by the Governor, all buildings on the said land and appurtenances thereto, and to\n"+
-"       do other works, properly maintained in clean and sanitary condition all of the land and surroundings\n"+
-"       of the buildings.\n"+
-"\n"+
-"5.     To keep the exterior and interior of the building/s to be erected and all outbuildings and erections\n"+
-"       which may at any time during the term of the grant be erected on the land and the fencing and\n"+
-"       appurtenances in good and tenantable repair and condition.\n"+
-"\n"+
-"6.     The holder shall not transfer this title or any part thereof by sale, assignment, mortgage, transfer\n"+
-"       of possession, sub-lease or bequest, or otherwise howsoever without the prior consent of the\n"+
-"       Government."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Executive Governor, " + $P{STATE} + " State"]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="480" height="38" uuid="cee97cc9-ab18-42ec-8fe5-bba1b5a530de"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Tahoma" size="10" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[This certifies that subject to the Land Use Act No. 6 of 1978 a statutory right of occupancy has been granted to the persons identified herein over the land described and subject to the terms and conditions as also stated herein.]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="0" y="-16" width="480" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="3f34d97c-7ab1-45be-bf6a-d21c0d3e00cf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Tahoma" size="11" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["("+$P{CERTIFICATE_TYPE}+")"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="540" width="100" height="1" uuid="7c0f4248-566a-4f46-95de-45374b99c13d"/>
+			</break>
+		</band>
+		<band height="56">
+			<staticText>
+				<reportElement x="0" y="1" width="177" height="18" uuid="e7dea381-dce8-4ce1-a1e0-e908284472f1"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Tahoma" size="13" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[CONDITIONS :]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="50" width="100" height="1" uuid="55a65f9c-3883-4fd0-bdda-e719a1b3c575"/>
+			</break>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="23" width="480" height="20" forecolor="#000000" uuid="2bdbc9df-c00d-4545-a97b-718e0f8e07b1"/>
+				<textFieldExpression><![CDATA[$P{CONDITIONS}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="233">
 			<componentElement>
-				<reportElement key="table" style="table" stretchType="RelativeToBandHeight" x="57" y="109" width="481" height="42" uuid="e9aa18eb-58fb-4edc-80b1-41b07a5b5cad"/>
+				<reportElement key="table 5" positionType="Float" x="0" y="54" width="475" height="30" uuid="70b156f2-0d99-4ea3-bf5a-fd69ca25e270"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Notations" uuid="bb37123c-2343-46d9-ba3e-be41b482c0d7">
+					<datasetRun subDataset="Notations" uuid="171357e6-2580-47fc-acc3-266c526a2e88">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{allBaUnitNotationList}.toArray())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="479" uuid="6b1b4223-bb46-4b6a-b55d-c6d19d142988">
-						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="479" height="20" uuid="e6b783d0-5e3a-444c-bba1-632de05fcac6">
-									<printWhenExpression><![CDATA[!$F{Notation Text}.equals( "Certificate of Occupancy issued at the completion of systematic land registration titling" )&&($F{Notation Text}.contains( "Mortage")||$F{Notation Text}.contains( "Lease" )||$F{Notation Text}.contains( "Access" )||$F{Notation Text}.contains( "Water" )||$F{Notation Text}.contains( "Caveat" )||$F{Notation Text}.contains( "Road" )||$F{Notation Text}.contains( "Lien" )||$F{Notation Text}.contains( "Occupation" )||$F{Notation Text}.contains( "Servitude" )||$F{Notation Text}.contains( "Usufruct" ))]]></printWhenExpression>
-								</reportElement>
-								<textElement>
-									<font fontName="Nyala" size="11"/>
-								</textElement>
-								<textFieldExpression><![CDATA["- "+$F{Notation Text}]]></textFieldExpression>
+					<jr:column width="478" uuid="3fbe713b-159f-4e44-be28-084fa0f551bb">
+						<jr:detailCell height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="470" height="20" uuid="aae5d88f-d1b0-4156-9ce1-ff613f2ad0a9"/>
+								<textFieldExpression><![CDATA[($F{notationText}.equals("Statutory Right of Occupancy") ?  "No notations recorded" :
+(($F{ref} == null ? "" : $F{ref}+ " ") +
+($F{notationText} == null ? "" : $F{notationText}+ " ") +
+($F{status} == null ? "" : "[" + $F{status}+ "]")))]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Transparent" x="164" y="150" width="105" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="06c0826f-7f8a-4cbd-9afb-eff5f9429eb4"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Nyala" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
+			<componentElement>
+				<reportElement key="table 5" positionType="Float" x="0" y="191" width="480" height="23" uuid="967c9c36-6903-4644-bb72-400ebbc9562d"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Interests" uuid="64c92f61-c852-47b1-929b-ce7f1bd6ec40">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource($F{rrrFilteredList}.toArray())]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="422" uuid="4ea56c2e-53ed-4575-b71d-4687e79c1e9b">
+						<jr:detailCell height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="422" height="20" uuid="761258b9-cfb2-44e0-89d2-e13396df5a42"/>
+								<textFieldExpression><![CDATA[($F{status}.equals("Pending") ?  
+(($F{instrRegNum} == null ? "" : $F{instrRegNum}+ " ") +
+($F{rrrType} == null ? "" : $F{rrrType}+ " registered on ") +
+($F{registrationDate} == null ? "" : (new SimpleDateFormat("dd MMMMM yyyy HH:mm").format($F{registrationDate}) + " ")) +
+($F{status} == null ? "" : "[" + $F{status}+ "]")):"No Registered Interests")]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<break>
+				<reportElement x="0" y="225" width="100" height="1" uuid="5978e954-d9f5-45b2-89b6-fd63ed0ff51a"/>
+			</break>
+			<staticText>
+				<reportElement x="2" y="25" width="175" height="18" uuid="356a57f3-119c-4fb9-8219-7864897c490c"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Tahoma" size="13" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
-				<textFieldExpression><![CDATA["THIRD SCHEDULE - "]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Transparent" x="239" y="446" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="d52cc70e-f4c7-46d2-b769-fb36ba8d57cc"/>
-				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
+				<text><![CDATA[NOTATIONS :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="2" y="161" width="175" height="18" uuid="5d7e5f83-93fc-47d2-8ab1-0261105ecdb0"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Tahoma" size="13" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
-				<textFieldExpression><![CDATA["REGISTRATION"]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Transparent" x="295" y="150" width="217" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="9c91cb9d-e451-42fa-82b2-3ffdc537c3e8"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Nyala" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["STATUTORY CONDITIONS"]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="53" y="467" width="490" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="5faf219f-36bd-4a54-8fb1-3c0a8b16d32e"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["This instrument was delivered for registration by the Examiner of Deeds on:"]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="54" y="484" width="490" height="34" forecolor="#000000" backcolor="#FFFFFF" uuid="314eecc3-f181-4f3b-93de-ee8350f927c5"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Time:\n"
-+
-"Date:"]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="53" y="520" width="490" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="81986c4f-f659-491c-90a2-aa68bd0c1f11"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["This instrument is registered as"]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="52" y="535" width="490" height="35" forecolor="#000000" backcolor="#FFFFFF" uuid="077015dd-f138-44ba-8807-21732c0c5811"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Instrument Number:\n"
-+
-"Volume:                                                           Folio/Page:"]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="53" y="571" width="490" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="64e2ece2-48f9-48fb-a925-b5eb82be0018"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["(Certificate of Occupancy) at the Deeds Registry on:"]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Opaque" x="53" y="587" width="309" height="34" forecolor="#000000" backcolor="#FFFFFF" uuid="64151cea-c802-4416-aa0e-3a004c293b4a"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Time:\n"
-+
-"Date:"]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement positionType="Float" mode="Transparent" x="418" y="621" width="100" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="76a26cb1-e20d-420c-91db-f173e249fce8"/>
-				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Nyala" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Deeds Registrar"]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="385" y="620" width="157" height="1" uuid="7b3524a7-0d9a-4840-87b5-fa23d7f1b5d8"/>
-			</line>
+				<text><![CDATA[REGISTERED INTERESTS :]]></text>
+			</staticText>
 		</band>
-		<band height="842">
-			<image>
-				<reportElement x="0" y="0" width="595" height="842" isRemoveLineWhenBlank="true" uuid="c2a93fa7-3259-4664-b562-d9474ca4826b">
+		<band height="660">
+			<staticText>
+				<reportElement x="0" y="36" width="175" height="18" uuid="04622eb2-6863-49f9-949b-b3fcdfcd0f33"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Tahoma" size="13" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[DIAGRAM :]]></text>
+			</staticText>
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="83" width="475" height="517" isRemoveLineWhenBlank="true" uuid="12ee8a31-9728-412c-9c42-17d64ffdf06e">
 					<printWhenExpression><![CDATA[!$P{DIAGRAM_IMAGE}.equalsIgnoreCase(null)]]></printWhenExpression>
 				</reportElement>
 				<imageExpression><![CDATA[$P{DIAGRAM_IMAGE}]]></imageExpression>
 			</image>
+			<break>
+				<reportElement x="0" y="628" width="100" height="1" uuid="e95e9d77-dc5a-4ba9-aef7-a519151719c4"/>
+			</break>
+		</band>
+		<band height="440">
 			<staticText>
-				<reportElement mode="Transparent" x="-3" y="54" width="184" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="9d4e79ae-9637-4400-887f-95db21908036"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Nyala" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
+				<reportElement x="0" y="21" width="226" height="18" uuid="71fa196d-7fab-4921-b60e-19824fbbbf8a"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Tahoma" size="13" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
-				<text><![CDATA[DIAGRAM]]></text>
+				<text><![CDATA[REGISTRATION OF CERTIFICATE : :]]></text>
 			</staticText>
-			<textField pattern="" isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Transparent" x="183" y="54" width="306" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="c3f3f52e-7510-4406-a289-99ca3a0c848c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-					<font fontName="Nyala" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					<paragraph lineSpacing="Single"/>
+			<textField>
+				<reportElement x="0" y="56" width="480" height="44" uuid="675a04b1-1041-4fbb-bb63-b4e097ce62c4"/>
+				<textElement>
+					<font fontName="Tahoma"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nameLastpart}+"/"+ $F{nameFirstpart}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["This certificate has been registered " + " and is held in Volume " + $F{nameFirstpart} + " Folio " + $F{nameLastpart} +" (Certificate of Occupancy) in the " + $P{STATE} + " Land Registry."]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="186" width="480" height="20" uuid="aab558c0-e86c-4eab-aad3-d00353c643c1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Deeds Registrar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="221" width="480" height="20" uuid="f9bc06b8-7230-4192-8f5b-4235af298334"/>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement positionType="Float" x="0" y="18" width="226" height="14" uuid="622798e0-42cb-40a3-ab9d-94496489954e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+					<font fontName="Tahoma" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Generated by "+ $P{USER} +" on "+ (new SimpleDateFormat("dd MMMMM yyyy HH:mm").format(new java.util.Date()))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="15" width="80" height="20" uuid="598e6b25-7f4a-49f5-b159-bfefea26ac15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="439" y="15" width="40" height="20" uuid="6c5f1a5d-964b-43ba-9645-7c94d0d1013f"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 </jasperReport>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CofO" pageWidth="595" pageHeight="850" columnWidth="480" leftMargin="65" rightMargin="50" topMargin="20" bottomMargin="20" uuid="7e437324-9a14-4a89-98d8-e5b069b6221f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="577"/>
+	<property name="ireport.y" value="843"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="0.0" lineColor="#000000"/>
@@ -138,23 +138,6 @@
 			<fieldDescription><![CDATA[status]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="Interests" uuid="e35d427c-5fbf-4cf6-a59d-c8c2cdd8a70f">
-		<queryString>
-			<![CDATA[]]>
-		</queryString>
-		<field name="rrrType" class="java.lang.String">
-			<fieldDescription><![CDATA[rrrType.displayValue]]></fieldDescription>
-		</field>
-		<field name="registrationDate" class="java.util.Date">
-			<fieldDescription><![CDATA[registrationDate]]></fieldDescription>
-		</field>
-		<field name="status" class="java.lang.String">
-			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
-		</field>
-		<field name="instrRegNum" class="java.lang.String">
-			<fieldDescription><![CDATA[instrRegNum]]></fieldDescription>
-		</field>
-	</subDataset>
 	<subDataset name="Notations" uuid="39a7e5e3-b924-471b-b9af-03fa970e984b">
 		<field name="ref" class="java.lang.String">
 			<fieldDescription><![CDATA[referenceNr]]></fieldDescription>
@@ -164,6 +147,23 @@
 		</field>
 		<field name="status" class="java.lang.String">
 			<fieldDescription><![CDATA[status.displayValue]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="Interests" uuid="5d787ffd-5e80-45a9-9130-37421bf17904">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="instrRegNum" class="java.lang.String">
+			<fieldDescription><![CDATA[instrRegNum]]></fieldDescription>
+		</field>
+		<field name="rrrType" class="org.sola.clients.beans.referencedata.RrrTypeBean">
+			<fieldDescription><![CDATA[rrrType]]></fieldDescription>
+		</field>
+		<field name="registrationDate" class="java.util.Date">
+			<fieldDescription><![CDATA[registrationDate]]></fieldDescription>
+		</field>
+		<field name="status" class="org.sola.clients.beans.referencedata.RegistrationStatusTypeBean">
+			<fieldDescription><![CDATA[status]]></fieldDescription>
 		</field>
 	</subDataset>
 	<parameter name="USER" class="java.lang.String"/>
@@ -183,6 +183,7 @@
 	<parameter name="REVIEW_PERIOD" class="java.lang.String"/>
 	<parameter name="CONDITIONS" class="java.lang.String"/>
 	<parameter name="DIAGRAM_IMAGE" class="java.lang.String"/>
+	<parameter name="ADVANCE_PAYMENT" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -456,7 +457,10 @@
 						<jr:detailCell height="20" rowSpan="1">
 							<textField isStretchWithOverflow="true">
 								<reportElement x="0" y="0" width="470" height="20" uuid="aae5d88f-d1b0-4156-9ce1-ff613f2ad0a9"/>
-								<textFieldExpression><![CDATA[$F{ref} + " " + $F{notationText} + " (" + $F{status} + ")"]]></textFieldExpression>
+								<textFieldExpression><![CDATA[($F{notationText}.equals("Statutory Right of Occupancy") ?  "No notations recorded" :
+(($F{ref} == null ? "" : $F{ref}+ " ") +
+($F{notationText} == null ? "" : $F{notationText}+ " ") +
+($F{status} == null ? "" : "[" + $F{status}+ "]")))]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -472,7 +476,11 @@
 						<jr:detailCell height="20" rowSpan="1">
 							<textField isStretchWithOverflow="true">
 								<reportElement x="0" y="0" width="422" height="20" uuid="761258b9-cfb2-44e0-89d2-e13396df5a42"/>
-								<textFieldExpression><![CDATA[$F{instrRegNum} + " " + $F{rrrType} + " registered on " + (new SimpleDateFormat("dd MMMMM yyyy HH:mm").format($F{registrationDate})) + " (" + $F{status} + ")"]]></textFieldExpression>
+								<textFieldExpression><![CDATA[($F{status}.equals("Pending") ?  
+(($F{instrRegNum} == null ? "" : $F{instrRegNum}+ " ") +
+($F{rrrType} == null ? "" : $F{rrrType}+ " registered on ") +
+($F{registrationDate} == null ? "" : (new SimpleDateFormat("dd MMMMM yyyy HH:mm").format($F{registrationDate}) + " ")) +
+($F{status} == null ? "" : "[" + $F{status}+ "]")):"No Registered Interests")]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
