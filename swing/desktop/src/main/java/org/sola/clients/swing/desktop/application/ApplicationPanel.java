@@ -2590,7 +2590,6 @@ public class ApplicationPanel extends ContentPanel {
         jPanel2.setName("jPanel2"); // NOI18N
 
         formTxtServiceFee.setEditable(false);
-        formTxtServiceFee.setFormatterFactory(FormattersFactory.getInstance().getMoneyFormatterFactory());
         formTxtServiceFee.setInheritsPopupMenu(true);
         formTxtServiceFee.setName("formTxtServiceFee"); // NOI18N
 
@@ -2601,7 +2600,6 @@ public class ApplicationPanel extends ContentPanel {
         formTxtServiceFee.setHorizontalAlignment(JFormattedTextField.LEADING);
 
         formTxtTaxes.setEditable(false);
-        formTxtTaxes.setFormatterFactory(FormattersFactory.getInstance().getMoneyFormatterFactory());
         formTxtTaxes.setInheritsPopupMenu(true);
         formTxtTaxes.setName("formTxtTaxes"); // NOI18N
 
@@ -2612,7 +2610,6 @@ public class ApplicationPanel extends ContentPanel {
         formTxtTaxes.setHorizontalAlignment(JFormattedTextField.LEADING);
 
         formTxtFee.setEditable(false);
-        formTxtFee.setFormatterFactory(FormattersFactory.getInstance().getMoneyFormatterFactory());
         formTxtFee.setName("formTxtFee"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${totalFee}"), formTxtFee, org.jdesktop.beansbinding.BeanProperty.create("value"));
@@ -2657,7 +2654,6 @@ public class ApplicationPanel extends ContentPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appBean, org.jdesktop.beansbinding.ELProperty.create("${feePaid}"), cbxPaid, org.jdesktop.beansbinding.BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
-        formTxtPaid.setFormatterFactory(FormattersFactory.getInstance().getMoneyFormatterFactory());
         formTxtPaid.setText(bundle.getString("ApplicationPanel.formTxtPaid.text")); // NOI18N
         formTxtPaid.setName(bundle.getString("ApplicationPanel.formTxtPaid.name")); // NOI18N
 

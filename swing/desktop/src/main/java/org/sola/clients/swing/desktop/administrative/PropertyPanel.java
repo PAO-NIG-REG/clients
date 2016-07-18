@@ -103,7 +103,6 @@ import org.sola.webservices.transferobjects.cadastre.SpatialValueAreaTO;
  */
 public class PropertyPanel extends ContentPanel {
 
-   
     /**
      * Listens for events of different right forms, to add created right into
      * the list of rights or update existing one.
@@ -132,8 +131,6 @@ public class PropertyPanel extends ContentPanel {
     private PropertyChangeListener newPropertyWizardListener;
     public BaUnitBean whichBaUnitSelected;
     private boolean isBtnNext = false;
-    
-   
 
     /**
      * Creates {@link BaUnitBean} used to bind form components.
@@ -226,6 +223,17 @@ public class PropertyPanel extends ContentPanel {
         resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
         initComponents();
         portInit();
+        if (applicationService != null) {
+        if (applicationService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_NEW_FREEHOLD)) {
+            this.cbxRightType.setEnabled(false);
+            this.cbxRightType.setEditable(false);
+            for (RrrTypeBean rrrType : this.rrrTypes.getRrrTypeBeanList()) {
+                if (rrrType.getCode().contentEquals("ownership")) {
+                    this.rrrTypes.setSelectedRrrType(rrrType);
+                }
+            }
+        }
+        }
     }
 
     /**
@@ -254,6 +262,18 @@ public class PropertyPanel extends ContentPanel {
         resourceBundle = java.util.ResourceBundle.getBundle("org/sola/clients/swing/desktop/administrative/Bundle");
         initComponents();
         portInit();
+
+        if (applicationService != null) {
+        if (applicationService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_NEW_FREEHOLD)) {
+            this.cbxRightType.setEnabled(false);
+            this.cbxRightType.setEditable(false);
+            for (RrrTypeBean rrrType : this.rrrTypes.getRrrTypeBeanList()) {
+                if (rrrType.getCode().contentEquals("ownership")) {
+                    this.rrrTypes.setSelectedRrrType(rrrType);
+                }
+            }
+        }
+        }
 
     }
 
@@ -319,7 +339,7 @@ public class PropertyPanel extends ContentPanel {
      * the {@link BaUnitBean} and other components.
      */
     private void customizeForm() {
-        
+
         this.jPanel12.setVisible(false);
         this.jPanel12.setEnabled(false);
         if (nameFirstPart != null && nameLastPart != null) {
@@ -374,19 +394,18 @@ public class PropertyPanel extends ContentPanel {
             // User does not have rights to view the map
             tabsMain.removeTabAt(tabsMain.indexOfComponent(mapPanel));
         }
-        
-        if (baUnitBean1.getCadastreObjectFilteredList()!=null && baUnitBean1.getCadastreObjectFilteredList().size()>0 ) {
-            for (CadastreObjectBean co : baUnitBean1.getCadastreObjectFilteredList()) { 
-                if (co.getNameFirstpart()==null) {
+
+        if (baUnitBean1.getCadastreObjectFilteredList() != null && baUnitBean1.getCadastreObjectFilteredList().size() > 0) {
+            for (CadastreObjectBean co : baUnitBean1.getCadastreObjectFilteredList()) {
+                if (co.getNameFirstpart() == null) {
                     co.setNameFirstpart("");
                 }
-                if (co.getNameLastpart()==null) {
+                if (co.getNameLastpart() == null) {
                     co.setNameLastpart("");
                 }
-            }   
+            }
         }
-        
-        
+
         customizeRightsButtons(null);
         customizeNotationButtons(null);
         customizeRightTypesList();
@@ -406,8 +425,7 @@ public class PropertyPanel extends ContentPanel {
 //        TO BE REMOVED btnNext after well tested and before pushing the code
         btnNext.setVisible(false);
         btnNext.setEnabled(false);
-        
-        
+
         btnCertificate.setVisible(false);
 
     }
@@ -949,7 +967,7 @@ public class PropertyPanel extends ContentPanel {
     private void print() {
         if (ApplicationServiceBean.saveInformationService(RequestTypeBean.CODE_TITLE_SERACH)) {
             showReport(ReportManager.getBaUnitReport(getBaUnit(
-//                     showReport(ReportManager.getBaUnitReportStandard(getBaUnit(
+                    //                     showReport(ReportManager.getBaUnitReportStandard(getBaUnit(
                     baUnitBean1.getNameFirstpart(), baUnitBean1.getNameLastpart())));
 
         }
@@ -1048,21 +1066,18 @@ public class PropertyPanel extends ContentPanel {
             return;
         }
         if (applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_NEW_FREEHOLD)) {
-                if (!baUnitBean1.isValidNewCofO()) {
+            if (!baUnitBean1.isValidNewCofO()) {
                 return;
             }
         } else {
             if (!baUnitBean1.isValid()) {
                 return;
             }
-      }
+        }
         if (applicationService.getRequestTypeCode().contains("systematicRegn")) {
             calculateAreaSysreg();
         }
-        
-        
 
-        
         if (txtArea.isEditable() || isBtnNext) {
 
             if (baUnitAreaBean1 == null) {
