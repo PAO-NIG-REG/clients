@@ -197,7 +197,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 //    }
 
     private String location;
-    private String title = "Document(s) for Work Unit ";
+    private String title = "CofO ";
     private String nr;
     private String tmpLocation = "";
     private static String cachePath = System.getProperty("user.home") + "/sola/cache/documents/";
@@ -309,7 +309,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
 
     private void showDocMessage(String fileName, String prevCofO) {
 
-        String params = this.title + ":  " + fileName;
+        String params =  fileName;
         MessageUtility.displayMessage(ClientMessage.SOURCE_SYS_REP_GENERATED, new Object[]{params, prevCofO});
 
     }
@@ -422,7 +422,10 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
                 )
                 {
                     List<BaUnitBean> baUnitList = BaUnitBean.getBaUnitsByServiceId(appService.getId());
-                    baUnitId = baUnitList.get(0).getId();
+                    System.out.println("baUnitList.size()   "+baUnitList.size());
+                    if (baUnitList.size()>0){
+                     baUnitId = baUnitList.get(0).getId();
+                    }
                 }
             }
 
@@ -436,6 +439,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             this.reportTogenerate = this.reportTogenerate.replace("/", "_");
 
             CofO = ReportManager.getCofO(baUnit);
+            this.title = "CofO for Volume: "+baUnit.getNameFirstpart().toString()+" Folio: "+baUnit.getNameLastpart().toString();
             showReport(CofO, this.whichReport);
             jprintlist.add(CofO);
 
@@ -443,7 +447,7 @@ public class SysRegCertParamsForm extends javax.swing.JDialog {
             if (i == 0) {
                 MessageUtility.displayMessage(ClientMessage.NO_CERTIFICATE_GENERATION);
             } else {
-                showDocMessage(this.tmpLocation, prevCofO.toString());
+                showDocMessage(this.title, prevCofO.toString());
 
             }
 

@@ -4,12 +4,12 @@
     <parent>
         <artifactId>sola-clients</artifactId>
         <groupId>org.sola</groupId>
-        <version>1607c</version>
+        <version>1607d</version>
     </parent>
 
     <groupId>org.sola.clients</groupId>
     <artifactId>sola-desktop-web-start</artifactId>
-    <version>1607c</version>
+    <version>1607d</version>
     <packaging>war</packaging>
 
     <name>Clients Desktop Web Start</name>
@@ -17,7 +17,7 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <solaVersion>1607c</solaVersion>
+        <solaVersion>1607d</solaVersion>
         <webstart.codesigning.keystore>${basedir}/sola.jks</webstart.codesigning.keystore>
         <webstart.codesigning.alias>sola</webstart.codesigning.alias>
         <webstart.codesigning.storepass>FLOSS2011</webstart.codesigning.storepass>
@@ -80,9 +80,9 @@
                     <templateDirectory>${project.basedir}/template</templateDirectory>
                     <updateManifestEntries>
                         <Permissions>all-permissions</Permissions>
-                        <Codebase>*.localhost *.flossola.org *.solaproduction *.solatest</Codebase>
+                        <Codebase>*.localhost *.flossola.org *.solaproduction *.solatest *.192.168.0.50</Codebase>
                         <Application-Name>SOLA FAO</Application-Name>
-                        <Application-Library-Allowable-Codebase>*.localhost *.flossola.org *.solaproduction *.solatest</Application-Library-Allowable-Codebase>
+                        <Application-Library-Allowable-Codebase>*.localhost *.flossola.org *.solaproduction *.solatest *.192.168.0.50</Application-Library-Allowable-Codebase>
                     </updateManifestEntries>
                     <libPath>lib</libPath>
                     <!-- 1 Feb 2014 - The pack200 option was updated in version 1.0-beta-4 of the

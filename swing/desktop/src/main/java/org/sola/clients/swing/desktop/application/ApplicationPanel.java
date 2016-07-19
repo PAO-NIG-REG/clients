@@ -275,6 +275,8 @@ public class ApplicationPanel extends ContentPanel {
         customizePropertyButtons();
         customizeParcelsButtons();
         customizeAddParcelButton();
+        btnAddParcel1.setEnabled(false);
+        btnAddParcel1.setVisible(false);
     }
 
     /**
@@ -2470,6 +2472,7 @@ public class ApplicationPanel extends ContentPanel {
 
         btnAddParcel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/new.png"))); // NOI18N
         btnAddParcel1.setText(bundle.getString("ApplicationPanel.btnAddParcel1.text")); // NOI18N
+        btnAddParcel1.setEnabled(false);
         btnAddParcel1.setFocusable(false);
         btnAddParcel1.setName("btnAddParcel1"); // NOI18N
         btnAddParcel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
