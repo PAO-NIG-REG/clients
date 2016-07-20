@@ -2581,11 +2581,11 @@ public class ApplicationPanel extends ContentPanel {
         if (tabFeeDetails.getColumnModel().getColumnCount() > 0) {
             tabFeeDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title0")); // NOI18N
             tabFeeDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title1_1")); // NOI18N
-            tabFeeDetails.getColumnModel().getColumn(1).setCellRenderer(new MoneyCellRenderer());
+            tabFeeDetails.getColumnModel().getColumn(1).setCellRenderer(null);
             tabFeeDetails.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title2_2")); // NOI18N
-            tabFeeDetails.getColumnModel().getColumn(2).setCellRenderer(new MoneyCellRenderer());
+            tabFeeDetails.getColumnModel().getColumn(2).setCellRenderer(null);
             tabFeeDetails.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title3")); // NOI18N
-            tabFeeDetails.getColumnModel().getColumn(3).setCellRenderer(new MoneyCellRenderer());
+            tabFeeDetails.getColumnModel().getColumn(3).setCellRenderer(null);
             tabFeeDetails.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("ApplicationPanel.tabFeeDetails.columnModel.title4")); // NOI18N
             tabFeeDetails.getColumnModel().getColumn(4).setCellRenderer(new DateTimeRenderer(false));
         }
