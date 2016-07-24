@@ -196,10 +196,18 @@ public class OwnershipPanel extends ContentPanel {
             btnSave.setText(MessageUtility.getLocalizedMessage(
                     ClientMessage.GENERAL_LABELS_TERMINATE_AND_CLOSE).getMessage());
         }
-
+        
+        
         if (appService != null) {
             if (!appService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
                 this.jLabel13.setIcon(null);
+            }
+            
+             if (!appService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_NEW_FREEHOLD)) {
+                System.out.println("SERVICE   "+appService.getRequestTypeCode());
+                this.conditionsPanel.setVisible(false);
+                this.conditionsPanel.setEnabled(false);
+                this.mainTabbedPanel.remove(conditionsPanel);
             }
         }
 
@@ -243,6 +251,14 @@ public class OwnershipPanel extends ContentPanel {
             close();
             return true;
         } else if (rrrBean.validate(true, Default.class, OwnershipValidationGroup.class).size() < 1) {
+            if (appService.getRequestTypeCode().contentEquals(RequestTypeBean.CODE_NEW_FREEHOLD)) {
+             if (rrrBean.getLeaseConditions()==null||rrrBean.getLeaseConditions()=="") {  
+                MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_LEASE_CONDITIONS);
+                 return false;  
+             }
+            
+            }
+            
             firePropertyChange(UPDATED_RRR, null, rrrBean);
             close();
             return true;

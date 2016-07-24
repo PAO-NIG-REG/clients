@@ -378,18 +378,24 @@ public class ApplicationPanel extends ContentPanel {
                     if (appService.getStatusCode().equalsIgnoreCase("completed")) {
                         if (appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)
                                 //                                || appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_OWNERSHIP)
-                                || appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
+//                                || appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)
+                        ){
                             btnCertificate.setEnabled(true);
                             btnCertificate.setVisible(true);
                         }
 
-                        if (appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_OWNERSHIP)) {
+                        if (appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_OWNERSHIP)|| appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
                             btnDbExtract.setEnabled(true);
                             btnDbExtract.setVisible(true);
                         }
 
                     }
                 }
+            }
+            
+            if (appBean.getStatusCode().equals("approved")||appBean.getStatusCode().equals("completed")||appBean.getStatusCode().equals("requisitioned")||appBean.getStatusCode().equals("annulled")||appBean.getStatusCode().equals("transferred")) {
+                 btnCertificate.setEnabled(false);
+                 btnCertificate.setVisible(false);
             }
 //            }
         } else {

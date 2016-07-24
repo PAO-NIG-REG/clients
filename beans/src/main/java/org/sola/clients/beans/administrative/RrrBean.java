@@ -146,7 +146,7 @@ public class RrrBean extends AbstractTransactionedBean {
     private boolean primary = false;
     @Valid
     private SolaList<PartySummaryBean> rightHolderList;
-    @NotEmpty(message = ClientMessage.CHECK_NOTNULL_LEASE_CONDITIONS, payload = Localized.class, groups = {OwnershipValidationGroup.class, LeaseConditionValidationGroup.class})
+//    @NotEmpty(message = ClientMessage.CHECK_NOTNULL_LEASE_CONDITIONS, payload = Localized.class, groups = {OwnershipValidationGroup.class, LeaseConditionValidationGroup.class})
     @LeaseConditionsCheck(groups = {OwnershipValidationGroup.class, LeaseConditionValidationGroup.class})
     private String leaseConditions;
     private transient RrrShareBean selectedShare;
@@ -583,7 +583,7 @@ public class RrrBean extends AbstractTransactionedBean {
     public String getLeaseConditions() {
         return leaseConditions;
     }
-
+    
     public void setLeaseConditions(String leaseConditions) {
         String oldValue = this.leaseConditions;
         this.leaseConditions = leaseConditions;
