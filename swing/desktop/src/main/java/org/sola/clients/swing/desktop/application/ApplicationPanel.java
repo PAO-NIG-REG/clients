@@ -384,7 +384,8 @@ public class ApplicationPanel extends ContentPanel {
                             btnCertificate.setVisible(true);
                         }
 
-                        if (appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_OWNERSHIP)|| appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
+                        if ( !appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)) {
+//                            appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_OWNERSHIP)|| appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)) {
                             btnDbExtract.setEnabled(true);
                             btnDbExtract.setVisible(true);
                         }
@@ -3150,9 +3151,15 @@ public class ApplicationPanel extends ContentPanel {
     }//GEN-LAST:event_cadastreObjectSearchActionPerformed
 
     private void btnDbExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDbExtractActionPerformed
+        
+        
         for (Iterator<ApplicationServiceBean> it = appBean.getServiceList().iterator(); it.hasNext();) {
             final ApplicationServiceBean appService = it.next();
-            if (appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_OWNERSHIP)) {
+        System.out.println("appService.getRequestTypeCode() extract database:::: "+appService.getRequestTypeCode());
+            if (  !appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_FREEHOLD)
+//                appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_OWNERSHIP)||
+//                appService.getRequestTypeCode().equalsIgnoreCase(RequestTypeBean.CODE_NEW_DIGITAL_TITLE)
+                ) {
                 List<BaUnitBean> baUnitList = BaUnitBean.getBaUnitsByServiceId(appService.getId());
                 String baUnitId = baUnitList.get(0).getId();
                 String nameFirstpart = baUnitList.get(0).getNameFirstpart();
@@ -3160,7 +3167,6 @@ public class ApplicationPanel extends ContentPanel {
                 showReport(ReportManager.getBaUnitReport(getBaUnit(nameFirstpart, nameLastpart)));
             }
         }
-
     }//GEN-LAST:event_btnDbExtractActionPerformed
     /**
      * Open form to add new parcel or search for existing one.\
