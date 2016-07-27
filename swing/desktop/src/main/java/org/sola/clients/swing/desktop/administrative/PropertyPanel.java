@@ -32,6 +32,7 @@ package org.sola.clients.swing.desktop.administrative;
 import org.sola.clients.swing.desktop.cadastre.CreateParcelDialog;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -45,6 +46,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -325,7 +327,10 @@ public class PropertyPanel extends ContentPanel {
                 }
             }
         });
-
+        System.out.println("this.baUnitBean1.getAddressNotice()   "+this.baUnitBean1.getAddressNotice());
+        if (this.baUnitBean1.getAddressNotice().trim().equalsIgnoreCase(null) || this.baUnitBean1.getAddressNotice().trim().equalsIgnoreCase("")){
+            this.txtAddress.setText(this.applicationBean.getContactPerson().getAddress().getDescription().toString());
+        }
         saveBaUnitState();
 
     }
@@ -1065,6 +1070,11 @@ public class PropertyPanel extends ContentPanel {
         if (baUnitBean1.validate(true).size() > 0) {
             return;
         }
+        
+        if (this.txtAddress.getText().equalsIgnoreCase(null) || this.txtAddress.getText().trim().equalsIgnoreCase("")){
+         MessageUtility.displayMessage(ClientMessage.CHECK_NOTNULL_ADDRESS);
+                return;
+        } 
         if (applicationService.getRequestTypeCode().contains(RequestTypeBean.CODE_NEW_FREEHOLD)) {
             if (!baUnitBean1.isValidNewCofO()) {
                 return;
@@ -1329,6 +1339,9 @@ public class PropertyPanel extends ContentPanel {
         areaPanel = new javax.swing.JPanel();
         labArea = new javax.swing.JLabel();
         txtArea = new javax.swing.JFormattedTextField();
+        jPanel18 = new javax.swing.JPanel();
+        txtAddress = new javax.swing.JTextField();
+        labAddress = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableParcels = new org.sola.clients.swing.common.controls.JTableWithDefaultStyles();
@@ -1822,6 +1835,44 @@ public class PropertyPanel extends ContentPanel {
 
         jPanel13.add(areaPanel);
 
+        jPanel18.setName("jPanel18"); // NOI18N
+
+        txtAddress.setName("txtAddress"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, baUnitBean1, org.jdesktop.beansbinding.ELProperty.create("${addressNotice}"), txtAddress, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        txtAddress.setComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+        txtAddress.setHorizontalAlignment(JTextField.LEADING);
+        txtAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAddressActionPerformed(evt);
+            }
+        });
+
+        labAddress.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/common/red_asterisk.gif"))); // NOI18N
+        labAddress.setText(bundle.getString("PropertyPanel.labAddress.text")); // NOI18N
+        labAddress.setIconTextGap(1);
+        labAddress.setName("labAddress"); // NOI18N
+
+        org.jdesktop.layout.GroupLayout jPanel18Layout = new org.jdesktop.layout.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel18Layout.createSequentialGroup()
+                .add(labAddress)
+                .addContainerGap(204, Short.MAX_VALUE))
+            .add(txtAddress)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel18Layout.createSequentialGroup()
+                .add(labAddress)
+                .add(4, 4, 4)
+                .add(txtAddress, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
         org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1833,7 +1884,10 @@ public class PropertyPanel extends ContentPanel {
                     .add(jPanel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(groupPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jToolBar4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(jPanel18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -1841,6 +1895,8 @@ public class PropertyPanel extends ContentPanel {
             .add(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -1848,8 +1904,8 @@ public class PropertyPanel extends ContentPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jToolBar4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(documentsPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .add(documentsPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(182, Short.MAX_VALUE))
         );
 
         tabsMain.addTab(bundle.getString("PropertyPanel.jPanel7.TabConstraints.tabTitle"), jPanel7); // NOI18N
@@ -2968,6 +3024,10 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
         certificate();
     }//GEN-LAST:event_btnCertificateActionPerformed
 
+    private void txtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAddressActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel areaPanel;
     private org.sola.clients.beans.administrative.BaUnitAreaBean baUnitAreaBean1;
@@ -3023,6 +3083,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -3052,6 +3113,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JToolBar jToolBar6;
     private javax.swing.JToolBar jToolBar7;
     private javax.swing.JToolBar jToolBar8;
+    private javax.swing.JLabel labAddress;
     private javax.swing.JLabel labArea;
     private javax.swing.JLabel labName;
     private org.sola.clients.beans.referencedata.LandUseTypeListBean landUseTypeListBean1;
@@ -3084,6 +3146,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableRights;
     private org.sola.clients.swing.common.controls.JTableWithDefaultStyles tableRightsHistory;
     private javax.swing.JTabbedPane tabsMain;
+    public javax.swing.JTextField txtAddress;
     private javax.swing.JFormattedTextField txtArea;
     private javax.swing.JTextField txtBaUnitStatus;
     private javax.swing.JTextField txtEstateType;

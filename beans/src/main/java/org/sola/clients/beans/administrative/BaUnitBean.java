@@ -205,7 +205,16 @@ public class BaUnitBean extends BaUnitSummaryBean {
     private String estateType;
     private TypeActionBean pendingTypeAction;
     private BigDecimal calculatedAreaSize;
+    private String addressNotice;
 
+    public String getAddressNotice() {
+        return addressNotice;
+    }
+
+    public void setAddressNotice(String addressNotice) {
+        this.addressNotice = addressNotice;
+    }
+    
     public BigDecimal getCalculatedAreaSize() {
         return calculatedAreaSize;
     }
