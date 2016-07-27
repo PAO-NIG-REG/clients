@@ -218,7 +218,6 @@ public class ParcelPanel extends javax.swing.JPanel {
         jLabel3.setText(bundle.getString("ParcelPanel.jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
 
-        txtPlot.setText(bundle.getString("ParcelPanel.txtPlot.text")); // NOI18N
         txtPlot.setName("txtPlot"); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cadastreObjectBean1, org.jdesktop.beansbinding.ELProperty.create("${plotNum}"), txtPlot, org.jdesktop.beansbinding.BeanProperty.create("text"));

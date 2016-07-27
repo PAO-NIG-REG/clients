@@ -327,9 +327,13 @@ public class PropertyPanel extends ContentPanel {
                 }
             }
         });
-        System.out.println("this.baUnitBean1.getAddressNotice()   "+this.baUnitBean1.getAddressNotice());
-        if (this.baUnitBean1.getAddressNotice().trim().equalsIgnoreCase(null) || this.baUnitBean1.getAddressNotice().trim().equalsIgnoreCase("")){
-            this.txtAddress.setText(this.applicationBean.getContactPerson().getAddress().getDescription().toString());
+        if (this.baUnitBean1.getAddressNotice()!= null) { 
+            if (this.baUnitBean1.getAddressNotice().trim().equalsIgnoreCase(null) || this.baUnitBean1.getAddressNotice().trim().equalsIgnoreCase("")){
+                this.txtAddress.setText(this.applicationBean.getContactPerson().getAddress().getDescription().toString());
+            }
+        }
+        if (this.baUnitBean1.getAddressNotice()== null) { 
+                this.txtAddress.setText(this.applicationBean.getContactPerson().getAddress().getDescription().toString());
         }
         saveBaUnitState();
 
