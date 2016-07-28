@@ -146,15 +146,16 @@ public class ReportManager {
         pdReport = "/" + getPrefix() + "reports/CofO.jasper";
 
         String diagramImage = null;
+        String photoImage = null;
         String cOfOnumber = "";
         String regNr = "";
         String certificateType = "";
-        String commencingDate = null;
+        String commencingDate = "";
         String term = "";
         String annualRent = "Yearly Rent : ";
         String rentReviewPeriod = "Review Period : ";
         String advPayment = "";
-        String addressNotices = "Address for notices : ";
+        String addressNotices = "";
         String conditions = "";
         
         String parcelNumber = "";
@@ -162,17 +163,27 @@ public class ReportManager {
         String location = null;
         String lga = "Local Government Area: ";
         String plan = "";
-        String area = null;
+        String area = "Area: ";
                        
         SimpleDateFormat regnFormat = new SimpleDateFormat("dd MMMMM yyyy");
         DecimalFormat intFormat = new DecimalFormat("###,##0");
+        DecimalFormat hectareFormat = new DecimalFormat("###,###.###");
    
         BaUnitAreaTO baUnitAreaTO = WSManager.getInstance().getAdministrative().getBaUnitAreas(reportBean.getId());
         BaUnitAreaBean baUnitAreaBean = TypeConverters.TransferObjectToBean(baUnitAreaTO, BaUnitAreaBean.class, null);
         if (baUnitAreaBean.getSize() !=null){
-            area = "Area: " + intFormat.format(baUnitAreaBean.getSize()).toString()+ " square metres";
+            if (baUnitAreaBean.getSize().intValue() < 1000) {
+                area = area + intFormat.format(baUnitAreaBean.getSize()).toString()+ " square metres";
+                } else {
+                double hectare = (baUnitAreaBean.getSize().doubleValue() / 10000);                       
+                area = area + hectareFormat.format(hectare).toString()+ " hectare";                       
+            }    
         }
-       
+        
+        if (reportBean.getAddressNotice()!=null) {
+            addressNotices = addressNotices + reportBean.getAddressNotice();
+        }
+
         for (Iterator<RrrBean> it = reportBean.getRrrList().iterator(); it.hasNext();) {
             RrrBean rrrDetail = it.next();          
             if (rrrDetail.isPrimary() && !rrrDetail.getCOfO().equalsIgnoreCase(null) && !rrrDetail.getCOfO().equalsIgnoreCase("")) {
@@ -183,7 +194,7 @@ public class ReportManager {
                      term = rrrDetail.getTerm().toString() + " years";
                 }
                  if (rrrDetail.getYearlyRent()!=null){
-                     annualRent = annualRent + rrrDetail.getYearlyRent().toString() + " Naira";
+                     annualRent = annualRent + intFormat.format(rrrDetail.getYearlyRent()).toString() + " Naira";
                  }
                  if (rrrDetail.getDateCommenced()!=null){
                      rentReviewPeriod = rentReviewPeriod + rrrDetail.getReviewPeriod().toString() + " years";
@@ -195,12 +206,12 @@ public class ReportManager {
                      cOfOnumber = rrrDetail.getCOfO();
                  }
                  if (rrrDetail.getAdvancePayment()!=null){
-                     advPayment = rrrDetail.getAdvancePayment().toString();
+                     advPayment = intFormat.format(rrrDetail.getAdvancePayment()).toString() + " Naira";
                  }
                  if (rrrDetail.getCofoType()!=null){
                      certificateType = rrrDetail.getCofoType().substring(0,1).toUpperCase() + rrrDetail.getCofoType().substring(1);
  //                  NEED TO SUBSTITUTE FOR DISPLAY VALUE OF CofOType
-                 }                
+                 }
                  for (Iterator<SourceBean> itsor =  rrrDetail.getSourceList().iterator(); itsor.hasNext();) {
                      SourceBean rrrSource = itsor.next();
                      if (rrrSource.getTypeCode().equalsIgnoreCase("cadastralSurvey")) {
@@ -211,6 +222,14 @@ public class ReportManager {
                              DocumentBinaryTO doc = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());
                          }
                      }
+                     if (rrrSource.getTypeCode().equalsIgnoreCase("personPhoto")) {
+                         photoImage = cachePath + rrrSource.getArchiveDocument().getFileName();
+                         File g = new File(photoImage);
+                         if(!g.exists()){
+                             // Preload file
+                             DocumentBinaryTO photo = DocumentBean.getDocument(rrrSource.getArchiveDocument().getId());
+                         }
+                     }                  
                  }
              }
         }
@@ -228,17 +247,12 @@ public class ReportManager {
                 lga = lga + baUnitCO.getLgaCode();
             }
             if (baUnitCO.getLandUseCode()!=null){
-                landUse = baUnitCO.getLandUseCode().substring(0,1).toUpperCase() + baUnitCO.getLandUseCode().substring(1);
+                landUse = landUse + baUnitCO.getLandUseCode().substring(0,1).toUpperCase() + baUnitCO.getLandUseCode().substring(1);
 //                NEED TO SUBSTITUTE DISPLAY VALUE FROM LandUseType
             }
-// REMOVED UNTIL STORAGE OF LOCATION IS CLARIFIED
-//            if (baUnitCO.getAddressString()!=null){
-//                location = "At " + baUnitCO.getAddressString();
-//            } 
             if (baUnitCO.getAddressString()!=null){
-                addressNotices = addressNotices + baUnitCO.getAddressString();
+                location = "At " + baUnitCO.getAddressString();
             } 
-
             if (baUnitCO.getSourceReference()!=null){
                 plan = plan + baUnitCO.getSourceReference();
             }
@@ -250,6 +264,7 @@ public class ReportManager {
         inputParameters.put("STATE", getSettingValue("state"));
         inputParameters.put("REFNR", cOfOnumber);
         inputParameters.put("CERTIFICATE_TYPE", certificateType);
+        inputParameters.put("PHOTO_IMAGE", photoImage);
         
         inputParameters.put("COMMENCING_DATE", commencingDate);
         inputParameters.put("TERM", term);
