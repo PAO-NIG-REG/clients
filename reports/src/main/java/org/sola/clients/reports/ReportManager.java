@@ -155,7 +155,7 @@ public class ReportManager {
         String annualRent = "Yearly Rent : ";
         String rentReviewPeriod = "Review Period : ";
         String advPayment = "";
-        String addressNotices = "";
+        String addressNotices = "Notices to: ";
         String conditions = "";
         
         String parcelNumber = "";
